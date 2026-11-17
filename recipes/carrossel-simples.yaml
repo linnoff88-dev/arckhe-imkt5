@@ -1,0 +1,52 @@
+name: carrossel-simples
+version: 7
+# Carrossel mínimo estilo "revista": 1 mensagem por slide em tipografia
+# serif grande (Playfair Display) sobre imagem com gradient.
+#
+# Cada slide tem UM texto (headline). Sem stats, sem question, sem CTA
+# extra. Visual limpo e elegante.
+#
+# Input:
+#   prompt      string  — descrição da imagem de background
+#   title       string  — texto da capa (slide 1)
+#   captions    list    — texto de cada slide intermediário
+#   cta         string  — texto do último slide
+#   model       string  — modelo SD (default flux2-klein)
+#   palette     object  — override opcional de cores
+#   formats     list    — default [1:1, 9:16, 16:9]
+
+stages:
+  - id: images
+    requires: image.generation
+    parallel: 2
+    payload_from:
+      # fallback: prompt > brief > topic > text (aceita qualquer um)
+      prompt: $.input.prompt || $.input.brief || $.input.topic || $.input.text
+      model: $.input.model
+      width: 1080
+      height: 1080
+      steps: 15
+    approval: {mode: none}
+
+  - id: carrossel
+    requires: design.carousel_rich
+    needs: [images]
+    payload_from:
+      images: $.stages.images.output.outputs[*].image_url
+      title: $.input.title
+      captions: $.input.captions
+      cta: $.input.cta
+      # Fallback: se title não veio, carousel-designer usa brief/topic
+      # como título do slide. Evita carrossel sem texto quando o user
+      # manda só o brief.
+      brief: $.input.brief
+      topic: $.input.topic
+      palette: $.input.palette
+      formats: $.input.formats
+      # Template override: se user passou, usa; senão magazine (default).
+      template: $.input.template || "magazine"
+      # c79 fase α — flags opt-in (default false; só `editorial_chrome` implementa)
+      use_vignette: $.input.use_vignette || false
+      use_perspective_grid: $.input.use_perspective_grid || false
+      use_grain: $.input.use_grain || false
+    approval: {mode: none}

@@ -1,0 +1,138 @@
+#!/usr/bin/env bash
+# scripts/start-dev.sh — sobe gateway + workers em background.
+#
+# Logs vão pra logs/<servico>.log. PIDs em logs/<servico>.pid.
+# Use scripts/stop-dev.sh para parar tudo.
+#
+# Workers que iniciam:
+#   - auto-reviewer (porta 8200) — usa Ollama local (sempre disponível)
+#   - research (porta 8100) — usa Tavily (precisa TAVILY_API_KEY)
+#   - inemaimg-adapter (porta 8010) — só se INEMAIMG_URL responder
+#   - inemavox-adapter (porta 8011) — só se INEMAVOX_URL responder
+#
+# Gateway na porta 8080 por default (override com GATEWAY_PORT).
+
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+ROOT="$(pwd)"
+# workers são lançados como `python workers/foo/server.py`, o que põe a pasta
+# do worker no sys.path[0] em vez de ROOT — sem isso `import workers._base`
+# (e `import imkt5`) quebram. Garante ROOT no path pra todos os subprocessos.
+export PYTHONPATH="$ROOT${PYTHONPATH:+:$PYTHONPATH}"
+LOG_DIR="$ROOT/logs"
+mkdir -p "$LOG_DIR"
+
+VENV="$ROOT/.venv/bin/python"
+[ -x "$VENV" ] || { echo "venv não encontrado em .venv — rode 'python -m venv .venv && .venv/bin/pip install -e \".[dev]\" pyyaml httpx'"; exit 1; }
+
+# carrega .env pra subprocesses
+if [ -f .env ]; then
+  set -a
+  # shellcheck disable=SC1091
+  source <(grep -v '^#' .env | grep -v '^$')
+  set +a
+fi
+
+start_bg() {
+  local name="$1"; shift
+  local cmd=("$@")
+  local logf="$LOG_DIR/$name.log"
+  local pidf="$LOG_DIR/$name.pid"
+  if [ -f "$pidf" ] && kill -0 "$(cat "$pidf")" 2>/dev/null; then
+    echo "  ↻ $name já rodando (pid $(cat "$pidf"))"
+    return
+  fi
+  nohup "${cmd[@]}" >"$logf" 2>&1 &
+  echo $! > "$pidf"
+  sleep 0.4
+  if kill -0 "$(cat "$pidf")" 2>/dev/null; then
+    echo "  ✓ $name (pid $(cat "$pidf"), log: $logf)"
+  else
+    echo "  ✗ $name falhou ao subir — veja $logf"
+    tail -5 "$logf" | sed 's/^/    /'
+    rm -f "$pidf"
+  fi
+}
+
+probe() {
+  local url="$1"
+  curl -s -o /dev/null -w "%{http_code}" --max-time 2 "$url" 2>/dev/null || echo "000"
+}
+
+echo "── workers ──────────────────────────────────────────"
+
+start_bg "auto-reviewer" "$VENV" workers/auto-reviewer/server.py
+
+start_bg "research" "$VENV" workers/research/server.py
+
+start_bg "creative-brief" "$VENV" workers/creative-brief/server.py
+
+start_bg "copywriter" "$VENV" workers/copywriter/server.py
+
+start_bg "ad-designer" "$VENV" workers/ad-designer/server.py
+
+start_bg "video-quick" "$VENV" workers/video-quick/server.py
+
+start_bg "ffmpeg-local" "$VENV" workers/ffmpeg-local/server.py
+
+start_bg "video-pro" "$VENV" workers/video-pro/server.py
+
+start_bg "yt-source-ingest" "$VENV" workers/yt-source-ingest/server.py
+start_bg "yt-clip"           "$VENV" workers/yt-clip/server.py
+start_bg "yt-publish"        "$VENV" workers/yt-publish/server.py
+start_bg "tiktok-ingest"     "$VENV" workers/tiktok-ingest/server.py
+start_bg "carousel-composer" "$VENV" workers/carousel-composer/server.py
+start_bg "education-outline" "$VENV" workers/education-outline/server.py
+start_bg "outline-to-video-plan" "$VENV" workers/outline-to-video-plan/server.py
+start_bg "photography-director" "$VENV" workers/photography-director/server.py
+start_bg "carousel-designer" "$VENV" workers/carousel-designer/server.py
+start_bg "carousel-outline" "$VENV" workers/carousel-outline/server.py
+start_bg "art-director" "$VENV" workers/art-director/server.py
+start_bg "video-art-director" "$VENV" workers/video-art-director/server.py
+start_bg "video-ab-suggest" "$VENV" workers/video-ab-suggest/server.py
+start_bg "video-text-designer" "$VENV" workers/video-text-designer/server.py
+start_bg "telegram-scraper" "$VENV" workers/telegram-scraper/server.py
+start_bg "telegram-topics-search" "$VENV" workers/telegram-topics-search/server.py
+start_bg "script-to-queue" "$VENV" workers/script-to-queue/server.py
+start_bg "skyreels-adapter" "$VENV" workers/skyreels-adapter/server.py
+start_bg "queue-audio-patch" "$VENV" workers/queue-audio-patch/server.py
+
+# inemaimg-adapter — só se o upstream responder em /health
+INEMAIMG_HEALTH_URL="${INEMAIMG_URL:-http://localhost:8000}/health"
+if [ "$(probe "$INEMAIMG_HEALTH_URL")" = "200" ]; then
+  start_bg "inemaimg-adapter" "$VENV" workers/inemaimg-adapter/server.py
+else
+  echo "  ⚠ inemaimg upstream não responde em $INEMAIMG_HEALTH_URL — skip"
+fi
+
+# inemavox-adapter — inemavox não tem /health; tenta /api/jobs como liveness probe
+INEMAVOX_PROBE_URL="${INEMAVOX_URL:-http://localhost:8010}/api/jobs"
+INEMAVOX_CODE="$(probe "$INEMAVOX_PROBE_URL")"
+if [ "$INEMAVOX_CODE" = "200" ] || [ "$INEMAVOX_CODE" = "404" ]; then
+  start_bg "inemavox-adapter" "$VENV" workers/inemavox-adapter/server.py
+else
+  echo "  ⚠ inemavox upstream não responde em $INEMAVOX_PROBE_URL (got $INEMAVOX_CODE) — skip"
+fi
+
+echo
+echo "── gateway ──────────────────────────────────────────"
+start_bg "gateway" "$VENV" -m imkt5.main
+
+sleep 1.0
+
+GATEWAY_PORT="${GATEWAY_PORT:-8080}"
+echo
+if [ "$(probe "http://localhost:$GATEWAY_PORT/workers")" = "200" ]; then
+  echo "✓ gateway OK em http://localhost:$GATEWAY_PORT"
+  echo
+  echo "Endpoints úteis:"
+  echo "  GET  http://localhost:$GATEWAY_PORT/workers"
+  echo "  GET  http://localhost:$GATEWAY_PORT/capabilities"
+  echo "  POST http://localhost:$GATEWAY_PORT/jobs"
+  echo "  POST http://localhost:$GATEWAY_PORT/recipes/{name}/run"
+  echo
+  echo "Veja doc/QUICKSTART.md para exemplos de curl."
+else
+  echo "⚠ gateway não respondeu — veja $LOG_DIR/gateway.log"
+fi

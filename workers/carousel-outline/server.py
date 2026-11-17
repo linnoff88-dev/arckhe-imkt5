@@ -1,0 +1,278 @@
+"""carousel-outline worker.
+
+Capability: `design.carousel_outline`. Porta 8112.
+
+Recebe texto livre (topic) e devolve slides[] estruturados pro
+carousel-designer renderizar direto.
+"""
+
+from __future__ import annotations
+
+import re
+from pathlib import Path
+from typing import Any
+
+from workers._base import BaseWorker
+from workers._base.llm_client import complete_json, load_tenant_knowledge
+
+SKILL_PATH = Path(__file__).parent / "SKILL.md"
+
+
+STYLE_VISUAL_GUIDANCE = {
+    "dark_cinematic":        "low-key lighting, moody shadows, film noir atmosphere, deep blacks, dramatic contrast",
+    "neon_futurista":        "neon lights, cyberpunk aesthetic, electric blues and magentas, glowing accents, night city",
+    "editorial_documentary": "natural light, candid photography, muted earth tones, shallow depth of field, reportage style",
+    "corporate_clean":       "bright even lighting, minimalist composition, clean whites and pastels, modern office aesthetic",
+    "data_viz":              "abstract geometric patterns, gradient fields, isometric perspective, vibrant data aesthetic",
+    "wellness_soft":         "soft warm natural light, organic textures, sage and cream palette, serene composition",
+    "bold_pop":              "high contrast, saturated primaries, graphic shapes, energetic composition, op art feel",
+    "bold_pop_orange":       "high contrast, oranges and purples, graphic pop, energetic",
+    "retro_futurism":        "80s synthwave, magentas and cyans, retro grids, VHS grain, futuristic nostalgia",
+    "organic_earth":         "warm earth tones, terracotta and sage, natural textures, artisan aesthetic",
+    "neo_minimal_luxury":    "warm champagne and deep browns, luxurious minimalism, soft shadows, high-end editorial",
+    "warm_lifestyle":        "warm afternoon light, lifestyle photography, coral and peach, bokeh backgrounds",
+    "minimal_zen":           "wabi-sabi minimalism, neutral tones, empty space, serene composition",
+    "nature_organic":        "forest greens and earthy browns, organic shapes, natural environments, soft natural light",
+    "pastel_soft":           "pastel palette, soft gradients, gentle lighting, dreamy atmosphere",
+    "urban_street":          "urban textures, concrete and neon, street photography, high-contrast grit",
+    "luxury_gold":           "rich golds and deep blacks, premium materials, dramatic chiaroscuro, editorial luxury",
+}
+
+
+def _style_hint_text(style: str) -> str:
+    """Retorna dicas visuais específicas para o style, usadas pra guiar
+    os bg_prompts gerados pelo LLM."""
+    key = style.lower().strip()
+    guidance = STYLE_VISUAL_GUIDANCE.get(key)
+    if guidance:
+        return f"Características visuais: {guidance}."
+    return (
+        f"Estilo '{style}' — LLM, infere o mood visual do nome e "
+        f"aplica consistentemente em todos os bg_prompts."
+    )
+
+
+_CTA_MARKERS_RE = re.compile(
+    r"\b("
+    r"inema\.(club|vip|tds)"
+    r"|@inema[a-z.]*"
+    r"|https?://\S+"
+    r"|(?:acesse|entre|acompanhe|siga|clica|clique|baixe|assine|inscrev[ae])"
+    r")\b",
+    re.IGNORECASE,
+)
+
+
+def _slide_has_cta(slide: dict) -> bool:
+    """True se o slide tem sinais claros de CTA (URL, verbo imperativo, handle)."""
+    for field in ("headline", "context", "question", "slide_label"):
+        v = slide.get(field)
+        if isinstance(v, str) and _CTA_MARKERS_RE.search(v):
+            return True
+    return False
+
+
+# Defaults de closing por tenant (brand_identity.md → canônicos).
+# Depois abstrair pra _base/tenant_registry.
+DEFAULT_CLOSING_BY_TENANT = {
+    "inema": {
+        "cta_headline": "Comece grátis: inema.club",
+        "cta_context": "A plataforma gratuita de formação em IA.",
+        "brand_headline": "INEMA.CLUB",
+        "brand_context": "Atrás dos computadores tem gente. Use as máquinas/IA para escalar.",
+        "handle": "@inema.tds",
+    },
+}
+
+
+def _enforce_closing(slides: list[dict], *, tenant_id: str | None) -> None:
+    """Garante que o último slide é fechamento válido (closing_mode + is_closing).
+
+    Quando LLM respeita a SKILL, apenas normaliza/completa. Quando LLM
+    esquece, aplica heurística + fallbacks canônicos do tenant.
+    """
+    if not slides:
+        return
+    last = slides[-1]
+    closing_mode = (last.get("closing_mode") or "").strip().lower()
+    defaults = DEFAULT_CLOSING_BY_TENANT.get(tenant_id or "") or {}
+
+    # Heurística quando LLM não setou closing_mode
+    if closing_mode not in ("cta", "brand"):
+        # Algum slide intermediário (0..N-2) já tem CTA? → brand moment
+        intermediate_has_cta = any(
+            _slide_has_cta(sl) for sl in slides[:-1]
+        )
+        closing_mode = "brand" if intermediate_has_cta else "cta"
+
+    last["closing_mode"] = closing_mode
+    last["is_closing"] = True
+
+    # Fallback de conteúdo se o slide tá vazio/genérico
+    if closing_mode == "brand":
+        if not (last.get("headline") or "").strip():
+            last["headline"] = defaults.get("brand_headline") or "Obrigado"
+        if not (last.get("context") or "").strip():
+            last["context"] = defaults.get("brand_context") or ""
+        if not (last.get("slide_label") or "").strip():
+            last["slide_label"] = defaults.get("handle") or "Marca"
+        # Brand moment NÃO precisa de bg — fica tipográfico.
+        # Mantém bg_prompt se LLM gerou (pode ser útil como textura).
+    else:  # cta
+        if not (last.get("headline") or "").strip():
+            last["headline"] = defaults.get("cta_headline") or "Quer saber mais?"
+        if not (last.get("slide_label") or "").strip():
+            last["slide_label"] = "CTA"
+
+
+def _strip_markdown(s: str) -> str:
+    """Remove markdown comum: **bold**, *italic*, `code`, # headers, - lists.
+    Também remove tags HTML simples (<br>, <b>, <i>, <em>, <strong>)
+    que o LLM às vezes injeta apesar da SKILL instruir o contrário.
+    Mantém texto plano com quebras de linha simples."""
+    import re
+    if not s:
+        return s
+    # HTML tags (primeiro — antes de outros padrões que podem conter <>)
+    s = re.sub(r"<\s*br\s*/?\s*>", " ", s, flags=re.IGNORECASE)
+    s = re.sub(r"<\s*/?\s*(b|i|em|strong|span|p|div)\s*/?\s*>", "", s, flags=re.IGNORECASE)
+    # Headers, bullets, quotes
+    s = re.sub(r"^\s*#{1,6}\s+", "", s, flags=re.MULTILINE)
+    s = re.sub(r"^\s*[-*+]\s+", "", s, flags=re.MULTILINE)
+    s = re.sub(r"^\s*>\s+", "", s, flags=re.MULTILINE)
+    # Bold/italic
+    s = re.sub(r"\*\*(.+?)\*\*", r"\1", s)
+    s = re.sub(r"__(.+?)__", r"\1", s)
+    s = re.sub(r"(?<![*\w])\*([^*\n]+?)\*(?![*\w])", r"\1", s)
+    # Code
+    s = re.sub(r"`([^`]+)`", r"\1", s)
+    # Collapse whitespace (mas preserva single \n de text wrap)
+    s = re.sub(r"\n{3,}", "\n\n", s)
+    s = re.sub(r"[ \t]{2,}", " ", s)
+    return s.strip()
+
+
+class CarouselOutlineWorker(BaseWorker):
+    name = "carousel-outline"
+    capabilities = ("design.carousel_outline",)
+
+    def __init__(self) -> None:
+        self._skill = SKILL_PATH.read_text() if SKILL_PATH.exists() else ""
+
+    async def handle(self, job) -> dict[str, Any]:
+        payload = job.payload
+        topic = (payload.get("topic") or payload.get("text") or payload.get("brief") or "").strip()
+        if not topic:
+            raise ValueError("payload precisa de 'topic' (ou 'text'/'brief')")
+
+        slide_count = int(payload.get("slide_count") or 7)
+        slide_count = max(3, min(12, slide_count))
+        language = payload.get("language") or "pt-BR"
+        style = payload.get("style") or "didatico"
+        audience = payload.get("audience") or "público geral"
+
+        # Novo: style_hint do art_direction (carrossel-rico v5).
+        # Guia os bg_prompts pra ficarem alinhados ao estilo visual.
+        style_hint = (
+            payload.get("style_hint")
+            or payload.get("style_hint_user")
+            or ""
+        ).strip()
+
+        knowledge = load_tenant_knowledge(
+            job.tenant_id, files=["brand_identity.md", "product_campaign.md"],
+        )
+
+        style_guidance = ""
+        if style_hint:
+            style_guidance = (
+                f"\n## DIREÇÃO VISUAL (do art_director)\n\n"
+                f"Style escolhido: **{style_hint}**.\n"
+                f"{_style_hint_text(style_hint)}\n"
+                f"Aplica essas dicas em TODOS os `bg_prompt` — o modelo de "
+                f"geração de imagem vai receber esses prompts, então descreva "
+                f"a cena visual em inglês alinhada ao mood do style.\n"
+            )
+
+        system = (
+            f"{self._skill}\n\n"
+            f"## CONHECIMENTO DO TENANT\n\n"
+            f"{knowledge or '(sem knowledge)'}\n\n"
+            f"## PARÂMETROS DESTA RUN\n\n"
+            f"- Idioma: {language}\n"
+            f"- N slides: {slide_count}\n"
+            f"- Estilo de voz: {style}\n"
+            f"- Audience: {audience}\n"
+            f"{style_guidance}"
+        )
+
+        user = f"## Tópico\n\n{topic}\n"
+
+        data = await complete_json(
+            system_prompt=system, user_prompt=user, temperature=0.5,
+        )
+
+        # Normaliza — aceita { slides: [...] } ou lista direta
+        if isinstance(data, list):
+            data = {"slides": data}
+        slides = data.get("slides", [])
+        if not slides:
+            raise RuntimeError(f"LLM não gerou slides. keys={list(data.keys())}")
+
+        # O primeiro slide (cover) sempre reaproveita o TEXTO ORIGINAL
+        # do usuário como headline — preserva a ideia como âncora.
+        # Se o topic é muito longo, usa as primeiras 60 chars como
+        # headline e joga o restante no `context`.
+        original_headline = topic
+        original_context = ""
+        if len(topic) > 60:
+            # Quebra numa pontuação próxima do limite pra não cortar palavra
+            cut = 60
+            for stop in ("—", " — ", ". ", "! ", "? ", ": ", ", "):
+                idx = topic.rfind(stop, 0, 80)
+                if idx > 30:
+                    cut = idx + len(stop.rstrip())
+                    break
+            original_headline = topic[:cut].rstrip(" —,:.!?-")
+            original_context = topic[cut:].lstrip(" —,:.!?-").strip()
+
+        slide0 = dict(slides[0])
+        slide0["headline"] = original_headline
+        # Se o LLM já gerou context, preserva só se tiver conteúdo útil.
+        # Preferimos o resto do texto original (que é o que o user escreveu).
+        if original_context:
+            slide0["context"] = original_context
+        slides[0] = slide0
+
+        # Defensivo: strip markdown/HTML dos campos de texto. Inclui
+        # stat_a/stat_b.{number,label} e slide_label porque o LLM às vezes
+        # injeta <br> ou markdown mesmo instruído contrário.
+        for sl in slides:
+            for k in ("headline", "context", "question", "slide_label", "badge"):
+                if isinstance(sl.get(k), str):
+                    sl[k] = _strip_markdown(sl[k])
+            for stat_key in ("stat_a", "stat_b"):
+                stat = sl.get(stat_key)
+                if isinstance(stat, dict):
+                    for sub in ("number", "label"):
+                        if isinstance(stat.get(sub), str):
+                            stat[sub] = _strip_markdown(stat[sub])
+
+        # Garante fechamento no último slide: closing_mode obrigatório.
+        # Se LLM não setou, aplica heurística:
+        #   - Se algum slide intermediário tem URL/CTA → closing_mode = "brand"
+        #   - Senão → closing_mode = "cta" + completa com fallback textual
+        _enforce_closing(slides, tenant_id=job.tenant_id)
+        return {
+            "slides": slides,
+            "title": _strip_markdown(data.get("title") or topic[:60]),
+            "suggested_style": data.get("suggested_style") or "neon_futurista",
+            "topic": topic,
+            "language": language,
+        }
+
+
+if __name__ == "__main__":
+    import os
+    port = int(os.environ.get("CAROUSEL_OUTLINE_PORT", 8112))
+    CarouselOutlineWorker().run(port=port)
