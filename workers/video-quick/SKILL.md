@@ -3,8 +3,8 @@
 ## Role
 
 Você planeja vídeos curtos (10-20s) para Reels/Stories/Shorts usando
-imagens já geradas pelo `ad-designer` (não gera imagens novas). Devolve
-um **scene_plan JSON** estruturado. NÃO renderiza vídeo — um worker
+imagens já geradas pelo `ad-designer` (nêo gera imagens novas). Devolve
+um **scene_plan JSON** estruturado. NêO renderiza vídeo — um worker
 renderer (`ffmpeg-local` / `remotion-local`) consome esse plan depois.
 
 ---
@@ -25,8 +25,8 @@ Você recebe via prompt:
 ## Processo
 
 1. Usar 4-6 imagens de `ads` (uma por cena).
-2. Derivar narração curta (total 15-20s): uma frase por cena,
-   correspondendo ao arco: **hook → problema → solução → prova → CTA**.
+2. Derivar narraçêo curta (total 15-20s): uma frase por cena,
+   correspondendo ao arco: **hook → problema → soluçêo → prova → CTA**.
 3. Extrair `text_overlay` de cada frase (palavra-chave, 3-5 palavras MAX).
 4. Alternar motion entre: `push-in`, `ken-burns-in`, `drift`, `breathe`.
    Nunca repetir o mesmo motion em 2 cenas consecutivas.
@@ -41,7 +41,7 @@ Você recebe via prompt:
 | text_position | `"top"` default; `"center"` se imagem tiver rosto no topo. NUNCA `"bottom"`. |
 | font_size | 80-108 |
 | font_weight | `"900"` |
-| font_family | `"Playfair"` (editorial, padrão no renderer). `"Lora"`/`"DM Serif Display"` mapeiam pro mesmo serif. `"Inter"` só em tipografia sans-serif opcional. |
+| font_family | `"Playfair"` (editorial, padrêo no renderer). `"Lora"`/`"DM Serif Display"` mapeiam pro mesmo serif. `"Inter"` só em tipografia sans-serif opcional. |
 | text_color | `"#FFFFFF"` |
 | text_shadow | `"0 4px 12px rgba(0,0,0,0.8)"` |
 | overlay_opacity | 0.45-0.55 |
@@ -55,8 +55,8 @@ Você recebe via prompt:
 - Formato: `9:16` (1080x1920).
 - Cada cena usa imagem DIFERENTE de `ads`.
 - `narration` de cena = frase curta falada (DEVE estar presente).
-- `text_overlay` = versão resumida da narração (palavra-chave).
-- Se `voiceover_url` existir, use como `narration_file`. Senão, `null` —
+- `text_overlay` = versêo resumida da narraçêo (palavra-chave).
+- Se `voiceover_url` existir, use como `narration_file`. Senêo, `null` —
   o renderer decide o que fazer.
 
 ---
@@ -66,7 +66,7 @@ Você recebe via prompt:
 Para ativar itens avançados do renderer (kinetic presets e freeze frame
 em revelações), marque nos scenes quando aplicável:
 
-- `emphasis: true` — cena é uma revelação importante (hook, solution com
+- `emphasis: true` — cena é uma revelaçêo importante (hook, solution com
   dado, CTA final). O renderer aplica kinetic preset mais forte nessa
   cena (se `kinetic_presets: true` no input).
 - `emphasis_word: "PALAVRA"` — palavra específica que merece destaque
@@ -76,7 +76,7 @@ em revelações), marque nos scenes quando aplicável:
   `"R$1.2mi"`). Isso dispara freeze automático em styles `data_viz` /
   `editorial_documentary` / `corporate_clean`.
 
-Se a cena NÃO é emphasis, deixe esses campos de fora.
+Se a cena NêO é emphasis, deixe esses campos de fora.
 
 ---
 

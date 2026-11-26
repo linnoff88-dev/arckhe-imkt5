@@ -2,7 +2,7 @@
 
 Caminho do quick dispatch: pedidos simples viram 1 Job.
 
-Caminho de receita: o Recipe Runner usa internamente, não o LLM.
+Caminho de receita: o Recipe Runner usa internamente, nêo o LLM.
 """
 
 from __future__ import annotations

@@ -152,14 +152,14 @@ def main() -> None:
     recipes_dir = os.environ.get("IMKT5_RECIPES_DIR", "recipes")
 
     if not Path(workers_yaml).exists():
-        print(f"erro: {workers_yaml} não encontrado", file=sys.stderr)
+        print(f"erro: {workers_yaml} nêo encontrado", file=sys.stderr)
         sys.exit(1)
 
     registry = CapabilityRegistry.from_yaml(workers_yaml)
     recipes = load_recipes_from_dir(recipes_dir) if Path(recipes_dir).exists() else {}
     catalog = StaticRecipeCatalog(recipes, source_dir=recipes_dir)
 
-    # Jobs store: Postgres se POSTGRES_URL configurado, in-memory senão.
+    # Jobs store: Postgres se POSTGRES_URL configurado, in-memory senêo.
     # IMPORTANTE: conectar o pool SÓ no startup event (mesmo event loop do uvicorn).
     from imkt5.db.pool import get_pool
     db = get_pool()
@@ -170,7 +170,7 @@ def main() -> None:
         print("[boot] usando Postgres jobs store (connect no startup)")
     else:
         jobs_store = JobsStore()
-        print("[boot] usando JobsStore in-memory (POSTGRES_URL não setado)")
+        print("[boot] usando JobsStore in-memory (POSTGRES_URL nêo setado)")
 
     # Channel notifier: entrega resultado de jobs no canal de origem
     # (Telegram, WhatsApp). Inicializa antes do dispatcher pra plugar ali.
@@ -222,7 +222,7 @@ def main() -> None:
     approval_gate._user_gate = user_gate
     approval_gate._reviewer_gate = human_reviewer_gate
 
-    # ligação dispatcher → runner (callback de fim de job)
+    # ligaçêo dispatcher → runner (callback de fim de job)
     dispatcher.set_on_finish(
         lambda jid, ok, out, err:
         runner.on_job_finished(jid, success=ok, output=out, error=err)
@@ -350,7 +350,7 @@ def main() -> None:
                             user_id=rec.user_id,
                             worker_type=rec.worker_type,
                             required_capability=rec.capability,
-                            payload={},   # payload original não está no store
+                            payload={},   # payload original nêo está no store
                             origin_channel="recovery",
                             origin_channel_external_id=rec.job_id,
                         )
@@ -358,13 +358,13 @@ def main() -> None:
             except Exception as exc:  # noqa: BLE001
                 print(f"[boot] recovery falhou: {exc}")
 
-        # Runs órfãs — marca como failed runs que ficaram running/pending
+        # Runs órfês — marca como failed runs que ficaram running/pending
         # no DB sem updates por mais de 60s (signatura de gateway morto).
         if runs_repo is not None:
             try:
                 n = await runs_repo.fail_orphans(older_than_seconds=60)
                 if n:
-                    print(f"[boot] runs: {n} órfãs reconciliadas (failed)")
+                    print(f"[boot] runs: {n} órfês reconciliadas (failed)")
             except Exception as exc:  # noqa: BLE001
                 print(f"[boot] runs reconciliation falhou: {exc}")
 

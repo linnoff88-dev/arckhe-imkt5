@@ -72,7 +72,7 @@ stages:
 
   # 3) Backgrounds: gera 1 imagem por slide (fonte configurável via image_source).
   # Roda por default (auto-gera a partir dos bg_prompts do outline).
-  # Pula se image_source == "none" OU se não há slides nem bg_prompts.
+  # Pula se image_source == "none" OU se nêo há slides nem bg_prompts.
   - id: backgrounds_auto
     requires: image.generation
     when: $.input.image_source != "none" && $.input.image_source != "provided" && $.input.slides == null

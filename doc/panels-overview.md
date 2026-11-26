@@ -1,8 +1,8 @@
-# Painéis — visão geral e divisão de responsabilidades
+# Painéis — visêo geral e divisêo de responsabilidades
 
 > Documento consolidado. O `imkt5` tem painéis web servidos pelo próprio
 > Gateway (`/ui/*`). Cada painel atende um papel diferente — evita
-> misturar operação diária com configuração crítica.
+> misturar operaçêo diária com configuraçêo crítica.
 
 ## Três níveis
 
@@ -14,7 +14,7 @@
 │  /ui/yt      ESPECÍFICO DO FLUXO (módulo yt-pipeline)          │
 │              (materials, clips, publicações, fontes/destinos)  │
 ├────────────────────────────────────────────────────────────────┤
-│  /admin      CONFIGURAÇÃO — ajustes globais e por tenant       │
+│  /admin      CONFIGURAÇêO — ajustes globais e por tenant       │
 │              (defaults, bindings, workers, receitas YAML)      │
 └────────────────────────────────────────────────────────────────┘
 ```
@@ -37,63 +37,63 @@ marketing, etc.).
 - Histórico de runs da receita (hoje só jobs individuais)
 - Detalhe de run: árvore de stages com status + artefatos
 - Aprovações pendentes do usuário (quando `mode: user` ou escalate)
-- Delivery modes: botão "baixar ZIP" + botão "publicar em"
+- Delivery modes: botêo "baixar ZIP" + botêo "publicar em"
 
 ## 2. `/ui/yt` — Painel do fluxo de mídia (A CRIAR)
 
 **Quem usa**: operador de conteúdo que gerencia o pipeline de vídeos
 (pessoas que hoje usam o `master-dashboard` do `yt-pub-lives2`).
 
-**Pra que serve**: gerenciar o fluxo específico de ingestão→corte→publicação.
-Absorve a função do `master-dashboard` atual.
+**Pra que serve**: gerenciar o fluxo específico de ingestêo→corte→publicaçêo.
+Absorve a funçêo do `master-dashboard` atual.
 
 **Features**:
 
-### Seção: Materiais
+### Seçêo: Materiais
 - Tabela de materiais importados
 - Filtros: fonte (upload/tiktok/import_dir/global_dir), tenant, status, data
 - Preview inline (thumbnail)
-- Botão "processar" (dispara `yt-transcribe` + `yt-cuts`)
-- Botão "deletar"
+- Botêo "processar" (dispara `yt-transcribe` + `yt-cuts`)
+- Botêo "deletar"
 
-### Seção: Clips
+### Seçêo: Clips
 - Grid de clips gerados, com preview
 - Agrupamento por material-pai
-- Filtros: status (ready/published/failed), duração, tema
-- Botão "publicar em" (seleciona destinos, dispara fanout `yt-publish`)
-- Botão "regenerar" (roda `yt-cuts` de novo com prompt ajustado)
+- Filtros: status (ready/published/failed), duraçêo, tema
+- Botêo "publicar em" (seleciona destinos, dispara fanout `yt-publish`)
+- Botêo "regenerar" (roda `yt-cuts` de novo com prompt ajustado)
 
-### Seção: Publicações
+### Seçêo: Publicações
 - Histórico por destino
 - Métricas: publicados/dia por canal, erros
 - Link pro vídeo no YouTube
-- Botão "despublicar" (se plataforma permitir)
+- Botêo "despublicar" (se plataforma permitir)
 
-### Seção: Fontes configuradas (`source_bindings`)
+### Seçêo: Fontes configuradas (`source_bindings`)
 - Lista de canais TikTok monitorados, diretórios watchers, etc.
 - CRUD: adicionar TikTok (username), registrar diretório, editar credenciais
-- Teste de conexão
+- Teste de conexêo
 
-### Seção: Destinos configurados (`publish_bindings`)
+### Seçêo: Destinos configurados (`publish_bindings`)
 - Lista de canais YouTube / outras redes configuradas
 - CRUD: novo destino, edit, disable
 - Status OAuth (token válido? expira quando?)
-- **Migração dos 10 `yt-pub-lives<N>`**: botão "importar destinos do
+- **Migraçêo dos 10 `yt-pub-lives<N>`**: botêo "importar destinos do
   yt-pub-lives*" — adapter lê os `credentials.enc` e cria
-  `publish_bindings` novos (decisão P7).
+  `publish_bindings` novos (decisêo P7).
 
-## 3. `/admin` — Painel de Configuração (A CRIAR)
+## 3. `/admin` — Painel de Configuraçêo (A CRIAR)
 
 **Quem usa**: admin global (você) e admin do tenant (dono da empresa
 cliente).
 
 **Pra que serve**: editar config, gerenciar workers, criar receitas.
-Decisão fina em `doc/admin-ui-viability.md`.
+Decisêo fina em `doc/admin-ui-viability.md`.
 
 **Features por nível de admin**:
 
 ### Admin Global (você)
-- Editor YAML de `config/defaults.yaml` (com validação + backup)
+- Editor YAML de `config/defaults.yaml` (com validaçêo + backup)
 - CRUD de tenants (ver/criar/desabilitar)
 - CRUD de workers registrados (adicionar endpoint, toggle enabled)
 - Editor de receitas em `recipes/*.yaml`
@@ -113,11 +113,11 @@ Decisão fina em `doc/admin-ui-viability.md`.
 - Login (auth — hoje zero)
 - Audit log visível
 
-## Critérios de separação
+## Critérios de separaçêo
 
 Por que três painéis em vez de um monolito?
 
-| Dimensão | /ui (operacional) | /ui/yt (mídia) | /admin (config) |
+| Dimensêo | /ui (operacional) | /ui/yt (mídia) | /admin (config) |
 |---|---|---|---|
 | Público | usuário final | operador de conteúdo | admin |
 | Escrita em config? | ❌ só leitura | ⚠️ bindings do tenant | ✅ tudo |
@@ -126,7 +126,7 @@ Por que três painéis em vez de um monolito?
 | Precisa de auth por papel? | tenant-user | tenant-admin | admin-global + tenant-admin |
 
 Misturar tudo numa tela só cria o efeito "dashboard do Windows 95" —
-muito botão, risco alto de clicar errado.
+muito botêo, risco alto de clicar errado.
 
 ## Pré-requisitos compartilhados
 
@@ -137,19 +137,19 @@ Antes de qualquer painel novo:
 3. **Postgres** ✅ — já feito (#3 backlog).
 4. **RBAC** (#16 backlog) — enforce papel em cada endpoint.
 
-## Tecnologia — decisão pragmática
+## Tecnologia — decisêo pragmática
 
-**Todos os painéis** seguem o padrão do `/ui` atual:
+**Todos os painéis** seguem o padrêo do `/ui` atual:
 - HTML + CSS + JS inline servidos pelo Gateway
 - Zero dependência de build (sem React/Vue no caminho crítico)
 - Monaco ou CodeMirror CDN só onde precisa (editor YAML)
 - Font stack do sistema, dark theme único
 
-Justificativa: não tenho equipe de frontend; dev quer editar um arquivo
+Justificativa: nêo tenho equipe de frontend; dev quer editar um arquivo
 e dar F5. Quando houver equipe/escopo pra SPA real, reimplementa em
 React com o mesmo backend.
 
-## Ordem de implementação sugerida
+## Ordem de implementaçêo sugerida
 
 ```
 FASE 1 (próxima)
@@ -177,9 +177,9 @@ Total: ~3-5 semanas focadas.
 
 ## O que fica FORA dos painéis
 
-**Canais conversacionais não são painéis** — Telegram/WhatsApp são
+**Canais conversacionais nêo sêo painéis** — Telegram/WhatsApp sêo
 outra interface pra o mesmo sistema. Usuário consegue 80% do que está
 no `/ui` via comandos Telegram, sem abrir browser.
 
 Exemplo: `"@imkt5bot aprovar copy do último run"` faz a mesma coisa
-que clicar o botão de aprovação no `/ui`.
+que clicar o botêo de aprovaçêo no `/ui`.

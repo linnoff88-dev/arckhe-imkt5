@@ -90,7 +90,7 @@ STYLE_PRESETS: dict[str, dict[str, str]] = {
     "neo_minimal_luxury_light": {"primary": "#BFA882", "secondary": "#E5DFD5", "accent": "#8B6F47", "background": "#F8F5F0", "text": "#1C1612"},
 }
 
-# Formatos canônicos — se user não passa `formats`, gera os 3.
+# Formatos canônicos — se user nêo passa `formats`, gera os 3.
 DEFAULT_FORMATS = ["1:1", "9:16", "16:9"]
 
 
@@ -148,13 +148,13 @@ def _ratio_tag(w: int, h: int) -> str:
 def _detect_text_in_image(
     image_path: Path, *, zones: tuple[str, ...] = ("full",),
 ) -> dict[str, Any]:
-    """Detecção heurística de texto em imagem gerada.
+    """Detecçêo heurística de texto em imagem gerada.
 
     Funciona SEM OCR externo (apenas PIL). Texto gerado pelo SD tem
     assinaturas visuais características:
       - Alta densidade de bordas (edges) em bandas horizontais estreitas
-      - Contraste local alto repetido em padrão regular
-      - Razão edges/total elevada em regiões específicas
+      - Contraste local alto repetido em padrêo regular
+      - Razêo edges/total elevada em regiões específicas
 
     Retorna:
       {
@@ -218,7 +218,7 @@ def _detect_text_in_image(
                 zones_with_text.append(zname)
 
         has_text = bool(zones_with_text)
-        # confidence: razão entre densidade na pior zona e a média.
+        # confidence: razêo entre densidade na pior zona e a média.
         confidence = min(1.0, max_density / max(0.003, density_full * ratio_thresh))
 
         return {
@@ -314,7 +314,7 @@ class CarouselDesignerWorker(BaseWorker):
             or "editorial"
         )
 
-        # Formatos: se não vier `formats` nem `width/height`, gera os 3
+        # Formatos: se nêo vier `formats` nem `width/height`, gera os 3
         # canônicos (1:1, 9:16, 16:9). Se `width/height` explícito, usa só ele.
         formats = payload.get("formats")
         if formats is None and not payload.get("width"):
@@ -363,9 +363,9 @@ class CarouselDesignerWorker(BaseWorker):
                     h_len = len(headline)
                     headline_size = 60 if h_len < 50 else (52 if h_len < 90 else 42)
 
-                    # ── Detecção de texto na imagem ──
-                    # Camada 1 (prevenção): TEXT_NEGATIVE no inemaimg (sempre).
-                    # Camada 2 (detecção): ATIVADA POR DEFAULT. Quando detecta
+                    # ── Detecçêo de texto na imagem ──
+                    # Camada 1 (prevençêo): TEXT_NEGATIVE no inemaimg (sempre).
+                    # Camada 2 (detecçêo): ATIVADA POR DEFAULT. Quando detecta
                     # texto, o overlay é renderizado com CAIXA SÓLIDA em vez
                     # de apenas gradiente — cobre eventual texto residual da
                     # imagem e garante legibilidade. NUNCA suprimimos overlay
@@ -490,7 +490,7 @@ class CarouselDesignerWorker(BaseWorker):
         Template magazine: cada slide tem UMA frase só no headline —
         nada de stats, question, context. Visual limpo estilo revista.
 
-        Fallback: se `title` não veio mas há `brief`/`topic`/`prompt`/`text`,
+        Fallback: se `title` nêo veio mas há `brief`/`topic`/`prompt`/`text`,
         usa esse como título — evita slides sem headline quando o user
         passou só o brief.
         """
@@ -507,7 +507,7 @@ class CarouselDesignerWorker(BaseWorker):
         images = payload.get("images") or []
         total = max(len(images), 1)
 
-        # Constrói lista de frases: title + captions + cta (só as não-vazias)
+        # Constrói lista de frases: title + captions + cta (só as nêo-vazias)
         phrases: list[str] = []
         if title: phrases.append(title)
         phrases.extend(captions)

@@ -3,7 +3,7 @@
 ## Role
 
 Detecta **vídeos novos** num perfil TikTok via `yt-dlp --flat-playlist`
-(não precisa API oficial — scraping da página pública). Cache de IDs
+(nêo precisa API oficial — scraping da página pública). Cache de IDs
 já vistos em memória (TODO: Postgres).
 
 Capability: `video.source_ingest` (mesma do yt-source-ingest — prioridade

@@ -1,6 +1,6 @@
-"""Gates de aprovação reais via Telegram (ou qualquer canal).
+"""Gates de aprovaçêo reais via Telegram (ou qualquer canal).
 
-Substitui _StubUserGate do main.py por implementação que:
+Substitui _StubUserGate do main.py por implementaçêo que:
 1. Envia pergunta no canal onde a conversa começou.
 2. Armazena promise esperando resposta.
 3. Quando usuário responde /aprovar <run_id> <stage>, resolve a promise.
@@ -65,7 +65,7 @@ class UserApprovalGate:
             kind = ChannelKind(origin_channel)
         except ValueError:
             log.warning(
-                "approval: canal %s não suportado; auto-aprovando",
+                "approval: canal %s nêo suportado; auto-aprovando",
                 origin_channel,
             )
             await self._on_decided(run_id, stage_id, ApprovalDecision.APPROVED)
@@ -83,7 +83,7 @@ class UserApprovalGate:
             )
 
         text = (
-            f"🔔 *Aprovação necessária*\n"
+            f"🔔 *Aprovaçêo necessária*\n"
             f"Estágio: `{stage_id}` (run `{run_id[:8]}...`)\n\n"
             f"{question}\n\n"
             f"Responda:\n"
@@ -101,7 +101,7 @@ class UserApprovalGate:
                     text=text,
                 )
             )
-            log.info("approval: aguardando decisão do usuário (run=%s stage=%s)", run_id, stage_id)
+            log.info("approval: aguardando decisêo do usuário (run=%s stage=%s)", run_id, stage_id)
         except Exception as exc:  # noqa: BLE001
             log.warning("approval: falhou ao enviar pergunta (%s); auto-aprovando", exc)
             await self._on_decided(run_id, stage_id, ApprovalDecision.APPROVED)
@@ -128,7 +128,7 @@ class UserApprovalGate:
 
         await self._on_decided(pending.run_id, stage_id, decision)
         log.info(
-            "approval: decisão=%s run=%s stage=%s motivo=%s",
+            "approval: decisêo=%s run=%s stage=%s motivo=%s",
             decision.value, pending.run_id, stage_id, reason,
         )
         return True
@@ -168,7 +168,7 @@ class HumanReviewerGate:
 
         if not reviewer_user_id:
             log.warning(
-                "human_reviewer: role '%s' não configurada no tenant '%s'; auto-aprovando",
+                "human_reviewer: role '%s' nêo configurada no tenant '%s'; auto-aprovando",
                 reviewer_role, tenant_id,
             )
             await self._user_gate._on_decided(run_id, stage_id, ApprovalDecision.APPROVED)
@@ -176,9 +176,9 @@ class HumanReviewerGate:
 
         # Reusa mecanismo do user_gate — mesma UX, destinatário diferente.
         # Precisa descobrir channel do reviewer via channel_bindings do tenant.
-        # Por enquanto, assume mesmo canal da sessão original ou falha pra admin.
+        # Por enquanto, assume mesmo canal da sessêo original ou falha pra admin.
         # (TODO: quando #5 estiver completo, fazer lookup em channel_bindings.)
         log.warning(
-            "human_reviewer: resolução de canal do reviewer não implementada (precisa #5)"
+            "human_reviewer: resoluçêo de canal do reviewer nêo implementada (precisa #5)"
         )
         await self._user_gate._on_decided(run_id, stage_id, ApprovalDecision.APPROVED)

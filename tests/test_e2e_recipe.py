@@ -5,7 +5,7 @@ Testa que:
 - `parallel` dispara N jobs
 - `fanout_over` dispara um por item
 - `when` pula estágios
-- aprovação `auto_reviewer` bloqueia/libera via callback
+- aprovaçêo `auto_reviewer` bloqueia/libera via callback
 - Recipe run termina com todos stages terminal
 """
 
@@ -168,7 +168,7 @@ async def test_campanha_roda_completa():
 
 async def test_dep_failure_cascades_through_skip():
     """Se brief falha, descendentes (copy, ad_design, images, video) devem
-    ser SKIPPED com error='dep_failed' — NÃO devem tentar rodar com
+    ser SKIPPED com error='dep_failed' — NêO devem tentar rodar com
     payload vazio."""
     dispatcher = InMemoryDispatcher()
     runner = RecipeRunner(
@@ -200,7 +200,7 @@ async def test_dep_failure_cascades_through_skip():
 
     dispatcher.register_capability("research.market", make_ok("research", {}))
     dispatcher.register_capability("brief.strategic", failing)
-    # Os abaixo NÃO devem ser chamados por causa do cascade:
+    # Os abaixo NêO devem ser chamados por causa do cascade:
     dispatcher.register_capability("copy.platform", make_ok("copy", {"copy": {"key_benefit": "x"}}))
     dispatcher.register_capability("design.ad_layout", make_ok("ad_design", {"ad_design": {"variants": []}}))
     dispatcher.register_capability("image.generation", make_ok("images", {"image_url": "i"}))

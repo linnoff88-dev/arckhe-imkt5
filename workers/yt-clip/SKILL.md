@@ -9,9 +9,9 @@ Capability: `video.clip_extraction`. Porta 8301.
 
 Pipeline por vídeo:
 1. `yt-dlp` baixa o vídeo (formato best mp4)
-2. `youtube-transcript-api` puxa transcrição + timestamps
+2. `youtube-transcript-api` puxa transcriçêo + timestamps
 3. LLM (chain `claude_code → ollama → openrouter`) analisa
-   transcrição + `prompt` do tenant e sugere N trechos como
+   transcriçêo + `prompt` do tenant e sugere N trechos como
    `[{start_s, end_s, title, reason}]`.
 4. `ffmpeg -ss <start> -to <end>` corta cada trecho.
 5. Retorna paths (via storage) dos clips gerados.

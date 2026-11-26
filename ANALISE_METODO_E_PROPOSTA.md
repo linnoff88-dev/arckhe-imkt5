@@ -1,6 +1,6 @@
 # Método de Análise e Proposta Modular — imkt5
 
-> Relatório inicial. Define (1) como os projetos existentes serão analisados e (2) a arquitetura-alvo para unificá-los preservando execução individual.
+> Relatório inicial. Define (1) como os projetos existentes serêo analisados e (2) a arquitetura-alvo para unificá-los preservando execuçêo individual.
 
 ---
 
@@ -22,11 +22,11 @@ Requisitos de alto nível:
 - Múltiplos pedidos do mesmo usuário em paralelo.
 - Fila de atendimento gerenciada.
 - Canais de entrada: Telegram, WhatsApp e app web.
-- Outros projetos serão adicionados à análise depois.
+- Outros projetos serêo adicionados à análise depois.
 
 ---
 
-## 1) Método de análise (ficha padrão por projeto)
+## 1) Método de análise (ficha padrêo por projeto)
 
 Para cada projeto, uma **ficha técnica** idêntica. A ficha tem 8 campos:
 
@@ -39,14 +39,14 @@ Para cada projeto, uma **ficha técnica** idêntica. A ficha tem 8 campos:
 | **Estado & persistência** | DBs, buckets, diretórios `media/`, `outputs/`, filas locais |
 | **Dependências entre projetos** | Quem chama quem (descoberto via grep de URLs/paths) |
 | **Pontos de dor** | Hard-codes de canal, paralelismo, singleton de recursos (GPU, conta Google), rate limits |
-| **Contrato reutilizável** | Qual a "função pura" que esse projeto já é, e que vira um **worker** na arquitetura nova |
+| **Contrato reutilizável** | Qual a "funçêo pura" que esse projeto já é, e que vira um **worker** na arquitetura nova |
 
 ### Como preencher a ficha rapidamente, sem ler tudo
 
 1. Ler `README.md`, `PROJETO.md`, `CLAUDE.md`, `docker-compose.yml`, `package.json` / `requirements.txt`, `ecosystem.config.cjs` — entregam ~80% do entendimento em minutos.
 2. Mapear entrypoints (`server.py`, `main.*`, `worker.*`, `import_worker.py`) — só os arquivos raiz, sem varrer `node_modules`.
 3. Grep dirigido: `http://`, `process.env`, `CHANNEL_ID`, `telegram`, `webhook` — expõe acoplamentos.
-4. Variantes numeradas (`yt-pub-lives1..10`) **não lidas uma a uma** — confirmar que são clones e tratar como instâncias do mesmo worker parametrizado por canal.
+4. Variantes numeradas (`yt-pub-lives1..10`) **nêo lidas uma a uma** — confirmar que sêo clones e tratar como instâncias do mesmo worker parametrizado por canal.
 
 ### Produto do passo 1
 
@@ -54,9 +54,9 @@ Um único arquivo `ANALISE.md` com as fichas empilhadas + uma matriz de dependê
 
 ---
 
-## 2) Proposta modular (visão inicial)
+## 2) Proposta modular (visêo inicial)
 
-A existência de múltiplos `yt-pub-lives<N>` é um sinal clássico de **worker + fila + parametrização por tenant/canal**. A proposta abaixo generaliza esse padrão para todos os serviços.
+A existência de múltiplos `yt-pub-lives<N>` é um sinal clássico de **worker + fila + parametrizaçêo por tenant/canal**. A proposta abaixo generaliza esse padrêo para todos os serviços.
 
 ### Camadas
 
@@ -97,13 +97,13 @@ A existência de múltiplos `yt-pub-lives<N>` é um sinal clássico de **worker 
 └─────────────────────────────────────────────────────────────┘
 ```
 
-### Princípios não-negociáveis
+### Princípios nêo-negociáveis
 
 1. **Worker = caixa preta com contrato único.** Recebe `Job`, devolve `Result`. O que hoje é `yt-pub-lives2` vira `yt-pub-lives` (singular) parametrizado por `channel_id`. Os 10 clones desaparecem.
 2. **Cada worker continua rodável sozinho** (Docker isolado, CLI própria). A fila é *opcional* — se um worker for chamado direto via HTTP, funciona. Isso preserva a regra "cada um funciona individual".
-3. **Fila por tipo de trabalho**, não por canal. Canal é *metadado* do job, não topologia. É o que permite "mais de uma pessoa simultânea + múltiplos pedidos da mesma pessoa" sem reescrever nada.
-4. **Adapters finos de canal** (Telegram / WhatsApp / Web) só sabem falar com o Gateway. Trocar WhatsApp Business por Evolution API não toca nos workers.
-5. **Fila de atendimento ≠ fila de jobs.** Uma é humana (prioridade, posição visível ao usuário), outra é de execução. Implementar as duas, separadas.
+3. **Fila por tipo de trabalho**, nêo por canal. Canal é *metadado* do job, nêo topologia. É o que permite "mais de uma pessoa simultânea + múltiplos pedidos da mesma pessoa" sem reescrever nada.
+4. **Adapters finos de canal** (Telegram / WhatsApp / Web) só sabem falar com o Gateway. Trocar WhatsApp Business por Evolution API nêo toca nos workers.
+5. **Fila de atendimento ≠ fila de jobs.** Uma é humana (prioridade, posiçêo visível ao usuário), outra é de execuçêo. Implementar as duas, separadas.
 6. **Identidade única de usuário** mesmo vindo de canais diferentes: chave (`telegram_id` | `whatsapp_phone` | `web_user_id`) → `user_id` canônico.
 
 ### Decisões pendentes (após as fichas)
@@ -118,4 +118,4 @@ A existência de múltiplos `yt-pub-lives<N>` é um sinal clássico de **worker 
 
 Executar o **passo 1** (análise + ficha) nos 5 projetos citados e entregar `ANALISE.md` consolidado. Só depois fechar a arquitetura final.
 
-Alternativa: começar por subconjunto (ex.: só os `yt-pub-lives*` para validar o padrão de worker multi-canal antes dos outros).
+Alternativa: começar por subconjunto (ex.: só os `yt-pub-lives*` para validar o padrêo de worker multi-canal antes dos outros).

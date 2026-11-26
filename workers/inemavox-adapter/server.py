@@ -56,7 +56,7 @@ class InemavoxAdapter(BaseWorker):
             return await self._handle_voice_clone(job)
         if cap == "audio.transcribe":
             return await self._handle_transcribe(job)
-        raise ValueError(f"capability não suportada: {cap}")
+        raise ValueError(f"capability nêo suportada: {cap}")
 
     # ── audio.tts ─────────────────────────────────────────────────────
     async def _handle_tts(self, job) -> dict[str, Any]:
@@ -64,13 +64,13 @@ class InemavoxAdapter(BaseWorker):
         text = payload.get("text") or ""
         text = text.strip() if isinstance(text, str) else str(text or "")
         if not text:
-            # Cena sem narração (ex: pattern_interrupt silencioso) — devolve
+            # Cena sem narraçêo (ex: pattern_interrupt silencioso) — devolve
             # stub de 0.3s de silêncio cacheado. Permite fanout por cena sem
-            # explodir quando uma cena tem narração vazia.
+            # explodir quando uma cena tem narraçêo vazia.
             return await self._silent_stub(job)
 
         # `or` trata explicitamente None/"" (receita passa None quando
-        # input opcional não foi fornecido).
+        # input opcional nêo foi fornecido).
         engine = payload.get("engine") or "edge"
         if engine == "auto":
             engine = "edge"
@@ -137,7 +137,7 @@ class InemavoxAdapter(BaseWorker):
         }
 
     async def _silent_stub(self, job) -> dict[str, Any]:
-        """Gera (ou reusa) um mp3 silencioso de 0.3s pra cenas sem narração."""
+        """Gera (ou reusa) um mp3 silencioso de 0.3s pra cenas sem narraçêo."""
         key = "silent_300ms.mp3"
         storage = get_storage()
         cached = storage.get_cached(namespace="tts", key=key)
@@ -253,7 +253,7 @@ class InemavoxAdapter(BaseWorker):
             await asyncio.sleep(POLL_INTERVAL)
             elapsed += POLL_INTERVAL
         raise TimeoutError(
-            f"inemavox job {vx_job_id} não completou em {POLL_MAX}s"
+            f"inemavox job {vx_job_id} nêo completou em {POLL_MAX}s"
         )
 
     @staticmethod

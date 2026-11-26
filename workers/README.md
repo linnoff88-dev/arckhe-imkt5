@@ -8,7 +8,7 @@ Cada worker é um **serviço independente** que:
 
 2. Registra suas **capabilities** no `config/workers.yaml` do Gateway.
 
-3. Roda sozinho — não conhece outros workers, não conhece o Recipe Runner.
+3. Roda sozinho — nêo conhece outros workers, nêo conhece o Recipe Runner.
 
 ## Convenções
 

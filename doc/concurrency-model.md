@@ -5,13 +5,13 @@
 
 ## Realidade do upstream
 
-| Serviço | Mecanismo interno | Vazão real |
+| Serviço | Mecanismo interno | Vazêo real |
 |---|---|---|
 | `inemaimg` | `asyncio.Lock` em torno da GPU (`server.py:101,225,237`) | **1 por vez** |
 | `inemavox` | `asyncio.Queue` + **1** `_worker_task` (`api/job_manager.py:439-446,571`) | **1 por vez** (acumula em fila interna sem bloquear o cliente) |
 
-Ambos são **single-slot** por instância, por design. Conta de envelope:
-1 imagem = 10–60s no inemaimg → vazão ≈ 60–360 imagens/hora por GPU.
+Ambos sêo **single-slot** por instância, por design. Conta de envelope:
+1 imagem = 10–60s no inemaimg → vazêo ≈ 60–360 imagens/hora por GPU.
 
 ## Estratégia do `imkt5`
 
@@ -23,9 +23,9 @@ Pedidos chegam → enfileirados em Redis (RQ) ou `InMemoryDispatcher`. O
 cliente recebe `job_id` na hora; nunca bloqueia. Múltiplos pedidos do
 mesmo usuário viram múltiplos jobs com `parent_job_id` correlato.
 
-Implementação: `imkt5/gateway/queue.py`.
+Implementaçêo: `imkt5/gateway/queue.py`.
 
-### Camada 2 — `max_concurrent` por worker (saturação)
+### Camada 2 — `max_concurrent` por worker (saturaçêo)
 
 Cada worker em `config/workers.yaml` declara seu `max_concurrent`. O
 `CapabilityRegistry` rastreia `in_flight` por nome (via `acquire()` /
@@ -37,7 +37,7 @@ Cada worker em `config/workers.yaml` declara seu `max_concurrent`. O
   max_concurrent: 1   # respeita o lock interno da GPU
 ```
 
-Se todos os workers de uma capability estão saturados, `select_worker`
+Se todos os workers de uma capability estêo saturados, `select_worker`
 levanta `NoWorkerAvailable`. O caller pode:
 
 - **Default**: enfileirar de novo (RQ tem retry).
@@ -66,13 +66,13 @@ Paralelismo real vem de **múltiplas instâncias** da mesma capability:
 ```
 
 `_sort_key` ordena: local-first → maior priority → menos `in_flight`.
-Resultado: **distribuição automática** entre instâncias livres; fallback
+Resultado: **distribuiçêo automática** entre instâncias livres; fallback
 para remoto quando locais saturadas.
 
 Cobertura: `tests/test_capacity.py` valida load-balancing, fallback
-local→remoto sob saturação, e modo escape.
+local→remoto sob saturaçêo, e modo escape.
 
-## Padrão de uso recomendado
+## Padrêo de uso recomendado
 
 ### Dev local (1 GPU)
 
@@ -82,10 +82,10 @@ local→remoto sob saturação, e modo escape.
   max_concurrent: 1
 ```
 
-Vazão limitada à GPU; fila do imkt5 absorve picos. Suficiente para
+Vazêo limitada à GPU; fila do imkt5 absorve picos. Suficiente para
 desenvolvimento e testes.
 
-### Produção pequena (1 máquina, múltiplas GPUs)
+### Produçêo pequena (1 máquina, múltiplas GPUs)
 
 Subir múltiplas instâncias do `inemaimg` com `--port` diferente, cada
 uma com `CUDA_VISIBLE_DEVICES=N`:
@@ -95,23 +95,23 @@ CUDA_VISIBLE_DEVICES=0 python server.py --port 8000 &
 CUDA_VISIBLE_DEVICES=1 python server.py --port 8001 &
 ```
 
-Registrar as duas em `config/workers.yaml` (gpu0/gpu1). 2x a vazão
+Registrar as duas em `config/workers.yaml` (gpu0/gpu1). 2x a vazêo
 sem mudar uma linha do `imkt5`.
 
-### Produção grande (múltiplas máquinas, opcional cloud)
+### Produçêo grande (múltiplas máquinas, opcional cloud)
 
 Adicionar workers remotos com `local: false, priority: <baixa>`. O
 matcher só os usa quando os locais saturam.
 
-## O que NÃO fazer
+## O que NêO fazer
 
 - **Aumentar `max_concurrent` artificialmente** para 4, 8, 16.
   O upstream serializa — só vai criar timeouts/backlog interno.
-- **Fork em `inemaimg2`, `inemaimg3`** seguindo o padrão antigo do
+- **Fork em `inemaimg2`, `inemaimg3`** seguindo o padrêo antigo do
   `yt-pub-lives`. A escala correta é múltiplas *instâncias* do mesmo
   código rodando em portas/GPUs diferentes, registradas no registry.
 - **Fila própria dentro do adapter**. Já existe a fila do imkt5
-  (Redis/RQ) — adapter é apenas tradução de contrato, sem estado.
+  (Redis/RQ) — adapter é apenas traduçêo de contrato, sem estado.
 
 ## Resumo em 1 frase
 

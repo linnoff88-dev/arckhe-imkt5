@@ -2,7 +2,7 @@
 
 Servido em GET /chat-ui. Mensagens + input, estilo Telegram/WhatsApp,
 mas é outro "canal" (channel=web). Os artefatos gerados por jobs
-disparados no chat são renderizados inline (polling /jobs filtrado
+disparados no chat sêo renderizados inline (polling /jobs filtrado
 por origin_channel_external_id = session_id do chat).
 """
 from imkt5.gateway._media_modal import MEDIA_MODAL_HTML as _MEDIA_MODAL_HTML
@@ -124,7 +124,7 @@ CHAT_UI_HTML = r"""<!DOCTYPE html>
   </nav>
   <div class="auth">
     <div class="session">
-      <span id="session-label">sessão —</span>
+      <span id="session-label">sessêo —</span>
       <button onclick="newSession()">nova</button>
     </div>
     <span id="auth-status">sem token</span>
@@ -193,14 +193,14 @@ function getSession() {
   return s;
 }
 function newSession() {
-  if (!confirm('Nova sessão? Histórico da conversa atual continua visível mas o agente perde contexto.')) return;
+  if (!confirm('Nova sessêo? Histórico da conversa atual continua visível mas o agente perde contexto.')) return;
   const s = 'chat-' + shortId();
   localStorage.setItem('imkt5_chat_session', s);
   localStorage.removeItem('imkt5_chat_history');
   location.reload();
 }
 function updateSessionLabel() {
-  document.getElementById('session-label').textContent = 'sessão ' + getSession();
+  document.getElementById('session-label').textContent = 'sessêo ' + getSession();
 }
 
 // ── history (em localStorage pra sobreviver refresh) ──────────

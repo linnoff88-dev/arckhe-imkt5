@@ -1,15 +1,15 @@
 """Auth bearer-token simples com RBAC baseado em papéis.
 
 Tokens e seus papéis vêm de env `IMKT5_AUTH_TOKENS` (JSON) ou
-`config/auth.yaml`. Em dev, se não há nada configurado, roda em modo
+`config/auth.yaml`. Em dev, se nêo há nada configurado, roda em modo
 aberto (audit-only). Em prod, setar `IMKT5_AUTH_REQUIRED=1`.
 
 Papéis suportados:
 - `admin-global`: pode tudo em qualquer tenant.
 - `admin-tenant:<tid>`: pode tudo no tenant <tid>.
-- `user:<tid>`: pode disparar jobs/recipes no tenant <tid>; não pode
+- `user:<tid>`: pode disparar jobs/recipes no tenant <tid>; nêo pode
   mexer em config nem aprovar pra outros.
-- `reviewer:<tid>`: pode aprovar stages; não pode mexer em config.
+- `reviewer:<tid>`: pode aprovar stages; nêo pode mexer em config.
 
 Uso (FastAPI):
     from imkt5.gateway.auth import Principal, require
@@ -166,7 +166,7 @@ def require(*, scope: str) -> Callable:
         # modo aberto (auth_required=False, anon) só permite scopes de leitura
         if principal.roles == ("anon",):
             if _required() or scope in ("config.write",):
-                raise HTTPException(403, f"scope '{scope}' exige autenticação")
+                raise HTTPException(403, f"scope '{scope}' exige autenticaçêo")
             return
 
         allowed = SCOPES.get(scope, ())
@@ -176,7 +176,7 @@ def require(*, scope: str) -> Callable:
         # enforce tenant boundary pra body com tenant_id
         body_tenant = _extract_tenant(request)
         if body_tenant and not principal.can_act_in_tenant(body_tenant):
-            raise HTTPException(403, f"sem permissão no tenant {body_tenant}")
+            raise HTTPException(403, f"sem permissêo no tenant {body_tenant}")
 
     return _dep
 

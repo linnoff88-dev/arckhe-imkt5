@@ -3,7 +3,7 @@
 > Relatório da análise do projeto `telegramtopicosindex` (extrator
 > maduro, com 560 LOC em `extrator_rapido.py`) e justificativa do
 > refactor do worker `telegram-scraper` pra reusar os padrões testados
-> em vez da minha primeira implementação genérica.
+> em vez da minha primeira implementaçêo genérica.
 >
 > Data: 2026-04-20.
 
@@ -11,32 +11,32 @@
 
 ## 1. Contexto
 
-Primeira versão do `telegram-scraper` (porta 8117) foi escrita do zero
+Primeira versêo do `telegram-scraper` (porta 8117) foi escrita do zero
 usando `telethon.iter_messages(entity, limit=N)` — flat, sem entender
 grupos fórum ou tópicos. Funciona pra grupos simples mas perde muito
 em grupos organizados por tópicos (como INEMA.FTD com 1900 tópicos).
 
-O projeto local `~/projetos/telegramtopicosindex` já tem uma solução
-produção-tier pra exatamente esse caso.
+O projeto local `~/projetos/telegramtopicosindex` já tem uma soluçêo
+produçêo-tier pra exatamente esse caso.
 
 ---
 
-## 2. Comparação
+## 2. Comparaçêo
 
-| Feature | `telegramtopicosindex/extrator_rapido.py` | 1ª versão `telegram-scraper` |
+| Feature | `telegramtopicosindex/extrator_rapido.py` | 1ª versêo `telegram-scraper` |
 |---|---|---|
 | Parse link `t.me/c/<grupo>/<topic>` | ✅ regex dedicada | ❌ só `@username`/id |
 | Listar tópicos fórum (`GetForumTopicsRequest`) | ✅ paginado 100/pg × 50 pg | ❌ |
 | Extrair mensagens de 1 tópico (`reply_to=topic_id`) | ✅ | ❌ iter flat |
 | Download fotos | ✅ timeout 60s + retry | ❌ |
 | Download documentos | ✅ timeout 120s | ❌ |
-| Filtro por extensão (`--filtro pdf,jpg`) | ✅ | ❌ |
+| Filtro por extensêo (`--filtro pdf,jpg`) | ✅ | ❌ |
 | Modo `--somidia` (só mídia) | ✅ | ❌ |
 | Output estruturado `out/<grupo>/<topic>/` | ✅ | ❌ formato próprio |
 | Graceful error (pula tópico com erro) | ✅ | ⚠ parcial |
 | Progresso + estatísticas finais | ✅ | ❌ |
-| Anti-duplicação via `seen_ids` | ✅ | ❌ |
-| Handle `from_id` serialização (user_id vs channel_id) | ✅ | ⚠ básico |
+| Anti-duplicaçêo via `seen_ids` | ✅ | ❌ |
+| Handle `from_id` serializaçêo (user_id vs channel_id) | ✅ | ⚠ básico |
 
 ---
 
@@ -89,7 +89,7 @@ async for message in client.iter_messages(chat_id, reply_to=topic_id):
 O parâmetro `reply_to=<topic_id>` é o que o Telegram usa internamente
 pra filtrar mensagens de um tópico específico em grupo-fórum.
 
-### 3.4 Serialização robusta de autor
+### 3.4 Serializaçêo robusta de autor
 
 ```python
 author = "Desconhecido"
@@ -118,7 +118,7 @@ await asyncio.wait_for(
 - `messages.json` — array completo pra processamento
 - `content.txt` — legível pra humano (title + autor + texto + mídia)
 
-Isso é **exatamente o que o `telegram-topics-search` consome**, então
+Isso é **exatamente o que o `telegram-topics-search` consome**, entêo
 reusar garante pipeline end-to-end.
 
 ---
@@ -187,9 +187,9 @@ Mesmo diretório, contrato compartilhado, zero cross-coupling de código.
 
 ---
 
-## 6. Decisão
+## 6. Decisêo
 
 **Refactor aprovado.** Copiar a lógica do `extrator_rapido.py` pro
-worker do imkt5 (não import cross-project — evita acoplamento).
+worker do imkt5 (nêo import cross-project — evita acoplamento).
 
-Reuso = padrões + contratos, não código importado direto.
+Reuso = padrões + contratos, nêo código importado direto.

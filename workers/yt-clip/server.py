@@ -23,9 +23,9 @@ from workers._base.storage import get_storage
 log = logging.getLogger("imkt5.workers.yt-clip")
 
 SYSTEM_PROMPT = """\
-Você é editor de vídeo. Recebe transcrição com timestamps e um prompt
+Você é editor de vídeo. Recebe transcriçêo com timestamps e um prompt
 do usuário sobre o que extrair. Sugira de 1 a N trechos, respeitando
-duração mínima e máxima.
+duraçêo mínima e máxima.
 
 Retorne APENAS JSON sem texto antes/depois:
 {
@@ -93,15 +93,15 @@ class YTClipWorker(BaseWorker):
             if dl != 0 or not video_path.exists():
                 return {"clips": [], "mode": "mocked", "note": f"download falhou ({dl})"}
 
-            # 2) Transcrição (opcional, usa youtube-transcript-api se disponível)
+            # 2) Transcriçêo (opcional, usa youtube-transcript-api se disponível)
             transcript = await _fetch_transcript(video_id)
 
             # 3) LLM decide clipes
             user_msg = (
                 f"Prompt do usuário: {prompt}\n\n"
-                f"Duração mínima: {min_dur}s, máxima: {max_dur}s, "
+                f"Duraçêo mínima: {min_dur}s, máxima: {max_dur}s, "
                 f"até {max_clips} clipes.\n\n"
-                f"Transcrição (partial):\n{transcript[:8000] if transcript else '[sem transcrição disponível — use intuição baseada em duração do vídeo]'}\n"
+                f"Transcriçêo (partial):\n{transcript[:8000] if transcript else '[sem transcriçêo disponível — use intuiçêo baseada em duraçêo do vídeo]'}\n"
             )
             try:
                 decision = await complete_json(
@@ -112,7 +112,7 @@ class YTClipWorker(BaseWorker):
 
             clips_spec = decision.get("clips", [])[:max_clips]
             if not clips_spec:
-                return {"clips": [], "mode": "real", "note": "LLM não sugeriu clipes"}
+                return {"clips": [], "mode": "real", "note": "LLM nêo sugeriu clipes"}
 
             # 4) Recorta cada
             storage = get_storage()

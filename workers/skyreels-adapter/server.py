@@ -14,7 +14,7 @@ Proxy fino que traduz o contrato `/execute` do imkt5 pra webui do SkyReels V3
 Rationale: o plano original propõe um endpoint novo no gateway imkt5 (`POST
 /queue-callback/<job_id>`), mas consolidar callback no próprio adapter evita
 acoplamento, mantém o gateway agnóstico a esse worker e respeita o
-princípio #4 do CLAUDE.md (adapters são finos).
+princípio #4 do CLAUDE.md (adapters sêo finos).
 
 Variáveis de ambiente:
   SKYREELS_URL                — URL do webui skyreelsv3 (default http://localhost:7861)
@@ -103,7 +103,7 @@ class SkyReelsAdapterWorker(BaseWorker):
         payload = job.payload
         queue_json = payload.get("queue_json")
         if not queue_json or not isinstance(queue_json, list):
-            raise ValueError("queue_json vazio ou não é lista")
+            raise ValueError("queue_json vazio ou nêo é lista")
 
         project = (payload.get("project") or "").strip()
         queue_name = (payload.get("queue_name") or "").strip()
@@ -137,7 +137,7 @@ class SkyReelsAdapterWorker(BaseWorker):
         job_count = int(data.get("job_count", len(queue_json)))
         print(f"[adapter] queue importada: nq_id={nq_id}, jobs={job_count}")
 
-        # 2) registrar Event antes do run pra não perder callback race
+        # 2) registrar Event antes do run pra nêo perder callback race
         event = asyncio.Event()
         async with self._pending_lock:
             self._pending[nq_id] = {"event": event, "payload": None}

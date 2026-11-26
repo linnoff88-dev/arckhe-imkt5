@@ -3,7 +3,7 @@
 Quando um job completa com sucesso e veio de um canal registrado
 (telegram, whatsapp, web), inspeciona o output em busca de URLs de
 artefato (imagem, áudio, vídeo, documento) e envia como anexo pelo
-canal. Se não tem artefato, envia mensagem de texto.
+canal. Se nêo tem artefato, envia mensagem de texto.
 
 É a peça que implementa o delivery mode "chat" automático.
 """
@@ -52,16 +52,16 @@ class ChannelNotifier:
         try:
             kind = ChannelKind(origin_channel)
         except ValueError:
-            return   # canal não é TG/WA/Web (ex.: "web" da UI consulta via polling)
+            return   # canal nêo é TG/WA/Web (ex.: "web" da UI consulta via polling)
 
         if kind == ChannelKind.WEB:
-            return   # UI web consulta /jobs, não precisa push
+            return   # UI web consulta /jobs, nêo precisa push
 
         # Resolve canal registrado
         try:
             channel = self._channels.get(kind)
         except KeyError:
-            log.debug("delivery: canal %s não registrado", kind)
+            log.debug("delivery: canal %s nêo registrado", kind)
             return
 
         if error:
@@ -113,7 +113,7 @@ def _compose_output(
     if "generation_time_s" in output:
         text_parts.append(f"gerou em {output['generation_time_s']:.1f}s")
     if "duration_seconds" in output:
-        text_parts.append(f"duração: {output['duration_seconds']}s")
+        text_parts.append(f"duraçêo: {output['duration_seconds']}s")
 
     return " · ".join(text_parts), tuple(attachments)
 
@@ -158,14 +158,14 @@ def _classify(url: str, key_hint: str = "") -> MessageAttachment | None:
         return MessageAttachment(kind=AttachmentKind.VIDEO, storage_path=url)
     if _AUDIO_EXT.search(url) or "audio" in kh:
         return MessageAttachment(kind=AttachmentKind.AUDIO, storage_path=url)
-    # Ignora URLs que não parecem mídia (ex.: "url" de resultado Tavily)
+    # Ignora URLs que nêo parecem mídia (ex.: "url" de resultado Tavily)
     if url.startswith(("file://", "/artifacts/", "/s3/")):
         return MessageAttachment(kind=AttachmentKind.DOCUMENT, storage_path=url)
     return None
 
 
 def _summarize_output(output: dict[str, Any]) -> str:
-    """Texto amigável quando não há arquivo pra enviar."""
+    """Texto amigável quando nêo há arquivo pra enviar."""
     if not output:
         return "✅ Concluído."
 
@@ -180,7 +180,7 @@ def _summarize_output(output: dict[str, Any]) -> str:
                 lines.append(f"- {t[:70]}  —  {u[:60]}")
         return "\n".join(lines)[:3500]
 
-    # review.auto → decisão
+    # review.auto → decisêo
     if "decision" in output:
         dec = output["decision"]
         reason = output.get("reason", "")

@@ -25,8 +25,8 @@ Output:
   }
 
 Workflow downstream: cada `background_prompt` pode virar um job
-`image.generation` pro inemaimg. Esse worker não dispara os jobs —
-devolve a especificação. Quem orquestra é a receita.
+`image.generation` pro inemaimg. Esse worker nêo dispara os jobs —
+devolve a especificaçêo. Quem orquestra é a receita.
 """
 
 from __future__ import annotations

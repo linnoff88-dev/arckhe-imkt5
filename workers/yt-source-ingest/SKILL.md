@@ -8,7 +8,7 @@ cache de IDs já vistos (via Postgres `seen_videos`).
 
 Capability: `video.source_ingest`. Porta 8300.
 
-Este worker NÃO baixa vídeo — só retorna lista de `video_ids` novos
+Este worker NêO baixa vídeo — só retorna lista de `video_ids` novos
 pra próximo stage (`yt-clip`) processar.
 
 ---

@@ -43,7 +43,7 @@ class TikTokIngestWorker(BaseWorker):
                 "new_lives": [],
                 "total_new": 0,
                 "mode": "mocked",
-                "note": "não parece ser TikTok handle",
+                "note": "nêo parece ser TikTok handle",
             }
 
         if not shutil.which("yt-dlp"):

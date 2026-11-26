@@ -35,7 +35,7 @@ class VideoAbSuggestWorker(BaseWorker):
         system = (
             f"{self._skill}\n\n"
             f"## PARÂMETROS DESTA RUN\n"
-            f"- Audience: {audience or '(não especificado)'}\n"
+            f"- Audience: {audience or '(nêo especificado)'}\n"
             f"- Platform: {platform or '(genérico)'}\n"
         )
         user = "\n".join([
@@ -52,7 +52,7 @@ class VideoAbSuggestWorker(BaseWorker):
         cta_variants = data.get("cta_variants") or []
         combos = data.get("combinations_to_render") or []
 
-        # Normaliza: se LLM não gerou combos, cria cross-prod limitado a 6
+        # Normaliza: se LLM nêo gerou combos, cria cross-prod limitado a 6
         if not combos and hook_variants and cta_variants:
             combos = [
                 {"hook": h, "cta": c}

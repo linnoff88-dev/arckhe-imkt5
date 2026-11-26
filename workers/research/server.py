@@ -4,7 +4,7 @@ Capability: `research.market` (também `research.tavily` como alias).
 
 Payload:
   {
-    "brief": "descrição do produto/campanha",
+    "brief": "descriçêo do produto/campanha",
     "queries": ["tendências café gelado 2026", "concorrentes cold brew"],
     "depth": "basic" | "advanced",   # default: basic
     "max_results_per_query": 5

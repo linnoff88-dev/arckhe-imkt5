@@ -1,21 +1,21 @@
 """Snippet universal de comportamento de modal (Backlog #22).
 
-Aplica a TODOS os modais da app (não só mídia):
-  - Botão X automático no canto superior direito
+Aplica a TODOS os modais da app (nêo só mídia):
+  - Botêo X automático no canto superior direito
   - ESC fecha o modal
   - Click fora da caixa de conteúdo fecha
 
-Convenção: qualquer elemento com atributo `data-modal` OU com
+Convençêo: qualquer elemento com atributo `data-modal` OU com
 `id` terminando em `-modal` OU `role="dialog"` vira um "modal
 gerenciado" — ganha X injetado e listeners de ESC/click-fora.
 
-A UI não precisa mudar marcação — incluir o HTML/script uma vez
+A UI nêo precisa mudar marcaçêo — incluir o HTML/script uma vez
 antes do </body>.
 """
 
 UNIVERSAL_MODAL_HTML = r"""
 <style>
-/* Backlog #22 — botão X injetado em qualquer modal */
+/* Backlog #22 — botêo X injetado em qualquer modal */
 .imkt5-modal-x {
   position: absolute;
   top: 12px; right: 14px;
@@ -46,7 +46,7 @@ UNIVERSAL_MODAL_HTML = r"""
 
 <script>
 (function(){
-  // Seleciona elementos que são "modais gerenciados"
+  // Seleciona elementos que sêo "modais gerenciados"
   function findManagedModals() {
     const els = new Set();
     document.querySelectorAll('[data-modal], [role="dialog"]').forEach(e => els.add(e));
@@ -65,10 +65,10 @@ UNIVERSAL_MODAL_HTML = r"""
   }
 
   function findCloseFn(el) {
-    // 1) atributo data-modal-close pode apontar função
+    // 1) atributo data-modal-close pode apontar funçêo
     const fn = el.getAttribute('data-modal-close');
     if (fn && typeof window[fn] === 'function') return () => window[fn]();
-    // 2) convenção: {id}.replace('-modal','Dialog') ou 'close'+id
+    // 2) convençêo: {id}.replace('-modal','Dialog') ou 'close'+id
     const id = el.id || '';
     // close<Foo>Dialog, closeFooDialog
     const candidates = [];
@@ -97,7 +97,7 @@ UNIVERSAL_MODAL_HTML = r"""
       ev.stopPropagation();
       findCloseFn(el)();
     };
-    // Se não tem position absolute/fixed, força relative no container
+    // Se nêo tem position absolute/fixed, força relative no container
     const s = window.getComputedStyle(el);
     if (s.position === 'static') el.style.position = 'relative';
     el.classList.add('imkt5-managed-modal');
@@ -110,7 +110,7 @@ UNIVERSAL_MODAL_HTML = r"""
     // opt-out: data-modal-no-dismiss="1" desabilita fechar por click-fora
     if (el.dataset.modalNoDismiss === '1') return;
     el.addEventListener('click', function(ev) {
-      // Se clicou no próprio overlay (não dentro de um filho), fecha
+      // Se clicou no próprio overlay (nêo dentro de um filho), fecha
       if (ev.target === el) {
         findCloseFn(el)();
       }
@@ -127,7 +127,7 @@ UNIVERSAL_MODAL_HTML = r"""
   }
 
   // ESC global — fecha o modal visível mais "superior" (maior z-index)
-  // Ignora modais com data-modal-no-dismiss="1" (ex.: form de nova execução)
+  // Ignora modais com data-modal-no-dismiss="1" (ex.: form de nova execuçêo)
   document.addEventListener('keydown', function(ev) {
     if (ev.key !== 'Escape') return;
     const modals = [...findManagedModals()]

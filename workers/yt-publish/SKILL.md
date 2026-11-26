@@ -47,4 +47,4 @@ usa ele como `destination`.
 OAuth 2.0 com refresh token por canal. Lookup via:
 1. `credentials_ref` → KMS local (`data/secrets/<ref>.enc`)
 2. Fallback env: `YT_CHANNEL_<binding_id>_REFRESH_TOKEN`
-3. Sem credenciais → modo mocked (simula upload, não publica).
+3. Sem credenciais → modo mocked (simula upload, nêo publica).

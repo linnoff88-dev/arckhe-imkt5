@@ -4,12 +4,12 @@ Servido em GET /recipes-ui. Single-page:
 
 - Topo: painel com stats (total de receitas, stages, capabilities usadas).
 - Lista à esquerda: receitas disponíveis.
-- Área principal: detalhe da receita selecionada (YAML + visualização
+- Área principal: detalhe da receita selecionada (YAML + visualizaçêo
   dos stages/deps).
-- Botão "nova receita" — cria skeleton e abre pra editar.
+- Botêo "nova receita" — cria skeleton e abre pra editar.
 
 Reusa endpoints /admin/recipes (com token admin).
-Não interfere com a /ui existente.
+Nêo interfere com a /ui existente.
 """
 from imkt5.gateway._media_modal import MEDIA_MODAL_HTML as _MEDIA_MODAL_HTML
 from imkt5.gateway._modal_close import UNIVERSAL_MODAL_HTML as _UNIVERSAL_MODAL_HTML
@@ -205,7 +205,7 @@ let currentRecipe = null;
 
 // ── dashboard ─────────────────────────────────────────────────
 async function loadDashboard() {
-  // receitas (endpoint público /recipes — não requer token)
+  // receitas (endpoint público /recipes — nêo requer token)
   try {
     const rR = await fetch('/recipes');
     const recipes = await rR.json();
@@ -275,7 +275,7 @@ async function selectRecipe(name) {
   }
 }
 
-// ── visualização de stages ────────────────────────────────────
+// ── visualizaçêo de stages ────────────────────────────────────
 function renderStages() {
   const yaml = document.getElementById('yaml').value;
   const container = document.getElementById('stages');
@@ -304,7 +304,7 @@ function renderStages() {
   });
 }
 
-// Parser ingênuo — funciona pro formato padrão das receitas
+// Parser ingênuo — funciona pro formato padrêo das receitas
 function parseStagesSimple(yaml) {
   const lines = yaml.split('\n');
   const out = [];
@@ -363,7 +363,7 @@ async function saveRecipe() {
   }
 }
 async function newRecipe() {
-  const name = prompt('Nome da nova receita (sem extensão):');
+  const name = prompt('Nome da nova receita (sem extensêo):');
   if (!name) return;
   const skeleton = `name: ${name}\nversion: 1\n\nstages:\n  - id: step1\n    requires: some.capability\n    payload_from:\n      input: $.input.field\n    approval: {mode: none}\n`;
   const r = await api('/admin/recipes/' + encodeURIComponent(name), {
@@ -382,12 +382,12 @@ async function newRecipe() {
 async function deleteRecipe() {
   if (!currentRecipe) return;
   if (!confirm(`Excluir a receita '${currentRecipe}'?`)) return;
-  // Não há endpoint DELETE ainda — avisa.
-  alert('Delete via API ainda não implementado. Pra remover, apague o arquivo recipes/' + currentRecipe + '.yaml manualmente e recarregue.');
+  // Nêo há endpoint DELETE ainda — avisa.
+  alert('Delete via API ainda nêo implementado. Pra remover, apague o arquivo recipes/' + currentRecipe + '.yaml manualmente e recarregue.');
 }
 async function runRecipe() {
   if (!currentRecipe) return;
-  const input = prompt('Input JSON da receita (deixe {} se não precisa):', '{"brief":"teste"}');
+  const input = prompt('Input JSON da receita (deixe {} se nêo precisa):', '{"brief":"teste"}');
   if (input === null) return;
   let parsed;
   try { parsed = JSON.parse(input); }

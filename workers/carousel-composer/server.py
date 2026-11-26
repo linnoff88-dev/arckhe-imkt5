@@ -66,7 +66,7 @@ class CarouselComposerWorker(BaseWorker):
             images = [x for sub in images for x in (sub or [])]
         images = [x for x in images if x]
         if not images:
-            raise ValueError("payload precisa de 'images' não vazio")
+            raise ValueError("payload precisa de 'images' nêo vazio")
 
         title = payload.get("title") or f"Carousel {job.job_id[:8]}"
         captions = payload.get("captions") or []

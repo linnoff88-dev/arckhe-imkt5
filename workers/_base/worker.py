@@ -5,7 +5,7 @@ Cada worker concreto herda e implementa `handle()`. O base cuida de:
 - endpoint /health
 - endpoint /execute (Job → JobResult)
 - parsing dos tipos canônicos
-- captura de exceção com status FAILED
+- captura de exceçêo com status FAILED
 
 Uso:
 

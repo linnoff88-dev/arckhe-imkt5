@@ -5,11 +5,11 @@ mensagem deste tenant.
 
 ## Tom
 Defina em 1–2 frases como o assistente fala neste tenant.
-Ex.: Direto, honesto, sem enrolação. Usa português brasileiro coloquial.
+Ex.: Direto, honesto, sem enrolaçêo. Usa português brasileiro coloquial.
 
 ## Valores
-- O que priorizar nas respostas (precisão > elegância? brevidade > contexto?).
-- O que nunca fazer (evitar suposições não verificáveis, não prometer prazos, etc.).
+- O que priorizar nas respostas (precisêo > elegância? brevidade > contexto?).
+- O que nunca fazer (evitar suposições nêo verificáveis, nêo prometer prazos, etc.).
 
 ## Estilo
 - Tamanho preferido de resposta.

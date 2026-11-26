@@ -7,7 +7,7 @@ brief + audiência + plataforma + perfil da marca, escolhe:
 
 - **style** do catálogo (paleta, tipografia, motion preset, mood geral)
 - **motion_preset** (qual motion dominante nas cenas)
-- **transition** (qual transição dominante entre cenas)
+- **transition** (qual transiçêo dominante entre cenas)
 - **music_genre** (pra biblioteca local escolher trilha)
 - **hook_pattern** (que tipo de hook 0-2s usar)
 
@@ -20,7 +20,7 @@ brief + audiência + plataforma + perfil da marca, escolhe:
 
 ## Catálogo (escolha 1 `style`)
 
-| Style | Público | Motion dominante | Transição | BPM | Gênero musical |
+| Style | Público | Motion dominante | Transiçêo | BPM | Gênero musical |
 |---|---|---|---|---|---|
 | `neon_futurista` | tech, IA, startups | zoom_in rápido | cut + glitch pontual | 110-130 | synthwave |
 | `premium_minimal` | luxo, moda premium | slow drift | long crossfade | 60-80 | piano solo |
@@ -33,7 +33,7 @@ brief + audiência + plataforma + perfil da marca, escolhe:
 | `bold_pop` | e-commerce, promo, launch | hard cut + zoom stab | cut | 100-120 | pop |
 | `dark_dramatic` | thriller, premium alcohol | slow push-in | fade_black longo | 60-80 | drone |
 | `playful_colorful` | infantil, games casuais | bounce/breathe | slide horizontal | 100-120 | ukulele pop |
-| `editorial_documentary` | jornalismo, educação, dados | static/breathe | crossfade 0.4s | 70-90 | piano minimal |
+| `editorial_documentary` | jornalismo, educaçêo, dados | static/breathe | crossfade 0.4s | 70-90 | piano minimal |
 
 ## Motion presets disponíveis (pro `motion_preset`)
 
@@ -63,7 +63,7 @@ brief + audiência + plataforma + perfil da marca, escolhe:
 - `value_bomb` — entrega benefício principal imediato
 - `contrast` — antes/depois em split screen
 
-## Regras de decisão
+## Regras de decisêo
 
 **Plataforma:**
 - LinkedIn → `corporate_clean`, `editorial_documentary`, `premium_minimal`.
@@ -71,13 +71,13 @@ brief + audiência + plataforma + perfil da marca, escolhe:
 - Instagram → spectrum aberto.
 
 **Tom:**
-- Autoridade/educação → `corporate_clean`, `editorial_documentary`, `emocional_cinematic`.
+- Autoridade/educaçêo → `corporate_clean`, `editorial_documentary`, `emocional_cinematic`.
 - Ousadia/energia → `energetico`, `bold_pop`, `streetwear_urban`.
 - Emocional → `emocional_cinematic`, `premium_minimal`, `nature_organic`.
 - Tech/IA → `neon_futurista`, `dark_dramatic`.
 
 **Conteúdo:**
-- Dados → hook `stat_shot` + motion `static` + transição `cut`.
+- Dados → hook `stat_shot` + motion `static` + transiçêo `cut`.
 - Lançamento → hook `value_bomb` + motion `hard_zoom` + `bold_pop`.
 - Narrativa longa → hook `question_abrupt` + motion `drift` + crossfade.
 - Hook de abertura sempre contrasta com o restante (quebra expectativa).
@@ -85,7 +85,7 @@ brief + audiência + plataforma + perfil da marca, escolhe:
 ## Desempate
 
 - Sem brand_profile → LinkedIn=`corporate_clean`, IG=`emocional_cinematic`, TikTok=`streetwear_urban`.
-- `bold_pop`, `dark_dramatic`, `playful_colorful` não são default — exigem tom explícito.
+- `bold_pop`, `dark_dramatic`, `playful_colorful` nêo sêo default — exigem tom explícito.
 
 ## Output schema
 

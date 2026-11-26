@@ -13,7 +13,7 @@ Input:
     "ambients":   [{"name": "...", "ref_image_url": "..."}],
     "voiceovers": [{"scene_idx": 0, "scene_label": "...", "audio_url": "...",
                     "character": "..."}],
-    "style": "...",                    // direção visual global (opcional)
+    "style": "...",                    // direçêo visual global (opcional)
     "target_duration": 60,             // segundos totais (opcional)
     "aspect_ratio": "16:9",            // opcional, default "16:9"
     "resolution": "540P",              // opcional, default "540P"
@@ -73,7 +73,7 @@ class ScriptToQueueWorker(BaseWorker):
         ambients = _normalize_named(payload.get("ambients") or [])
         # Arrays paralelos por índice (usado pelas recipes do imkt5: fanout
         # do inemaimg produz outputs[*].image_url na mesma ordem do input).
-        # Preenche ref_image_url faltante em characters/ambients por posição.
+        # Preenche ref_image_url faltante em characters/ambients por posiçêo.
         _zip_urls_into(characters, payload.get("character_image_urls") or [])
         _zip_urls_into(ambients, payload.get("ambient_image_urls") or [])
         # voiceovers pode vir como lista de dicts OU duas listas paralelas
@@ -115,7 +115,7 @@ class ScriptToQueueWorker(BaseWorker):
 
         raw_scenes = _coerce_scenes(data)
         if not raw_scenes:
-            raise RuntimeError("LLM não retornou cena alguma")
+            raise RuntimeError("LLM nêo retornou cena alguma")
 
         unresolved: list[str] = []
         queue_json: list[dict[str, Any]] = []
@@ -194,7 +194,7 @@ def _normalize_voiceovers(
     """Normaliza voiceovers.
     - items: [{scene_idx?, scene_label?, audio_url, character?, text?}, ...]
     - extra_urls: lista paralela de urls (recipes fanout). Se fornecida e
-      items tem mesmo tamanho, preenche audio_url faltante por posição.
+      items tem mesmo tamanho, preenche audio_url faltante por posiçêo.
     """
     out = []
     for it in items or []:
@@ -235,7 +235,7 @@ def _resolve_ref(
 ) -> str:
     """Dado um 'nome' vindo do LLM (ex.: 'Valen', 'Escola'), procura nas
     listas de characters/ambients e retorna o ref_image_url correspondente.
-    Match case-insensitive sobre o primeiro nome. Retorna '' se não achar
+    Match case-insensitive sobre o primeiro nome. Retorna '' se nêo achar
     nem resolver como path literal (string já contendo `/` ou `.`)."""
     s = (name or "").strip()
     if not s:
@@ -257,7 +257,7 @@ def _voiceover_for(
     label: str,
     voiceovers: list[dict[str, Any]],
 ) -> dict[str, Any] | None:
-    """Acha a narração pra uma cena via scene_idx (preferência) ou scene_label."""
+    """Acha a narraçêo pra uma cena via scene_idx (preferência) ou scene_label."""
     if not voiceovers:
         return None
     for vo in voiceovers:
@@ -418,7 +418,7 @@ def _normalize_scene(
         scene["input_audio"] = ia
 
     else:
-        # Não-talking: auto-vincula input_audio da narração se existir e se
+        # Nêo-talking: auto-vincula input_audio da narraçêo se existir e se
         # a cena tem audio_text explícito (o webui faz auto-mix).
         if audio_text:
             vo = _voiceover_for(idx, label, voiceovers)

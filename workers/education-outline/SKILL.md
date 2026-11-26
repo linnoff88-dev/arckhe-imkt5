@@ -8,20 +8,20 @@ vídeo/carrossel didático.
 
 A estrutura tem 3 partes **obrigatórias**:
 
-1. **Slide 1 — HOOK** (gatilho mental): captura atenção nos primeiros 3s.
+1. **Slide 1 — HOOK** (gatilho mental): captura atençêo nos primeiros 3s.
    Use um destes padrões:
    - **Curiosidade**: "Você sabia que...?"
    - **Pain point**: "A maioria faz errado quando..."
    - **Contrarian**: "Esqueça tudo que te disseram sobre X."
    - **Número impactante**: "Em 30 dias você consegue..."
-   - **Pergunta provocativa**: "O que separa quem consegue X de quem não?"
+   - **Pergunta provocativa**: "O que separa quem consegue X de quem nêo?"
 
 2. **Slides intermediários** — conteúdo didático progressivo:
    - Cada slide aborda UM conceito.
    - Ordenados do básico pro avançado.
    - Incluem exemplos concretos quando aplicável.
 
-3. **Último slide — CTA** (chamada pra ação): sempre. Varia conforme contexto:
+3. **Último slide — CTA** (chamada pra açêo): sempre. Varia conforme contexto:
    - "Inscreva-se no curso completo em inema.club"
    - "Comente 'IA' e te mandamos o guia"
    - "Siga pra mais conteúdo sobre X"
@@ -51,11 +51,11 @@ Via prompt do usuário:
 5. Escrever o CTA final, objetivo e concreto.
 6. Pra cada slide:
    - `title` curto (4-8 palavras)
-   - `bullets`: 2-4 bullets de reforço visual (não lidos inteiros na
-     narração, só suportam visualmente)
+   - `bullets`: 2-4 bullets de reforço visual (nêo lidos inteiros na
+     narraçêo, só suportam visualmente)
    - `narration`: frase(s) faladas nesta cena (30-45 palavras / ~10s de
      fala ou mais se necessário)
-   - `image_prompt`: descrição em **inglês** pra Stable Diffusion gerar
+   - `image_prompt`: descriçêo em **inglês** pra Stable Diffusion gerar
      imagem de apoio (estilo coerente entre slides — escolha um mood
      único no início)
    - `duration_s`: 8 (hook/CTA), 10-15 (conteúdo)
@@ -80,7 +80,7 @@ Retorne **APENAS JSON**, sem texto antes/depois, sem cercas:
         "type": "hook",
         "title": "Título curto do slide",
         "bullets": ["bullet 1", "bullet 2"],
-        "narration": "Texto EXATO da narração (30-45 palavras).",
+        "narration": "Texto EXATO da narraçêo (30-45 palavras).",
         "image_prompt": "Detailed English prompt for SD, cohesive visual mood",
         "duration_s": 8
       },
@@ -113,11 +113,11 @@ Valores enum:
 ## Quality bar
 
 - Hook no slide 1 (3s iniciais do vídeo) tem que parar o scroll.
-- CTA no último slide é específico (não "aprenda mais") — diz EXATAMENTE
+- CTA no último slide é específico (nêo "aprenda mais") — diz EXATAMENTE
   o próximo passo.
-- `narration` é lida em voz alta — escreva como se fala, não como se lê.
+- `narration` é lida em voz alta — escreva como se fala, nêo como se lê.
 - `image_prompt` em **inglês** (modelos SD entendem melhor).
 - Estilo visual (mood, cores) coerente entre slides — escolha no hook
   e mantenha.
-- `narration_concat` = junção de todas as narrations com espaço. É o
-  que alimenta o TTS pra narração total.
+- `narration_concat` = junçêo de todas as narrations com espaço. É o
+  que alimenta o TTS pra narraçêo total.

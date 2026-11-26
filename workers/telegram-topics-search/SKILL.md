@@ -19,7 +19,7 @@ Configurar no `.env`:
 TG_TOPICS_DATA_DIR=/home/nmaldaner/projetos/telegramtopicosindex/out
 ```
 
-Se não setar, default = `../telegramtopicosindex/out` (relativo ao repo).
+Se nêo setar, default = `../telegramtopicosindex/out` (relativo ao repo).
 
 ## Estrutura do dataset esperada
 
@@ -30,7 +30,7 @@ Se não setar, default = `../telegramtopicosindex/out` (relativo ao repo).
 │   └── <topic_id>/                # ex: 163
 │       ├── metadata.json          # {topic_id, topic_title, total_messages, ...}
 │       ├── messages.json          # [{id, author, date, text, has_media, media_type}]
-│       ├── content.txt            # versão legível
+│       ├── content.txt            # versêo legível
 │       └── photo_*.jpg            # mídia (opcional)
 ```
 
@@ -56,7 +56,7 @@ Se não setar, default = `../telegramtopicosindex/out` (relativo ao repo).
       "group_id": "2517011104",
       "group_title": "INEMA.FTD",
       "topic_id": 163,
-      "topic_title": "MENU Links Formação",
+      "topic_title": "MENU Links Formaçêo",
       "total_messages": 20,
       "matched_count": 3,
       "score": 12.5,
@@ -81,7 +81,7 @@ Por tópico:
 - +2 pontos se match no autor
 - Bonus decaimento por recência: +0.5 se data mais recente < 30 dias
 
-Ordenação desc por score, tiebreak por data mais recente.
+Ordenaçêo desc por score, tiebreak por data mais recente.
 
 ## Cache de índice
 

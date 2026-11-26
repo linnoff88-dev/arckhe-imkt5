@@ -2,7 +2,7 @@
 
 Inspirado em openpcbot (`src/memory.ts`, keyed por `chat_id`) e no desenho
 do Intelecto (FTS5 + BM25, sem embeddings). Diferença crítica: toda linha
-carrega `tenant_id` e `user_id`, e toda query filtra por eles. Não existe
+carrega `tenant_id` e `user_id`, e toda query filtra por eles. Nêo existe
 "memória global".
 """
 
@@ -62,7 +62,7 @@ CREATE VIRTUAL TABLE IF NOT EXISTS memories_fts USING fts5(
     content_rowid='id'
 );
 
--- Triggers de sincronização memories → memories_fts.
+-- Triggers de sincronizaçêo memories → memories_fts.
 CREATE TRIGGER IF NOT EXISTS memories_ai AFTER INSERT ON memories BEGIN
     INSERT INTO memories_fts(rowid, content, tenant_id, user_id)
     VALUES (new.id, new.content, new.tenant_id, new.user_id);

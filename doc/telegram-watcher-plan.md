@@ -4,7 +4,7 @@
 > telethon events e dispara recipes do imkt5 automaticamente com o
 > texto da mensagem como brief.
 >
-> Status: **parked** — plano aprovado, implementação pendente.
+> Status: **parked** — plano aprovado, implementaçêo pendente.
 > Data: 2026-04-20.
 
 ---
@@ -36,13 +36,13 @@ publica ou notifica admin
 
 ### Worker `telegram-watcher`
 
-**Diferente dos outros workers** — é um **daemon persistente**, não
-request/response. Não tem capability `/execute` tradicional; fica
+**Diferente dos outros workers** — é um **daemon persistente**, nêo
+request/response. Nêo tem capability `/execute` tradicional; fica
 escutando eventos e dispachando jobs externamente.
 
 **Stack:**
 - telethon event handler: `client.on(events.NewMessage(chats=[...]))`
-- Mantém sessão MTProto aberta (mesma session do telegram-scraper)
+- Mantém sessêo MTProto aberta (mesma session do telegram-scraper)
 - Loop infinito (`client.run_until_disconnected()`)
 - Port 8119 só pra endpoints de status/toggle (FastAPI)
 
@@ -136,7 +136,7 @@ Escalar depois pra múltiplos watchers + batching + topicos específicos.
 
 ---
 
-## 🧩 Integração com o que já existe
+## 🧩 Integraçêo com o que já existe
 
 Reusa:
 - ✅ Session do telegram-scraper (`data/tg-sessions/<tenant>.session`)
@@ -153,7 +153,7 @@ Adiciona:
 
 ---
 
-## 📋 Checklist de implementação (quando retomar)
+## 📋 Checklist de implementaçêo (quando retomar)
 
 - [ ] `workers/telegram-watcher/SKILL.md` — contrato + config reference
 - [ ] `workers/telegram-watcher/server.py`:
@@ -168,27 +168,27 @@ Adiciona:
   - [ ] Graceful shutdown (SIGTERM → save state → disconnect)
 - [ ] `config/telegram-watchers.yaml` (exemplo INEMA.FTD)
 - [ ] `scripts/start-dev.sh` — adiciona `telegram-watcher`
-- [ ] Notificação opcional via bot (reusa admin_bot existing)
+- [ ] Notificaçêo opcional via bot (reusa admin_bot existing)
 - [ ] Teste: dispara msg teste no grupo → ve se recipe roda
 
 ---
 
-## 🚨 Considerações de produção
+## 🚨 Considerações de produçêo
 
 - **Rate limits:** Telegram tem limite de recebimento ~30 msg/s.
-  Nosso worker não faz requests, só recebe. Zero risco.
+  Nosso worker nêo faz requests, só recebe. Zero risco.
 - **Dispatch limits:** se config é agressiva (ex: `contains_any: ["a"]`),
   pode disparar 100 runs/hora. Ter cooldown + pool size limit no gateway.
-- **Session fail:** se sessão expirar, worker morre. Adicionar health
+- **Session fail:** se sessêo expirar, worker morre. Adicionar health
   check + restart automático via systemd/supervisord em prod.
-- **Deploy:** supervisord restart on exit. Não é stateless — precisa ser
-  unique worker, não múltiplas instâncias.
+- **Deploy:** supervisord restart on exit. Nêo é stateless — precisa ser
+  unique worker, nêo múltiplas instâncias.
 
 ---
 
 ## 💰 Estimativa de esforço
 
-- Implementação core: **~3h**
+- Implementaçêo core: **~3h**
 - Testes + tuning de filtros: **~1h**
 - Deploy setup (supervisord): **~30min**
 

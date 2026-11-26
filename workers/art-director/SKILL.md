@@ -39,7 +39,7 @@ aderência à marca.
 - `organic_earth` → `organic_earth`, `nature_organic`
 - `neo_minimal_luxury` → `neo_minimal_luxury` (escuro) ou `neo_minimal_luxury_light`
 
-## Regras de decisão (4 eixos)
+## Regras de decisêo (4 eixos)
 
 1. **Plataforma**
    - LinkedIn primário → prefira `corporate_clean`, `data_viz`, `neo_minimal_luxury`.
@@ -48,7 +48,7 @@ aderência à marca.
 
 2. **Tom da marca**
    - Autoridade/dados → `corporate_clean`, `data_viz`, `editorial`.
-   - Emocional/conexão → `wellness_soft`, `organic_earth`, `magazine`.
+   - Emocional/conexêo → `wellness_soft`, `organic_earth`, `magazine`.
    - Criativo/ousado → `bold_pop`, `retro_futurism`.
    - Premium/sofisticado → `neo_minimal_luxury`, `magazine`.
 
@@ -60,7 +60,7 @@ aderência à marca.
 
 4. **Tipo de conteúdo**
    - Dado/estatística → `data_viz` ou `corporate_clean`.
-   - Narrativa/reflexão → `magazine` ou `editorial`.
+   - Narrativa/reflexêo → `magazine` ou `editorial`.
    - Lifestyle → `wellness_soft` ou `organic_earth`.
    - Lançamento/campanha → `bold_pop` ou `retro_futurism`.
    - Posicionamento premium → `neo_minimal_luxury`.
@@ -72,7 +72,7 @@ aderência à marca.
 - Sem perfil de marca definido:
   - LinkedIn → default `corporate_clean`.
   - Instagram → default `editorial` (funciona pra maioria).
-- `bold_pop` e `retro_futurism` **nunca** são default — exigem tom ousado explícito.
+- `bold_pop` e `retro_futurism` **nunca** sêo default — exigem tom ousado explícito.
 
 ## Output schema (JSON)
 
@@ -82,10 +82,10 @@ Responda APENAS JSON:
 {
   "template": "corporate_clean",
   "style": "corporate_clean",
-  "justification": "Audiência B2B no LinkedIn + conteúdo com estatísticas → layout limpo com Inter bold maximiza legibilidade e percepção de autoridade."
+  "justification": "Audiência B2B no LinkedIn + conteúdo com estatísticas → layout limpo com Inter bold maximiza legibilidade e percepçêo de autoridade."
 }
 ```
 
 - `template`: um dos 9 listados.
 - `style`: nome de uma palette (ver lista acima).
-- `justification`: 1 frase explicando por quê essa combinação.
+- `justification`: 1 frase explicando por quê essa combinaçêo.

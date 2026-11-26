@@ -11,12 +11,12 @@ O `BaseWorker` em `workers/_base/worker.py` já resolve 95% do boilerplate pra P
 
 ## Quando criar um worker?
 
-| Situação | Cria worker |
+| Situaçêo | Cria worker |
 |---|---|
 | Integrar uma API nova (ElevenLabs, OpenAI, um modelo local) | ✅ sim |
-| Adicionar uma capability que ainda não existe (`video.caption`, `image.upscale`) | ✅ sim |
-| Rodar múltiplas instâncias do mesmo worker pra paralelismo | ❌ não cria worker novo — registra a instância nova em `config/workers.yaml` apontando pra outra porta/endpoint |
-| Variar prompts/defaults por cliente | ❌ não — isso é `profiles/<tenant>/config.yaml` |
+| Adicionar uma capability que ainda nêo existe (`video.caption`, `image.upscale`) | ✅ sim |
+| Rodar múltiplas instâncias do mesmo worker pra paralelismo | ❌ nêo cria worker novo — registra a instância nova em `config/workers.yaml` apontando pra outra porta/endpoint |
+| Variar prompts/defaults por cliente | ❌ nêo — isso é `profiles/<tenant>/config.yaml` |
 
 ## Receita: criar um worker Python em 5 passos
 
@@ -82,8 +82,8 @@ if __name__ == "__main__":
     MemeGeneratorWorker().run(port=port)
 ```
 
-Padrão importante:
-- `name` e `capabilities` são **class attributes**, o BaseWorker usa no `/health`
+Padrêo importante:
+- `name` e `capabilities` sêo **class attributes**, o BaseWorker usa no `/health`
 - `handle(job)` recebe `Job` canônico (já validado); retorna dict
 - Erros viram HTTP 500 automaticamente via BaseWorker
 - Storage usa o helper `get_storage()` (dev = file local, prod = S3)
@@ -183,7 +183,7 @@ O `SKILL.md` é **copiado** de `timesmkt3/skills/copywriter-agent/SKILL.md` e aj
 
 ## Worker que só faz wrapper de HTTP externo
 
-Muitos workers são só tradução: Gateway → API externa → MinIO. Exemplo:
+Muitos workers sêo só traduçêo: Gateway → API externa → MinIO. Exemplo:
 
 ```python
 class ElevenLabsAdapter(BaseWorker):
@@ -212,14 +212,14 @@ class ElevenLabsAdapter(BaseWorker):
         return {"audio_url": url}
 ```
 
-Padrão `inemaimg-adapter` e `inemavox-adapter` é esse.
+Padrêo `inemaimg-adapter` e `inemavox-adapter` é esse.
 
 ## Checklist antes de declarar pronto
 
 - [ ] `GET /health` responde 200 com `{"name":"...","capabilities":[...]}`
 - [ ] `POST /execute` aceita o `Job` e retorna `{"job_id":...,"status":"success","output":{...}}`
-- [ ] Worker é **stateless** (não guarda memória entre jobs)
-- [ ] Usa `get_storage()` pra artefatos (não escreve em path hardcoded)
+- [ ] Worker é **stateless** (nêo guarda memória entre jobs)
+- [ ] Usa `get_storage()` pra artefatos (nêo escreve em path hardcoded)
 - [ ] `max_concurrent` em `config/workers.yaml` reflete a realidade do upstream (se upstream serializa, `max_concurrent: 1`)
 - [ ] Registrado em `config/workers.yaml` + (opcional) `scripts/start-dev.sh`
 - [ ] Documentado no README ou em `doc/`
@@ -228,5 +228,5 @@ Padrão `inemaimg-adapter` e `inemavox-adapter` é esse.
 
 - ❌ **Clonar o código do worker** pra rodar múltiplas instâncias. Em vez disso, registre N entradas no `config/workers.yaml` apontando pra portas/máquinas diferentes.
 - ❌ **Worker com estado persistente em disco local**. Se precisa persistir, usa Postgres ou S3.
-- ❌ **Worker que conhece outros workers**. Se precisa compor várias capabilities, isso é trabalho de **receita**, não de worker.
-- ❌ **Escrever em `prj/<cliente>/outputs/`** (padrão do timesmkt3). No imkt5, tudo passa pelo storage helper com `tenant_id`.
+- ❌ **Worker que conhece outros workers**. Se precisa compor várias capabilities, isso é trabalho de **receita**, nêo de worker.
+- ❌ **Escrever em `prj/<cliente>/outputs/`** (padrêo do timesmkt3). No imkt5, tudo passa pelo storage helper com `tenant_id`.

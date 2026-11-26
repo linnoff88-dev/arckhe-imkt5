@@ -243,7 +243,7 @@ class TelegramTopicsSearchWorker(BaseWorker):
         payload = job.payload
         query = (payload.get("query") or "").strip()
         if not query:
-            raise ValueError("payload.query obrigatório (string não-vazia)")
+            raise ValueError("payload.query obrigatório (string nêo-vazia)")
 
         root = Path(payload.get("root") or DEFAULT_ROOT).resolve()
         group_filter = payload.get("group_id")
@@ -263,7 +263,7 @@ class TelegramTopicsSearchWorker(BaseWorker):
                 "matches": [], "total_matches": 0,
                 "groups_scanned": 0, "topics_scanned": 0,
                 "query": query,
-                "error": f"Dataset root não encontrado: {root}",
+                "error": f"Dataset root nêo encontrado: {root}",
             }
 
         topics = index["topics"]

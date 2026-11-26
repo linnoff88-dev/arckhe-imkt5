@@ -54,7 +54,7 @@ def _resolve_pool(pg_pool: Any) -> Any:
     """Destrincha wrapper Database → asyncpg.Pool, ou retorna direto."""
     if pg_pool is None:
         return None
-    # Database wrapper tem método pool() que lança se não conectado
+    # Database wrapper tem método pool() que lança se nêo conectado
     if hasattr(pg_pool, "_pool"):
         return getattr(pg_pool, "_pool", None)
     # asyncpg.Pool tem .acquire()
@@ -126,7 +126,7 @@ def create_app(
         allow_headers=["*"],
     )
 
-    # Audit middleware — grava toda ação mutável (POST/PUT/PATCH/DELETE)
+    # Audit middleware — grava toda açêo mutável (POST/PUT/PATCH/DELETE)
     audit = AuditSink(pg_pool=pg_pool)
     app.middleware("http")(make_audit_middleware(audit))
 
@@ -189,7 +189,7 @@ def create_app(
     async def _require_admin(request: Any) -> Principal:
         p = await current_principal(request, request.headers.get("authorization"))
         if p.roles == ("anon",):
-            raise HTTPException(401, "admin exige autenticação")
+            raise HTTPException(401, "admin exige autenticaçêo")
         if not p.is_admin_global() and not any(
             r.startswith("admin-tenant") for r in p.roles
         ):
@@ -197,7 +197,7 @@ def create_app(
         return p
 
     async def _require_user(request: Any, tenant_id: str | None = None) -> Principal:
-        """Exige autenticação + enforcement de tenant.
+        """Exige autenticaçêo + enforcement de tenant.
 
         Papéis aceitos: admin-global · admin-tenant:X · user:X · reviewer:X.
         Se `tenant_id` é informado, verifica que o principal pode agir naquele
@@ -205,7 +205,7 @@ def create_app(
         mantém o gateway utilizável em dev.
         """
         p = await current_principal(request, request.headers.get("authorization"))
-        # Em dev (sem IMKT5_AUTH_REQUIRED=1), anon pode tudo — é o padrão atual.
+        # Em dev (sem IMKT5_AUTH_REQUIRED=1), anon pode tudo — é o padrêo atual.
         if p.roles == ("anon",):
             import os as _os
             if _os.environ.get("IMKT5_AUTH_REQUIRED", "0") != "1":
@@ -213,7 +213,7 @@ def create_app(
             raise HTTPException(401, "bearer token obrigatório")
         # tem token: valida tenant boundary
         if tenant_id and not p.can_act_in_tenant(tenant_id):
-            raise HTTPException(403, f"sem permissão no tenant {tenant_id}")
+            raise HTTPException(403, f"sem permissêo no tenant {tenant_id}")
         return p
 
     # ── admin: config/workers/recipes (textual) ──────────────────────
@@ -275,7 +275,7 @@ def create_app(
             raise HTTPException(400, "nome inválido")
         p = Path(f"recipes/{name}.yaml")
         if not p.exists():
-            raise HTTPException(404, f"recipe não encontrada: {name}")
+            raise HTTPException(404, f"recipe nêo encontrada: {name}")
         return HTMLResponse(p.read_text(), media_type="text/plain")
 
     @app.put("/admin/recipes/{name}")
@@ -307,7 +307,7 @@ def create_app(
     async def admin_channels_list(request: Request, kind: str | None = None) -> list[dict]:
         await _require_admin(request)
         if tenancy_repo is None:
-            raise HTTPException(503, "TenancyRepo não configurado (Postgres offline?)")
+            raise HTTPException(503, "TenancyRepo nêo configurado (Postgres offline?)")
         rows = await tenancy_repo.list_bindings(channel=kind)
         out = []
         for r in rows:
@@ -324,7 +324,7 @@ def create_app(
     async def admin_channels_add(req: ChannelBindingReq, request: Request) -> dict[str, str]:
         await _require_admin(request)
         if tenancy_repo is None:
-            raise HTTPException(503, "TenancyRepo não configurado")
+            raise HTTPException(503, "TenancyRepo nêo configurado")
         if req.user_id:
             await tenancy_repo.ensure_user(
                 user_id=req.user_id, tenant_id=req.tenant_id, display_name=req.user_id,
@@ -341,10 +341,10 @@ def create_app(
     async def admin_channels_del(kind: str, external_id: str, request: Request) -> dict[str, str]:
         await _require_admin(request)
         if tenancy_repo is None:
-            raise HTTPException(503, "TenancyRepo não configurado")
+            raise HTTPException(503, "TenancyRepo nêo configurado")
         ok = await tenancy_repo.delete_binding(channel=kind, external_id=external_id)
         if not ok:
-            raise HTTPException(404, "binding não encontrado")
+            raise HTTPException(404, "binding nêo encontrado")
         return {"status": "ok"}
 
     # ── jobs ──────────────────────────────────────────────────────────
@@ -411,7 +411,7 @@ def create_app(
     async def get_job(job_id: str) -> dict[str, Any]:
         r = await store.get(job_id)
         if r is None:
-            raise HTTPException(404, f"job não encontrado: {job_id}")
+            raise HTTPException(404, f"job nêo encontrado: {job_id}")
         return _job_rec_dict(r)
 
     # ── recipes ───────────────────────────────────────────────────────
@@ -421,7 +421,7 @@ def create_app(
         try:
             recipe = catalog.get(name)
         except KeyError as exc:
-            raise HTTPException(404, f"receita não encontrada: {name}") from exc
+            raise HTTPException(404, f"receita nêo encontrada: {name}") from exc
         tenant_ctx = await tenant_ctx_provider.snapshot(req.tenant_id)
         run = await runner.start(
             recipe=recipe,
@@ -459,7 +459,7 @@ def create_app(
             runs = [r for r in runs if r.recipe.name == recipe][:limit]
 
         # Se existe RunsRepo, mescla com registros do DB (evita duplicar
-        # os que já estão em memória).
+        # os que já estêo em memória).
         repo = getattr(runner, "_runs_repo", None)
         if repo is not None:
             try:
@@ -540,15 +540,15 @@ def create_app(
             pass
         repo = getattr(runner, "_runs_repo", None)
         if repo is None:
-            raise HTTPException(404, f"run não encontrada: {run_id}")
+            raise HTTPException(404, f"run nêo encontrada: {run_id}")
         row = await repo.get(run_id)
         if not row:
-            raise HTTPException(404, f"run não encontrada: {run_id}")
+            raise HTTPException(404, f"run nêo encontrada: {run_id}")
         try:
             recipe = catalog.get(row.get("recipe_name", ""))
         except KeyError as exc:
             raise HTTPException(
-                410, f"receita '{row.get('recipe_name')}' não existe mais"
+                410, f"receita '{row.get('recipe_name')}' nêo existe mais"
             ) from exc
         return (recipe, row.get("tenant_id"), row.get("user_id"),
                 dict(row.get("input") or {}),
@@ -582,7 +582,7 @@ def create_app(
         await _require_user(request, tenant_id=tenant_id)
         stage_ids = [s.id for s in recipe.stages]
         if stage_id not in stage_ids:
-            raise HTTPException(400, f"stage_id '{stage_id}' não existe na receita")
+            raise HTTPException(400, f"stage_id '{stage_id}' nêo existe na receita")
         idx = stage_ids.index(stage_id)
         # carrega outputs dos stages anteriores — memória OU repo
         pre_outputs: dict[str, list] = {}
@@ -631,8 +631,8 @@ def create_app(
         def _ordered_stages(recipe_name: str, raw: dict) -> dict:
             """Reordena dict de stages pela ordem declarada na receita e
             enriquece com `requires` (capability do worker).
-            Stages metadata (chaves começando com _) são ignoradas.
-            Stages extras (ex.: legado) vão pro fim, após os declarados.
+            Stages metadata (chaves começando com _) sêo ignoradas.
+            Stages extras (ex.: legado) vêo pro fim, após os declarados.
             """
             try:
                 recipe = catalog.get(recipe_name)
@@ -677,7 +677,7 @@ def create_app(
                         "failed": row.get("failed", False),
                         "stages": _ordered_stages(recipe_name, raw),
                     }
-            raise HTTPException(404, f"run não encontrada: {run_id}")
+            raise HTTPException(404, f"run nêo encontrada: {run_id}")
         _recipe_caps = {s.id: s.requires for s in run.recipe.stages}
         raw_stages = {
             sid: {
@@ -704,7 +704,7 @@ def create_app(
     @app.delete("/runs/{run_id}")
     async def delete_run(run_id: str, request: Request) -> dict[str, Any]:
         """Remove run permanentemente (memória + Postgres).
-        Não remove artefatos no storage (S3/local) — apenas o registro da run.
+        Nêo remove artefatos no storage (S3/local) — apenas o registro da run.
         """
         # Auth: tenant_id extraído de memória OU DB
         tenant_id = None
@@ -718,7 +718,7 @@ def create_app(
                 if prev_data:
                     tenant_id = prev_data.get("tenant_id")
         if tenant_id is None:
-            raise HTTPException(404, f"run {run_id} não encontrada")
+            raise HTTPException(404, f"run {run_id} nêo encontrada")
         await _require_user(request, tenant_id=tenant_id)
 
         # Remove da memória se existir
@@ -778,7 +778,7 @@ def create_app(
         try:
             run = runner.get_run(run_id)
         except KeyError as exc:
-            raise HTTPException(404, f"run não encontrada: {run_id}") from exc
+            raise HTTPException(404, f"run nêo encontrada: {run_id}") from exc
 
         # Coleta todos os paths de artefatos dos outputs dos stages
         from io import BytesIO
@@ -846,7 +846,7 @@ def create_app(
     @app.post("/runs/{run_id}/publish")
     async def publish_run(run_id: str, req: PublishReq, request: Request) -> dict[str, Any]:
         await _require_user(request, tenant_id=req.tenant_id)
-        # Dispara um job platform.<req.platform>. Se worker não existe,
+        # Dispara um job platform.<req.platform>. Se worker nêo existe,
         # retorna 503 com lista de platforms disponíveis.
         capability = f"platform.{req.platform}"
         available = []
@@ -1000,7 +1000,7 @@ def create_app(
         except Exception:  # noqa: BLE001
             pass
 
-        # Outras capabilities (irmãs neste mesmo worker)
+        # Outras capabilities (irmês neste mesmo worker)
         siblings = []
         for sib in registry.all_workers():
             if sib.name == w.name:
@@ -1033,7 +1033,7 @@ def create_app(
         await _require_user(request, tenant_id=req.tenant_id)
         """Agent loop — LLM decide entre responder direto OU disparar job/receita."""
         if agent is None:
-            raise HTTPException(503, "agent loop não configurado")
+            raise HTTPException(503, "agent loop nêo configurado")
         from imkt5.types.messages import IncomingMessage
         from imkt5.types.tenants import ChannelKind
         try:
@@ -1075,7 +1075,7 @@ def create_app(
         if not str(abs_path).startswith(str(ARTIFACT_ROOT)):
             raise HTTPException(403, "forbidden")
         if not abs_path.exists() or not abs_path.is_file():
-            raise HTTPException(404, "artefato não encontrado")
+            raise HTTPException(404, "artefato nêo encontrado")
         return FileResponse(abs_path)
 
     # ── thumbs dos estilos de text overlay (worker video-text-designer) ─
@@ -1095,7 +1095,7 @@ def create_app(
         if not str(p).startswith(str(TEXT_STYLE_THUMBS)):
             raise HTTPException(403, "forbidden")
         if not p.exists() or not p.is_file():
-            raise HTTPException(404, f"thumb não encontrada: {slug}")
+            raise HTTPException(404, f"thumb nêo encontrada: {slug}")
         return FileResponse(p, media_type="image/jpeg")
 
     # Extrai thumbnail de vídeo via ffmpeg (cache em /tmp).
@@ -1113,13 +1113,13 @@ def create_app(
         if cache_path.exists() and cache_path.stat().st_size > 0:
             return FileResponse(cache_path, media_type="image/jpeg")
 
-        # Resolve source path (download pra /tmp se /s3/, ffmpeg não
+        # Resolve source path (download pra /tmp se /s3/, ffmpeg nêo
         # consegue seek confiável via proxy streaming).
         tmp_video: Path | None = None
         if u.startswith("/artifacts/"):
             src = (ARTIFACT_ROOT / u[len("/artifacts/"):]).resolve()
             if not str(src).startswith(str(ARTIFACT_ROOT)) or not src.exists():
-                raise HTTPException(404, "vídeo não encontrado")
+                raise HTTPException(404, "vídeo nêo encontrado")
             src_arg = str(src)
         else:
             # /s3/... — baixa via HTTPX pro /tmp antes de extrair
@@ -1157,7 +1157,7 @@ def create_app(
             if tmp_video is not None and tmp_video.exists():
                 tmp_video.unlink(missing_ok=True)
         if not cache_path.exists() or cache_path.stat().st_size == 0:
-            raise HTTPException(500, "extração de frame falhou")
+            raise HTTPException(500, "extraçêo de frame falhou")
         return FileResponse(cache_path, media_type="image/jpeg")
 
     # Catálogo dinâmico dos text overlay styles (lido de styles.json)
@@ -1187,10 +1187,10 @@ def create_app(
         access_key = _os.environ.get("S3_ACCESS_KEY", "")
         secret_key = _os.environ.get("S3_SECRET_KEY", "")
         if not endpoint:
-            raise HTTPException(503, "S3_ENDPOINT não configurado")
+            raise HTTPException(503, "S3_ENDPOINT nêo configurado")
 
         # Gera presigned URL internamente (apontando pro endpoint
-        # interno, não exposto ao cliente).
+        # interno, nêo exposto ao cliente).
         try:
             import boto3  # noqa: PLC0415
             client = boto3.client(

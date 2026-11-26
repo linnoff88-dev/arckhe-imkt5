@@ -2,7 +2,7 @@
 
 `IncomingMessage` é o que um canal emite ao Gateway. `OutgoingMessage` é o que
 o Gateway manda de volta. Todo campo "quem" já carrega `tenant_id` + `user_id`
-canônicos — a resolução de identidade acontece dentro do adapter (via
+canônicos — a resoluçêo de identidade acontece dentro do adapter (via
 `tenancy.resolver`), antes de construir a mensagem.
 """
 
@@ -47,7 +47,7 @@ class IncomingMessage:
     text: str
     attachments: tuple[MessageAttachment, ...] = ()
     received_at: datetime = field(default_factory=datetime.utcnow)
-    # Correlação opcional: se a mensagem é resposta a um job em andamento.
+    # Correlaçêo opcional: se a mensagem é resposta a um job em andamento.
     in_reply_to_job_id: str | None = None
 
 
@@ -62,5 +62,5 @@ class OutgoingMessage:
     text: str
     attachments: tuple[MessageAttachment, ...] = ()
     # Progresso parcial de um job — canais podem renderizar como typing
-    # indicator, edição de mensagem anterior, etc.
+    # indicator, ediçêo de mensagem anterior, etc.
     is_progress_update: bool = False

@@ -1,4 +1,4 @@
-"""Configuração centralizada — 3 níveis.
+"""Configuraçêo centralizada — 3 níveis.
 
 Precedência (maior ganha):
   1. env var  (override por ambiente)
@@ -232,7 +232,7 @@ def load(
 
 
 def settings() -> Settings:
-    """Pega o singleton. Carrega se ainda não carregado."""
+    """Pega o singleton. Carrega se ainda nêo carregado."""
     return _settings_cache or load()
 
 

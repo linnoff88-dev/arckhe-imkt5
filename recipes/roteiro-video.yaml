@@ -10,11 +10,11 @@ version: 2
 #     cena que tem audio_text e patcha no queue_json. Requer inemavox
 #     rodando.
 #   - "provided" — caller passa `voiceovers` pronto no input com os
-#     audio_url dos MP3s já gravados. Stages voiceover/audio_patch são
+#     audio_url dos MP3s já gravados. Stages voiceover/audio_patch sêo
 #     skipados; script-to-queue matcha por scene_idx/scene_label.
 #   - "none" — vídeo sai mudo. Cenas talking_avatar ficam sem fala
 #     (renderizam só a boca mexendo). Use se vai colocar áudio em
-#     edição depois, ou se o roteiro não tem diálogos.
+#     ediçêo depois, ou se o roteiro nêo tem diálogos.
 #
 # Input:
 #   script                 string    (obrigatório) — roteiro em pt-BR
@@ -26,7 +26,7 @@ version: 2
 #   auto_gen_characters    bool      (default false) — se true, gera ref_imgs
 #                                     via inemaimg pros characters sem ref
 #   auto_gen_ambients      bool      (default false) — mesmo pra ambients
-#   style                  string    (opcional) — direção visual global
+#   style                  string    (opcional) — direçêo visual global
 #   target_duration        int       (opcional) — segundos totais
 #   aspect_ratio           string    (default "16:9")
 #   resolution             string    (default "540P")
@@ -53,7 +53,7 @@ stages:
       model: $.input.image_model
     approval: {mode: none}
 
-  # 2) Imagens de referência dos ambientes/locais (mesmo padrão).
+  # 2) Imagens de referência dos ambientes/locais (mesmo padrêo).
   - id: ambient_refs
     requires: image.generation
     when: $.input.auto_gen_ambients == true
@@ -84,7 +84,7 @@ stages:
 
   # 4) TTS por cena (só em audio_mode="auto"). Fanout sobre todas as
   #    cenas; inemavox-adapter devolve silent-stub pra audio_text vazio,
-  #    então o fanout não explode. O audio_patch filtra depois.
+  #    entêo o fanout nêo explode. O audio_patch filtra depois.
   - id: voiceover
     requires: audio.tts
     needs: [script_plan]
@@ -98,7 +98,7 @@ stages:
     approval: {mode: none}
 
   # 5) Patcha input_audio no queue_json por índice (só onde a cena
-  #    tem audio_text não-vazio — evita stub silencioso vazar).
+  #    tem audio_text nêo-vazio — evita stub silencioso vazar).
   - id: audio_patch
     requires: video.queue_audio_patch
     needs: [script_plan, voiceover]
@@ -109,7 +109,7 @@ stages:
     approval: {mode: none}
 
   # 6) Dispara queue no skyreelsv3 via adapter. queue_json vem do
-  #    audio_patch em modo "auto"; senão direto do script_plan.
+  #    audio_patch em modo "auto"; senêo direto do script_plan.
   - id: skyreels_render
     requires: video.skyreels_queue
     needs: [script_plan, audio_patch]

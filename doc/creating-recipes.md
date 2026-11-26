@@ -4,11 +4,11 @@ Uma receita é um YAML em `recipes/` que descreve um **fluxo composto** — vár
 
 ## Quando criar uma receita?
 
-| Situação | Usa receita |
+| Situaçêo | Usa receita |
 |---|---|
 | 1 pedido = 1 capability (gerar imagem, TTS, pesquisa) | ❌ use **Quick Dispatch** (`POST /jobs`) |
 | 2+ capabilities encadeadas (pesquisa → copy → imagem) | ✅ receita |
-| Precisa de **aprovação humana** no meio | ✅ receita |
+| Precisa de **aprovaçêo humana** no meio | ✅ receita |
 | Precisa de **paralelismo** (ex.: gerar 5 imagens e 1 áudio ao mesmo tempo) | ✅ receita |
 | Precisa de **fanout** sobre bindings do tenant (publicar em N canais) | ✅ receita |
 
@@ -22,7 +22,7 @@ stages:
   - id: <stage_id>             # único na receita
     requires: <capability>     # OU worker: <nome>, OU fanout_over_capabilities: [...]
     needs: [<outro_stage>]     # dependências — só dispara depois que os needs completarem
-    when: <expressão>           # opcional — skip se falsa
+    when: <expressêo>           # opcional — skip se falsa
     parallel: 1                # N execuções em paralelo (default 1)
     fanout_over: <path_list>   # OU — 1 job por item da lista
     payload_from:              # monta o payload do job a partir do contexto
@@ -49,7 +49,7 @@ Operadores em `when`: `==`, `!=`, `>`, `<`, `>=`, `<=`. Valores booleanos/numér
 
 ## Exemplo 1 — Receita minimalista (2 stages)
 
-Gera imagem e depois roda uma revisão automática nela.
+Gera imagem e depois roda uma revisêo automática nela.
 
 ```yaml
 # recipes/image-with-review.yaml
@@ -68,7 +68,7 @@ stages:
     requires: review.auto
     needs: [gen]
     payload_from:
-      criteria: ["imagem tem boa composição", "cores vibrantes"]
+      criteria: ["imagem tem boa composiçêo", "cores vibrantes"]
       artifacts:
         image_url: $.stages.gen.output.image_url
 ```
@@ -81,7 +81,7 @@ curl -X POST http://localhost:8080/recipes/image-with-review/run \
   -d '{"input":{"prompt":"capivara chef cozinhando"}}'
 ```
 
-## Exemplo 2 — Paralelismo + aprovação humana
+## Exemplo 2 — Paralelismo + aprovaçêo humana
 
 ```yaml
 # recipes/ads-package.yaml
@@ -187,18 +187,18 @@ curl -s http://localhost:8080/runs/$RID | python3 -m json.tool
 
 | Mode | Quem decide | Use quando |
 |---|---|---|
-| `none` | ninguém (auto-approve) | stage é trivial, output não crítico |
-| `user` | o solicitante original | decisão criativa/subjetiva; o dono do pedido precisa olhar |
+| `none` | ninguém (auto-approve) | stage é trivial, output nêo crítico |
+| `user` | o solicitante original | decisêo criativa/subjetiva; o dono do pedido precisa olhar |
 | `human_reviewer` | humano designado por role | workflow com revisor dedicado (supervisor, compliance) |
-| `auto_reviewer` | worker `auto-reviewer` (LLM) | decisão objetiva com critérios declaráveis |
+| `auto_reviewer` | worker `auto-reviewer` (LLM) | decisêo objetiva com critérios declaráveis |
 
 `auto_reviewer` aceita `criteria: ["regra 1", "regra 2"]` e devolve `approved | rejected | uncertain`. Em `uncertain`, escalona se `escalation: on_uncertain`.
 
 ## Boas práticas
 
 1. **Um stage = uma capability** (ou fanout). Se precisa de 3 coisas diferentes, cria 3 stages.
-2. **Paralelize** sempre que possível (`parallel`, `fanout_over`). Jobs independentes não devem ser sequenciais.
-3. **Aprovação opcional**. Default = `none`. Só adiciona quando o erro custa caro.
+2. **Paralelize** sempre que possível (`parallel`, `fanout_over`). Jobs independentes nêo devem ser sequenciais.
+3. **Aprovaçêo opcional**. Default = `none`. Só adiciona quando o erro custa caro.
 4. **Research opt-in**. Use `when: $.input.with_research == true` pra deixar pesquisa opcional.
 5. **Expressões claras**. Evite paths profundos — se for longo, passe o objeto inteiro e deixa o worker decompor.
 6. **Versionar a receita**. Ao mudar shape do input, bump `version`.
@@ -208,4 +208,4 @@ curl -s http://localhost:8080/runs/$RID | python3 -m json.tool
 - ❌ **Stage sem `requires`/`worker`/`fanout_over_capabilities`** — fica sem trabalho real; o runner reclama.
 - ❌ **Stage pedindo capability que ninguém oferece** — receita falha em runtime. Confira com `GET /capabilities` antes.
 - ❌ **Receita super-específica por tenant** — prefira uma receita parametrizada + `profiles/<tenant>/config.yaml` com brand/prompts.
-- ❌ **Aprovação em todo stage** — mata a UX; usuário cansa. Máximo 2–3 gates por receita longa.
+- ❌ **Aprovaçêo em todo stage** — mata a UX; usuário cansa. Máximo 2–3 gates por receita longa.

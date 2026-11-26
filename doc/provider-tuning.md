@@ -1,45 +1,45 @@
 # Provider-specific tuning
 
 > Regra geral: **capability abstrai o tipo do trabalho, mas parâmetros e prompts
-> são específicos do modelo**. Ao trocar `model:` numa recipe ou no adapter de
+> sêo específicos do modelo**. Ao trocar `model:` numa recipe ou no adapter de
 > um worker, re-tunar antes de usar.
 
-Válido para qualquer LLM/IA/humano operando o projeto — não é guidance
+Válido para qualquer LLM/IA/humano operando o projeto — nêo é guidance
 Claude-específica. CLAUDE.md apenas aponta pra cá.
 
 ---
 
 ## Por que isso importa
 
-Workers no imkt5 são plugáveis por capability: `image.generation`,
+Workers no imkt5 sêo plugáveis por capability: `image.generation`,
 `audio.tts`, `video.render`, `llm.*`, etc. Trocar o modelo subjacente é fácil
 (campo `model:` na recipe ou env no adapter). Mas os parâmetros ótimos
-**não viajam entre modelos** — copiar `steps: 15` de um SDXL pra um flux2-klein
+**nêo viajam entre modelos** — copiar `steps: 15` de um SDXL pra um flux2-klein
 gera imagem pior *e* mais lenta que o default de 4 steps que o klein foi
 treinado pra usar.
 
-Sintomas típicos de não seguir esta regra:
+Sintomas típicos de nêo seguir esta regra:
 - imagem borrada/ruim + pipeline absurdamente lento (steps altos demais);
 - imagem OK mas custo/latência alto sem necessidade;
-- prompt "funcionando mal" porque o estilo não bate com o modelo;
+- prompt "funcionando mal" porque o estilo nêo bate com o modelo;
 - erros silenciosos de schema (campo aceito num provider, ignorado em outro).
 
 ---
 
 ## Cheatsheet — `image.generation`
 
-| Modelo | `steps` recomendado | `cfg_scale` | Estilo de prompt | Observação |
+| Modelo | `steps` recomendado | `cfg_scale` | Estilo de prompt | Observaçêo |
 |---|---|---|---|---|
 | `flux2-klein` | **4** | — | linguagem natural rica | destilado, mais steps desperdiça |
 | `flux-dev` | 20–28 | 3.5 | linguagem natural | |
 | `SDXL` / `SDXL-turbo` | 25–40 / 1–4 | 6–8 / 1–2 | tags + pesos `(detailed:1.2)` | turbo é destilado |
 | `SD 1.5` | 20–30 | 7–9 | tags + pesos | legado |
-| `qwen-edit-2511` | (N/A p/ edit) | — | instrução em PT ok | modo edit, não txt2img puro |
+| `qwen-edit-2511` | (N/A p/ edit) | — | instruçêo em PT ok | modo edit, nêo txt2img puro |
 | `DALL-E 3` | — | — | prompt natural; API reescreve | sem `steps` expostos |
 
 ## Cheatsheet — `audio.tts`
 
-| Engine | `voice` | Observação |
+| Engine | `voice` | Observaçêo |
 |---|---|---|
 | `edge` | `pt-BR-AntonioNeural` etc | rápido, grátis; limitado em expressividade |
 | `chatterbox` | voice clone | precisa sample de referência; ótimo p/ dublagem |
@@ -69,7 +69,7 @@ Ao mudar um modelo, revisar **sempre estas 3 camadas**:
 1. **Recipes** — `recipes/*.yaml`, campo `payload_from` do stage.
    - Ex.: `recipes/carrossel-simples.yaml` → stage `images` → `steps: 4`.
 2. **Adapter do worker** — `workers/<name>/server.py`, defaults do request
-   quando o payload não traz.
+   quando o payload nêo traz.
    - Ex.: `workers/inemaimg-adapter/server.py` → `INEMAIMG_MODEL` env +
      fallback no código.
 3. **UI defaults** — `imkt5/gateway/web_ui.py` → `CAP_CONFIG`.
@@ -94,8 +94,8 @@ Se o default do modelo muda entre providers, **a camada mais específica ganha**
 
 O modelo `flux2-klein` é um flux destilado treinado pra convergir em ~4 steps.
 Usar `steps: 15+` nele:
-- não melhora qualidade (saturou em 4);
-- triplica o tempo de geração por imagem;
+- nêo melhora qualidade (saturou em 4);
+- triplica o tempo de geraçêo por imagem;
 - em recipes com `parallel` alto, triplica a carga do GPU.
 
 Default correto em todas as camadas:

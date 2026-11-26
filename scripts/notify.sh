@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# scripts/notify.sh — envia notificação pro Telegram do usuário.
+# scripts/notify.sh — envia notificaçêo pro Telegram do usuário.
 #
 # Uso:
 #   ./scripts/notify.sh "texto da mensagem"
@@ -7,7 +7,7 @@
 #
 # Lê credenciais de:
 #   1. $IMKT5_NOTIFY_BOT_TOKEN + $IMKT5_NOTIFY_CHAT_ID (se setado)
-#   2. .env do openpcbot (default — bot pessoal, não rouba msgs do timesmkt3)
+#   2. .env do openpcbot (default — bot pessoal, nêo rouba msgs do timesmkt3)
 #
 # Usa parse_mode=Markdown, prefixa [imkt5] pra distinguir na timeline.
 

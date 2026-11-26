@@ -20,7 +20,7 @@ paginado, `iter_messages(reply_to=topic_id)`, download opcional de mídia.
    TELEGRAM_API_ID=1234567
    TELEGRAM_API_HASH=abcdef...
    TELEGRAM_SESSION_DIR=./data/tg-sessions
-   TG_TOPICS_DATA_DIR=/caminho/pasta/out   # onde os tópicos serão salvos
+   TG_TOPICS_DATA_DIR=/caminho/pasta/out   # onde os tópicos serêo salvos
    ```
 3. Roda 1× pra autenticar:
    ```bash
@@ -34,10 +34,10 @@ paginado, `iter_messages(reply_to=topic_id)`, download opcional de mídia.
 
 | Mode | O que faz | Requer link com topic? |
 |---|---|---|
-| `list_topics` | Só lista tópicos do grupo, salva `grupo_metadata.json`. **Não extrai mensagens.** | não |
+| `list_topics` | Só lista tópicos do grupo, salva `grupo_metadata.json`. **Nêo extrai mensagens.** | nêo |
 | `extract_topic` | Extrai mensagens de **1 tópico** específico | ✅ sim (ou passar `topic_id` no payload) |
-| `extract_all` | Lista tudo + extrai todos os tópicos | não |
-| `incremental` | Igual `extract_all`, mas **pula tópicos que já existem** em disco (tem `metadata.json`) | não |
+| `extract_all` | Lista tudo + extrai todos os tópicos | nêo |
+| `incremental` | Igual `extract_all`, mas **pula tópicos que já existem** em disco (tem `metadata.json`) | nêo |
 
 ## Input
 
@@ -58,7 +58,7 @@ paginado, `iter_messages(reply_to=topic_id)`, download opcional de mídia.
   (ex: `-1002517011104`).
 - `baixar_midia` — baixa fotos (60s timeout) e documentos (120s timeout).
 - `file_filter` — só baixa extensões específicas (`["pdf","jpg"]`).
-- `somidia` — baixa SÓ mídia, não cria `messages.json`/`content.txt`.
+- `somidia` — baixa SÓ mídia, nêo cria `messages.json`/`content.txt`.
 - `output_dir` — default = `TG_TOPICS_DATA_DIR` do `.env`.
 - `tenant_id` — determina qual session file usar.
 
@@ -70,7 +70,7 @@ paginado, `iter_messages(reply_to=topic_id)`, download opcional de mídia.
   "mode": "list_topics",
   "group": {"id": 2517011104, "chat_id": -1002517011104, "title": "INEMA.FTD", "internal_id": "2517011104"},
   "topics_count": 38,
-  "topics": [{"id": 163, "title": "MENU Links Formação", "date": "...", "from_id": 7388953786}, ...],
+  "topics": [{"id": 163, "title": "MENU Links Formaçêo", "date": "...", "from_id": 7388953786}, ...],
   "topics_truncated": false,
   "output_dir": "/.../out/2517011104"
 }
@@ -83,7 +83,7 @@ paginado, `iter_messages(reply_to=topic_id)`, download opcional de mídia.
   "group": {"chat_id": -1002517011104, "internal_id": "2517011104"},
   "topic": {
     "topic_id": 163,
-    "topic_title": "MENU Links Formação",
+    "topic_title": "MENU Links Formaçêo",
     "path": "/.../out/2517011104/163",
     "messages_count": 20,
     "media_count": 0
@@ -109,7 +109,7 @@ paginado, `iter_messages(reply_to=topic_id)`, download opcional de mídia.
 
 ## Estrutura de saída
 
-Segue exatamente o padrão do `telegramtopicosindex`:
+Segue exatamente o padrêo do `telegramtopicosindex`:
 
 ```
 <output_dir>/

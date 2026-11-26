@@ -32,7 +32,7 @@ class ExpressionError(ValueError):
 def _resolve_path(root: dict[str, Any], expr: str) -> Any:
     """Resolve `$.a.b[*].c` contra `root`. Retorna o valor (pode ser lista)."""
     if not expr.startswith("$."):
-        raise ExpressionError(f"expressão deve começar com '$.': {expr!r}")
+        raise ExpressionError(f"expressêo deve começar com '$.': {expr!r}")
     tokens = _tokenize(expr[2:])
     cur: Any = root
     for tok in tokens:
@@ -138,7 +138,7 @@ _BOOL_OPS = {
 
 
 def evaluate_when(expr: str | None, context: dict[str, Any]) -> bool:
-    """True se a condição `when` é verdadeira. None ou string vazia = True.
+    """True se a condiçêo `when` é verdadeira. None ou string vazia = True.
 
     Suporta:
       - comparações simples: `$.x == true`, `$.y != "foo"`, `$.n > 3`
@@ -151,7 +151,7 @@ def evaluate_when(expr: str | None, context: dict[str, Any]) -> bool:
         return True
     expr = expr.strip()
 
-    # literais booleanos (resultantes da resolução de parênteses)
+    # literais booleanos (resultantes da resoluçêo de parênteses)
     if expr == "true":
         return True
     if expr == "false":
@@ -173,7 +173,7 @@ def evaluate_when(expr: str | None, context: dict[str, Any]) -> bool:
     if " && " in expr:
         return all(evaluate_when(p.strip(), context) for p in expr.split(" && "))
 
-    # ── comparação unária
+    # ── comparaçêo unária
     for op_str in sorted(_BOOL_OPS, key=len, reverse=True):
         if f" {op_str} " in expr:
             lhs_raw, rhs_raw = expr.split(f" {op_str} ", 1)
@@ -184,7 +184,7 @@ def evaluate_when(expr: str | None, context: dict[str, Any]) -> bool:
 
 
 def _coerce(value: Any, raw: str) -> Any:
-    """Se `resolve` devolveu literal (não-path), coerce tipos simples."""
+    """Se `resolve` devolveu literal (nêo-path), coerce tipos simples."""
     if raw.startswith("$."):
         return value
     s = raw.strip()

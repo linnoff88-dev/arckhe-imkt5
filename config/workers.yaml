@@ -5,14 +5,14 @@
 #  - `local: true` ganha tie-break sobre `local: false`.
 #  - Dentro do mesmo `local`, priority maior vence.
 #  - Worker "DOWN" no último health-check é pulado; cai pro próximo.
-#  - Providers são workers como qualquer outro — não há categoria
+#  - Providers sêo workers como qualquer outro — nêo há categoria
 #    especial "provider" no código.
 
 workers:
 
   # ── image.generation ──────────────────────────────────────────────
   # stable-diffusion-local (porta 7860) — comentado até existir um
-  # adapter próprio em workers/sd-adapter/. O servidor SD não fala o
+  # adapter próprio em workers/sd-adapter/. O servidor SD nêo fala o
   # contrato BaseWorker (/execute), responde /health da própria webui
   # e isso fazia o matcher escolher errado.
   # - name: stable-diffusion-local
@@ -27,17 +27,17 @@ workers:
   # distintas (ex.: inemaimg-gpu0, inemaimg-gpu1) — o matcher distribui.
   - name: inemaimg
     # inemaimg só gera imagens; design.static_ad e design.carousel
-    # exigem composição (HTML→PNG via Playwright, ou ffmpeg) — workers
+    # exigem composiçêo (HTML→PNG via Playwright, ou ffmpeg) — workers
     # próprios em fases futuras.
     capabilities: [image.generation]
-    endpoint: http://localhost:8020   # adapter (não confundir com upstream em :8000)
+    endpoint: http://localhost:8020   # adapter (nêo confundir com upstream em :8000)
     local: true
     priority: 90
     timeout_seconds: 180
     max_concurrent: 1
 
   # kie e pollinations: comentados até ter adapter próprio.
-  # Estes serviços não falam /execute (BaseWorker contract). Quando
+  # Estes serviços nêo falam /execute (BaseWorker contract). Quando
   # criarmos workers/kie-adapter/ e workers/pollinations-adapter/,
   # apontar `endpoint` pra eles em vez de pra API direta.
   # - name: kie
@@ -60,7 +60,7 @@ workers:
   # max_concurrent: 2
 
   # # inemavox tem fila interna mas processa 1 por vez (1 _worker_task no asyncio.Queue).
-  # # Mesmo padrão: para paralelismo, escalar instâncias.
+  # # Mesmo padrêo: para paralelismo, escalar instâncias.
   - name: inemavox
     capabilities: [audio.tts, audio.dubbing, audio.transcribe]
     endpoint: http://localhost:8021   # adapter (upstream inemavox roda em :8010)
@@ -119,7 +119,7 @@ workers:
     timeout_seconds: 180
     max_concurrent: 2
 
-  # video-quick — planner (não renderiza). `video.cinematic` é alias
+  # video-quick — planner (nêo renderiza). `video.cinematic` é alias
   # temporário até portarmos video-pro próprio.
   - name: video-quick
     capabilities: [video.plan, video.cinematic]
@@ -147,7 +147,7 @@ workers:
     timeout_seconds: 180
     max_concurrent: 2
 
-  # # ── aprovação automática ─────────────────────────────────────────
+  # # ── aprovaçêo automática ─────────────────────────────────────────
   - name: auto-reviewer
     capabilities: [review.auto]
     endpoint: http://localhost:8200
@@ -191,7 +191,7 @@ workers:
     max_concurrent: 4
 
   # carousel-composer — MVP. Recebe lista de URLs e devolve JSON
-  # descritivo do carrossel (sem rendering de composição).
+  # descritivo do carrossel (sem rendering de composiçêo).
   - name: carousel-composer
     capabilities: [design.carousel]
     endpoint: http://localhost:8107
@@ -243,7 +243,7 @@ workers:
     max_concurrent: 1
 
   # carousel-outline — gera slides estruturados a partir de texto livre.
-  # Consumido pela receita carrossel-rico quando input não traz slides.
+  # Consumido pela receita carrossel-rico quando input nêo traz slides.
   - name: carousel-outline
     capabilities: [design.carousel_outline]
     endpoint: http://localhost:8112
@@ -295,7 +295,7 @@ workers:
     max_concurrent: 2
 
   # telegram-scraper — coleta mensagens de grupos Telegram via MTProto
-  # (user session, não bot). Suporta 3 modos: since_last (incremental),
+  # (user session, nêo bot). Suporta 3 modos: since_last (incremental),
   # search (nativo do servidor), all (re-fetch). Tracking por (tenant,
   # group) em data/tg-sessions/state.json.
   # Pré-requisito: rodar scripts/tg_auth.py <phone> <tenant> uma vez.
@@ -305,7 +305,7 @@ workers:
     local: true
     priority: 50
     timeout_seconds: 300   # fetch grande pode demorar
-    max_concurrent: 1      # Telegram rate limits são agressivos
+    max_concurrent: 1      # Telegram rate limits sêo agressivos
 
   # telegram-topics-search — busca OFFLINE no dataset já extraído pelo
   # projeto telegramtopicosindex. Zero API calls, milissegundos de
@@ -349,7 +349,7 @@ workers:
 
   # queue-audio-patch — fase 4 da recipe roteiro-video. Pure-python
   # (sem LLM). Recebe queue_json + audio_urls (paralela, da TTS)
-  # e patcha input_audio nas cenas que têm audio_text não-vazio.
+  # e patcha input_audio nas cenas que têm audio_text nêo-vazio.
   # Evita a necessidade de rodar script-to-queue duas vezes.
   - name: queue-audio-patch
     capabilities: [video.queue_audio_patch]
@@ -359,7 +359,7 @@ workers:
     timeout_seconds: 10
     max_concurrent: 8
 
-  # # ── plataformas (da absorção do timesmkt3) ───────────────────────
+  # # ── plataformas (da absorçêo do timesmkt3) ───────────────────────
   # - name: platform-instagram
   # capabilities: [platform.instagram]
   # endpoint: http://localhost:8410

@@ -25,7 +25,7 @@ stages:
       mode: auto_reviewer
       criteria:
         - "clips duram entre 30s e 180s"
-        - "cada clip tem início e fim coerentes (não corta fala ao meio)"
+        - "cada clip tem início e fim coerentes (nêo corta fala ao meio)"
       escalation: on_uncertain
 
   # Publish: fan-out sobre destinos (pode ser 1, 10, N)

@@ -8,9 +8,9 @@ Proxy pure-python (sem LLM) que recebe um `queue_json` (formato
 `queue_json` com o campo `input_audio` populado por índice em cada cena
 que pediu áudio.
 
-Regra: só patcha `input_audio` em cena cujo `audio_text` é não-vazio
-(intenção explícita de ter áudio). Evita que o stub de silêncio do
-inemavox (retornado pra texto vazio) vaze pra cenas não-faladas.
+Regra: só patcha `input_audio` em cena cujo `audio_text` é nêo-vazio
+(intençêo explícita de ter áudio). Evita que o stub de silêncio do
+inemavox (retornado pra texto vazio) vaze pra cenas nêo-faladas.
 
 Input:
   {

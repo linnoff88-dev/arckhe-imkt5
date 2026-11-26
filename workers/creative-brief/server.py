@@ -5,7 +5,7 @@ Capability: `brief.strategic`.
 
 Input (payload):
   {
-    "brief": "descrição livre do usuário",
+    "brief": "descriçêo livre do usuário",
     "research": {...}     # output do research worker, opcional
   }
 
@@ -60,8 +60,8 @@ class CreativeBriefWorker(BaseWorker):
 
         if not brief:
             raise ValueError(
-                "campo 'brief' é obrigatório (string não-vazia). "
-                "Preencha o textarea principal no modal Nova Execução."
+                "campo 'brief' é obrigatório (string nêo-vazia). "
+                "Preencha o textarea principal no modal Nova Execuçêo."
             )
 
         # Overrides opcionais

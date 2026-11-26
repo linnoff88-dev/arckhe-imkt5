@@ -37,7 +37,7 @@ class JobPriority(int, Enum):
 
 @dataclass(frozen=True, slots=True)
 class Job:
-    """Pedido de trabalho enfileirado. Imutável após criação."""
+    """Pedido de trabalho enfileirado. Imutável após criaçêo."""
 
     job_id: str
     tenant_id: str
@@ -61,7 +61,7 @@ class Job:
     # Dedupe: pedidos idênticos em sequência retornam mesmo job_id.
     dedupe_key: str | None = None
 
-    # Correlação com receita (None se for quick dispatch).
+    # Correlaçêo com receita (None se for quick dispatch).
     parent_job_id: str | None = None
     recipe_name: str | None = None
     recipe_stage: str | None = None

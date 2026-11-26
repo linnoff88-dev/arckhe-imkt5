@@ -79,7 +79,7 @@ Resultado fica nos logs do worker:
 tail -20 logs/research.log
 ```
 
-### b) Geração de imagem (inemaimg flux2-klein, real)
+### b) Geraçêo de imagem (inemaimg flux2-klein, real)
 
 Pré-requisito: `inemaimg` rodando em `localhost:8000`.
 
@@ -109,7 +109,7 @@ data/artifacts/demo/<job_id>/flux2-klein-<job_id>.png
 Modelos disponíveis (no inemaimg upstream): `qwen-edit-2511`, `ernie`,
 `flux2-klein`, `flux2-dev`. O default é o `INEMAIMG_MODEL` do `.env`.
 
-### c) Aprovação automática por LLM (Ollama local)
+### c) Aprovaçêo automática por LLM (Ollama local)
 
 ```bash
 curl -s -X POST http://localhost:8080/jobs \
@@ -125,7 +125,7 @@ curl -s -X POST http://localhost:8080/jobs \
         "o texto tem pelo menos 20 caracteres"
       ],
       "artifacts": {
-        "narrative": "Lançamento do café gelado cremoso, perfeito para o verão."
+        "narrative": "Lançamento do café gelado cremoso, perfeito para o verêo."
       }
     }
   }'
@@ -184,18 +184,18 @@ curl -s http://localhost:8080/runs/<run_id> | python3 -m json.tool
 ```
 
 Stages do run: `images` (parallel: 2 → 2 PNGs gerados) →
-`carrossel` (composição final, requer worker `design.carousel` —
-ainda não implementado, vai falhar nessa fase).
+`carrossel` (composiçêo final, requer worker `design.carousel` —
+ainda nêo implementado, vai falhar nessa fase).
 
-### b) `campanha-marketing` (composição completa)
+### b) `campanha-marketing` (composiçêo completa)
 
 Roda os 12 stages mas a maioria vai SKIPPED porque os workers de
-copywriter, ad-designer, video-pro, platforms ainda não estão
+copywriter, ad-designer, video-pro, platforms ainda nêo estêo
 implementados. É a base pro porte da Fase 3.
 
 ### c) `yt-clip-publish`
 
-Idem — depende dos workers de YT que serão portados na Fase 4.
+Idem — depende dos workers de YT que serêo portados na Fase 4.
 
 ## 5. Listar workers e capacidade
 
@@ -238,19 +238,19 @@ Logs ficam em `logs/<servico>.log`. PIDs em `logs/<servico>.pid`.
 - Postgres pra estado de runs (hoje em memória, perde no restart).
 - KMS de credenciais (hoje `.env` direto).
 
-## Solução de problemas
+## Soluçêo de problemas
 
 **"address already in use"** — algum processo zombie. Rode
 `./scripts/stop-dev.sh` e cheque com `ss -tlnp | grep :PORT`.
 
-**Worker mostra `health: degraded http 404`** — o `/health` da URL não
-respondeu 200. Normal para alguns serviços remotos. Não impede uso
+**Worker mostra `health: degraded http 404`** — o `/health` da URL nêo
+respondeu 200. Normal para alguns serviços remotos. Nêo impede uso
 se houver outro worker para a capability.
 
 **Job aceito mas "nunca volta"** — quick dispatch é fire-and-forget.
 Veja `logs/gateway.log` (procura `✗`) e `logs/<worker>.log` para
 encontrar o erro.
 
-**Recipe `failed=True`** — algum stage não tem worker disponível para
+**Recipe `failed=True`** — algum stage nêo tem worker disponível para
 sua capability. Confirme em `/capabilities` que existe alguém
 oferecendo `requires:` da receita.

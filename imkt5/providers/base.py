@@ -1,8 +1,8 @@
 """Contrato de provider de LLM.
 
-Provider é stateless — só transforma `messages + tools` em resposta. Seleção
-de modelo vem do perfil do tenant (não de config global). Rate-limiting e
-retry são responsabilidade do provider concreto.
+Provider é stateless — só transforma `messages + tools` em resposta. Seleçêo
+de modelo vem do perfil do tenant (nêo de config global). Rate-limiting e
+retry sêo responsabilidade do provider concreto.
 """
 
 from __future__ import annotations

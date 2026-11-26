@@ -26,7 +26,7 @@ class VideoProWorker(BaseWorker):
     capabilities = ("video.cinematic_pro",)
 
     def __init__(self) -> None:
-        self._skill = SKILL_PATH.read_text() if SKILL_PATH.exists() else "Você é diretor de edição sênior."
+        self._skill = SKILL_PATH.read_text() if SKILL_PATH.exists() else "Você é diretor de ediçêo sênior."
 
     async def handle(self, job) -> dict[str, Any]:
         payload = job.payload

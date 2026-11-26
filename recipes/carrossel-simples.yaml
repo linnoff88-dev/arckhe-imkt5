@@ -7,7 +7,7 @@ version: 7
 # extra. Visual limpo e elegante.
 #
 # Input:
-#   prompt      string  — descrição da imagem de background
+#   prompt      string  — descriçêo da imagem de background
 #   title       string  — texto da capa (slide 1)
 #   captions    list    — texto de cada slide intermediário
 #   cta         string  — texto do último slide
@@ -36,14 +36,14 @@ stages:
       title: $.input.title
       captions: $.input.captions
       cta: $.input.cta
-      # Fallback: se title não veio, carousel-designer usa brief/topic
+      # Fallback: se title nêo veio, carousel-designer usa brief/topic
       # como título do slide. Evita carrossel sem texto quando o user
       # manda só o brief.
       brief: $.input.brief
       topic: $.input.topic
       palette: $.input.palette
       formats: $.input.formats
-      # Template override: se user passou, usa; senão magazine (default).
+      # Template override: se user passou, usa; senêo magazine (default).
       template: $.input.template || "magazine"
       # c79 fase α — flags opt-in (default false; só `editorial_chrome` implementa)
       use_vignette: $.input.use_vignette || false

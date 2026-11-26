@@ -162,7 +162,7 @@ RUNS_UI_HTML = r"""<!DOCTYPE html>
   }
   .input-card-rest .input-kv b { color: #e6edf3; font-weight: 600; }
 
-  /* Formulário completo (echo do modal Nova Execução com valores usados) */
+  /* Formulário completo (echo do modal Nova Execuçêo com valores usados) */
   .form-echo {
     margin-top: 12px; padding: 14px;
     background: #0d1117;
@@ -442,12 +442,12 @@ RUNS_UI_HTML = r"""<!DOCTYPE html>
     </div>
   </aside>
 
-  <!-- Modal: nova execução -->
+  <!-- Modal: nova execuçêo -->
   <div id="new-run-modal" data-modal-no-dismiss="1" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0;
        background:rgba(0,0,0,0.6); z-index:100; align-items:center; justify-content:center;">
     <div style="background:#161b22; border:1px solid #30363d; border-radius:10px; padding:24px;
          max-width:720px; width:92%; max-height:92vh; overflow-y:auto;">
-      <h3 style="margin:0 0 8px 0; font-size:16px;">Nova execução</h3>
+      <h3 style="margin:0 0 8px 0; font-size:16px;">Nova execuçêo</h3>
       <div style="color:#7d8590; font-size:13px; margin-bottom:14px;">
         Receita: <b id="new-run-recipe-name"></b>
       </div>
@@ -526,14 +526,14 @@ let selectedRecipe = null;
 let selectedRunId = null;
 let allRunsCache = [];  // cache das últimas 200 runs pra contar por receita
 
-// Descrição curta do que cada worker/capability faz (mostrada no detalhe da run)
+// Descriçêo curta do que cada worker/capability faz (mostrada no detalhe da run)
 const CAP_DESC = {
   "research.market":           "pesquisa tendências e insights de mercado",
   "brief.strategic":           "cria o briefing estratégico da campanha",
   "copy.platform":             "redige textos por plataforma (IG, YT, Threads…)",
   "design.ad_layout":          "planeja variantes visuais (prompts p/ imagens)",
   "image.generation":          "gera imagens via Stable Diffusion (inemaimg)",
-  "audio.tts":                 "sintetiza narração (text-to-speech)",
+  "audio.tts":                 "sintetiza narraçêo (text-to-speech)",
   "audio.dubbing":             "clona voz / dublagem com referência",
   "audio.transcribe":          "transcreve áudio → texto (SRT)",
   "video.cinematic":           "planeja cenas cinematográficas (scene_plan)",
@@ -600,12 +600,12 @@ async function selectRecipe(name) {
   await loadRuns(name);
 }
 
-// ── Nova execução ─────────────────────────────────────────────
+// ── Nova execuçêo ─────────────────────────────────────────────
 let newRunMode = 'text';  // text | json
 
 // Schemas de opções avançadas por receita. Cada campo é renderizado
 // como input apropriado. O valor final é serializado em input JSON.
-// Mapeamento field.key → seção. Usado pra agrupar em <details> no form.
+// Mapeamento field.key → seçêo. Usado pra agrupar em <details> no form.
 // Field sem mapeamento cai em 'general'.
 const FIELD_SECTIONS = {
   // 🖼 IMAGES
@@ -638,10 +638,10 @@ const FIELD_SECTIONS = {
 };
 
 const SECTION_META = [
-  ['images', '🖼 Geração de imagens', 'modelo SD, prompts, formatos'],
+  ['images', '🖼 Geraçêo de imagens', 'modelo SD, prompts, formatos'],
   ['text', '✍ Design & Texto', 'templates, tipografia, linguagem'],
   ['video', '🎬 Vídeo', 'transições, motion, plataforma, overlays'],
-  ['general', '⚙ Geral', 'aprovação, pesquisa, variantes'],
+  ['general', '⚙ Geral', 'aprovaçêo, pesquisa, variantes'],
 ];
 
 // Presets por recipe — click aplica overrides no form e troca pra aba Formulário.
@@ -769,7 +769,7 @@ const PRESETS = {
     },
     {
       name: '📰 Magazine classic',
-      desc: 'Playfair serif padrão. Magazine mkt3-style.',
+      desc: 'Playfair serif padrêo. Magazine mkt3-style.',
       input: { template: 'magazine', model: 'flux2-klein' },
     },
   ],
@@ -830,7 +830,7 @@ const RECIPE_FIELDS = {
      hint: 'Chrome: chrome-gradient + halo + perspective grid + vignette (c79/Infinite-inspired).'},
     {key: 'use_vignette', label: 'Vignette radial (opt-in)',
      type: 'boolean',
-     hint: 'c79 law 2. Default OFF — só ativa se marcar. Não afeta templates que não implementam.'},
+     hint: 'c79 law 2. Default OFF — só ativa se marcar. Nêo afeta templates que nêo implementam.'},
     {key: 'use_perspective_grid', label: 'Perspective grid floor (opt-in)',
      type: 'boolean',
      hint: 'c79 law 10. CSS rotateX(60deg). Default OFF. Só editorial_chrome implementa por ora.'},
@@ -876,7 +876,7 @@ const RECIPE_FIELDS = {
        ['skip', 'Skip · sem vídeo (só imagens)'],
      ],
      default: 'quick',
-     hint: 'Quick: 4-6 cenas, motion básico. Pro: xfade+color grading por seção (cool/warm).'},
+     hint: 'Quick: 4-6 cenas, motion básico. Pro: xfade+color grading por seçêo (cool/warm).'},
     {key: 'image_count', label: 'Quantidade de imagens', type: 'number',
      min: 1, max: 8, default: 3, placeholder: '3'},
     {key: 'platform', label: 'Plataforma alvo (safe zones)', type: 'pills',
@@ -898,7 +898,7 @@ const RECIPE_FIELDS = {
     {key: 'hold_final', label: 'Hold final silencioso — default ON',
      type: 'boolean_default_on',
      hint: 'Desmarque pra desativar. Skip automático quando video < 8s.'},
-    {key: 'hold_final_s', label: 'Duração do hold final (segundos)',
+    {key: 'hold_final_s', label: 'Duraçêo do hold final (segundos)',
      type: 'number', min: 0.5, max: 8.0, step: 0.5, default: 3.0,
      placeholder: '3.0',
      hint: '✨ c79 law 9 recomenda 4-6s pro CTA landing. Default 3.0 mantém comportamento anterior.'},
@@ -909,7 +909,7 @@ const RECIPE_FIELDS = {
        ['tight', '✨ Tight (1.5-2.0s por cena — c79 law 1)'],
      ],
      default: '',
-     hint: 'Tight dá sensação de energia/TikTok. Pode forçar reenquadramento do outline.'},
+     hint: 'Tight dá sensaçêo de energia/TikTok. Pode forçar reenquadramento do outline.'},
     {key: 'chrome_text_overlay', label: '✨ Chrome text overlay (carrossel-rico style)',
      type: 'boolean',
      hint: 'c79 fase α-bis. Pré-renderiza texto de cena via Playwright (Instrument Serif italic + chrome gradient + halo glow) em vez do drawtext ffmpeg. +1 stage, ~5-8s extra por run. Default OFF.'},
@@ -932,7 +932,7 @@ const RECIPE_FIELDS = {
      hint: 'Última cena usa imagem da primeira (rima visual pro TikTok/Reels).'},
     {key: 'kinetic_presets', label: 'Kinetic presets por style', type: 'boolean',
      hint: 'Animações por style: wipe/zoom_impact/type_on/glow_pulse só em hook+emphasis.'},
-    {key: 'transition', label: 'Transição entre cenas (override)',
+    {key: 'transition', label: 'Transiçêo entre cenas (override)',
      type: 'pills',
      options: [
        ['', 'Auto · art-director'],
@@ -951,11 +951,11 @@ const RECIPE_FIELDS = {
     {key: 'use_parallax', label: 'Parallax nível 1 (fake)', type: 'boolean',
      hint: 'Blur+unsharp em 3 camadas. Auto ON em styles cinematográficos.'},
     {key: 'depth_ai', label: 'Parallax nível 2 (Depth-Anything V2)', type: 'boolean',
-     hint: 'Opt-in. Tenta depth map real; cai pro nível 1 se modelo não instalado.'},
-    {key: 'narration_speed', label: 'Narração speed (atempo)', type: 'number',
+     hint: 'Opt-in. Tenta depth map real; cai pro nível 1 se modelo nêo instalado.'},
+    {key: 'narration_speed', label: 'Narraçêo speed (atempo)', type: 'number',
      min: 1.0, max: 1.25, placeholder: 'auto por style (1.10-1.20)',
      hint: 'Clamp 1.0-1.25. Override manual. Default por style no worker.'},
-    {key: 'approval_mode', label: 'Aprovação global', type: 'pills',
+    {key: 'approval_mode', label: 'Aprovaçêo global', type: 'pills',
      options: [
        ['', 'Nenhuma (none)'],
        ['auto', 'Auto (LLM reviewer)'],
@@ -995,7 +995,7 @@ const RECIPE_FIELDS = {
     {key: 'style', label: 'Estilo de voz', type: 'pills',
      options: [['didatico','Didático'], ['direto','Direto'], ['narrativo','Narrativo']],
      default: 'didatico'},
-    {key: 'skip_audio', label: 'Pular narração (só carousel)', type: 'boolean'},
+    {key: 'skip_audio', label: 'Pular narraçêo (só carousel)', type: 'boolean'},
     {key: 'skip_video', label: 'Pular vídeo (só carousel+audio)', type: 'boolean'},
   ],
 };
@@ -1009,8 +1009,8 @@ function renderAdvancedOpts(recipeName) {
     return;
   }
 
-  // Cria um <details> por seção (images/text/video/general). Mostra só
-  // as seções que têm fields. Primeira seção com fields abre por default.
+  // Cria um <details> por seçêo (images/text/video/general). Mostra só
+  // as seções que têm fields. Primeira seçêo com fields abre por default.
   const sectionBodies = {};  // sec_key → <div.form-section-body>
   const sectionDets = {};    // sec_key → <details>
   SECTION_META.forEach(([secKey, title, desc], idx) => {
@@ -1028,7 +1028,7 @@ function renderAdvancedOpts(recipeName) {
     sectionDets[secKey] = det;
   });
 
-  // Agrupa fields por seção
+  // Agrupa fields por seçêo
   const fieldsBySection = {};
   fields.forEach(f => {
     const sec = FIELD_SECTIONS[f.key] || 'general';
@@ -1093,7 +1093,7 @@ function renderAdvancedOpts(recipeName) {
       if (f.default !== undefined) sel.value = f.default;
       wrap.appendChild(sel);
     } else if (f.type === 'style-gallery') {
-      // Grid de cards com thumbnail + nome + descrição. Um selecionável.
+      // Grid de cards com thumbnail + nome + descriçêo. Um selecionável.
       const box = document.createElement('div');
       box.style.cssText = 'display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:8px;';
       box.dataset.fkey = f.key;
@@ -1253,7 +1253,7 @@ function renderAdvancedOpts(recipeName) {
       h.textContent = f.hint;
       wrap.appendChild(h);
     }
-    // Append no body da seção correta (ao invés de um body global)
+    // Append no body da seçêo correta (ao invés de um body global)
     const sec = FIELD_SECTIONS[f.key] || 'general';
     const sbody = sectionBodies[sec] || sectionBodies['general'];
     sbody.appendChild(wrap);
@@ -1328,7 +1328,7 @@ function collectAdvancedOpts(recipeName) {
       const v = box.dataset.value;
       const def = f.default !== undefined ? String(f.default) : '';
       if (v && v !== def) out[f.key] = v;
-      else if (v && !def) out[f.key] = v;  // default vazio → qualquer seleção conta
+      else if (v && !def) out[f.key] = v;  // default vazio → qualquer seleçêo conta
     } else if (f.type === 'pills-multi') {
       const box = container.querySelector(`[data-fkey="${f.key}"][data-ftype="pills-multi"]`);
       if (!box) return;
@@ -1416,7 +1416,7 @@ function renderPresetsTab(recipeName) {
       .map(([k,v]) => `<span class="preset-tag">${escapeHtml(k)}=${escapeHtml(String(v).slice(0,20))}</span>`)
       .join('');
     // Se o preset define text_overlay_style ou chrome_text_mode, usa o thumb
-    // correspondente. Senão fallback chrome_overlay.
+    // correspondente. Senêo fallback chrome_overlay.
     const styleSlug = (p.input && (
       p.input.text_overlay_style ||
       (p.input.chrome_text_mode === 'full_slide' ? 'chrome_fullslide' : null) ||
@@ -1486,7 +1486,7 @@ async function renderExamplesTab(recipeName) {
 }
 
 // Busca detalhe de cada run pra extrair thumb do artefato FINAL
-// (video_render ou última slide do carrossel, não imagem intermediária).
+// (video_render ou última slide do carrossel, nêo imagem intermediária).
 async function renderExampleCards(tab, runs, recipeName) {
   // Prioridade de stages pra thumb (ordem decrescente):
   // 1. video_render (video_url / frame)
@@ -1518,7 +1518,7 @@ async function renderExampleCards(tab, runs, recipeName) {
         else if (v && typeof v === 'object') Object.values(v).forEach(walk);
       };
       outputs.forEach(walk);
-      // Prefere vídeo (mais representativo que frame), senão última imagem
+      // Prefere vídeo (mais representativo que frame), senêo última imagem
       if (allVideos.length) return { url: allVideos[allVideos.length - 1], type: 'video' };
       if (allImages.length) return { url: allImages[allImages.length - 1], type: 'image' };
     }
@@ -1580,7 +1580,7 @@ async function renderExampleCards(tab, runs, recipeName) {
         <div class="example-thumb" style="background:#21262d;display:flex;align-items:center;justify-content:center;color:#6e7681;font-size:11px;">sem thumb</div>
       </div>`;
     }
-    // Click na thumb → abre modal de preview. Botão "usar config" aplica o preset.
+    // Click na thumb → abre modal de preview. Botêo "usar config" aplica o preset.
     const previewAttr = previewUrl
       ? `onclick="event.stopPropagation(); openMediaModal('${escapeHtml(previewUrl)}');"`
       : '';
@@ -1646,7 +1646,7 @@ document.getElementById('new-run-mode-toggle').onclick = (e) => {
     toggle.textContent = '⚙ modo JSON';
   }
 };
-// Recipes que exigem um brief/topic preenchido (textarea não-vazio)
+// Recipes que exigem um brief/topic preenchido (textarea nêo-vazio)
 const RECIPES_REQUIRE_BRIEF = new Set([
   'campanha-marketing', 'campanha-marketing-ab',
   'carrossel-rico', 'curso-educativo',
@@ -1668,13 +1668,13 @@ async function submitNewRun() {
   const adv = collectAdvancedOpts(selectedRecipe);
   input = { ...input, ...adv };
 
-  // Validação: recipes principais exigem brief/topic
+  // Validaçêo: recipes principais exigem brief/topic
   if (RECIPES_REQUIRE_BRIEF.has(selectedRecipe)) {
     const hasBrief = (input.brief && String(input.brief).trim()) ||
                      (input.topic && String(input.topic).trim());
     if (!hasBrief) {
       alert(
-        `A receita "${selectedRecipe}" exige uma descrição (brief/topic) ` +
+        `A receita "${selectedRecipe}" exige uma descriçêo (brief/topic) ` +
         `no textarea principal.\n\n` +
         `Preencha o campo "Input" no topo do modal com o tópico/objetivo ` +
         `antes de rodar.`
@@ -1772,7 +1772,7 @@ async function renderDetail(runId, opts) {
 
   const r = await api('/runs/' + runId);
   if (!r.ok) {
-    if (!preserveScroll) detail.innerHTML = '<div class="empty">run não encontrada</div>';
+    if (!preserveScroll) detail.innerHTML = '<div class="empty">run nêo encontrada</div>';
     return;
   }
   const run = await r.json();
@@ -1780,7 +1780,7 @@ async function renderDetail(runId, opts) {
   const status = run.failed ? 'failed' : (run.finished ? 'success' : 'running');
   // Pills destacados: video_mode (quick/pro/skip), platform alvo, approval
   const modePills = [];
-  // video_mode: default é "quick" quando recipe é campanha-marketing e não explícito
+  // video_mode: default é "quick" quando recipe é campanha-marketing e nêo explícito
   const recipeHasVideo = ['campanha-marketing','campanha-marketing-ab'].includes(run.recipe);
   const vm = (run.input || {}).video_mode || (recipeHasVideo ? 'quick' : null);
   if (vm) {
@@ -1790,7 +1790,7 @@ async function renderDetail(runId, opts) {
   const pl = (run.input || {}).platform;
   if (pl) modePills.push(`<span class="pill" style="background:#10b981;color:white;">📱 ${pl}</span>`);
   const am = (run.input || {}).approval_mode;
-  if (am) modePills.push(`<span class="pill" style="background:#f59e0b;color:white;">🔒 aprovação: ${am}</span>`);
+  if (am) modePills.push(`<span class="pill" style="background:#f59e0b;color:white;">🔒 aprovaçêo: ${am}</span>`);
   const sc = (run.input || {}).slide_count;
   if (sc) modePills.push(`<span class="pill" style="background:#475569;color:white;">${sc} slides</span>`);
 
@@ -1863,7 +1863,7 @@ function renderInputCard(input) {
   if (!input || (typeof input === 'object' && Object.keys(input).length === 0)) {
     return '';
   }
-  // Pega o campo de texto principal (pela convenção das receitas)
+  // Pega o campo de texto principal (pela convençêo das receitas)
   const TEXT_KEYS = ['brief', 'topic', 'prompt', 'text', 'query'];
   let mainText = null;
   let mainKey = null;
@@ -1886,7 +1886,7 @@ function renderInputCard(input) {
     <details class="input-card">
       <summary>
         <span class="caret">▶</span>
-        <span class="input-card-label">SOLICITAÇÃO</span>
+        <span class="input-card-label">SOLICITAÇêO</span>
         ${preview ? `<span class="input-card-preview">${preview}</span>` : ''}
       </summary>
       ${mainText ? `<div class="input-card-text">${escapeHtml(mainText)}</div>` : ''}
@@ -1896,7 +1896,7 @@ function renderInputCard(input) {
 }
 
 // Formulário completo com valores usados destacados (igual ao modal de
-// Nova Execução, mas read-only). Facilita repetir/ajustar.
+// Nova Execuçêo, mas read-only). Facilita repetir/ajustar.
 function renderFormEcho(recipeName, input) {
   const fields = RECIPE_FIELDS[recipeName];
   if (!fields || !Array.isArray(fields) || fields.length === 0) return '';
@@ -1909,7 +1909,7 @@ function renderFormEcho(recipeName, input) {
   html += '</summary>';
 
   for (const f of fields) {
-    // Campos de texto principal já mostrados no input-card; pula pra evitar duplicação
+    // Campos de texto principal já mostrados no input-card; pula pra evitar duplicaçêo
     if (f.type === 'text' && TEXT_KEYS.includes(f.key)) continue;
 
     const raw = inp[f.key];
@@ -1978,7 +1978,7 @@ function renderFormEcho(recipeName, input) {
       } else if (Array.isArray(raw) && raw.length) {
         html += `<div class="form-echo-value" style="white-space:pre-wrap;display:block;max-width:100%;">${escapeHtml(raw.join('\n').slice(0,500))}</div>`;
       } else {
-        html += '<span class="form-echo-value empty">(não preenchido)</span>';
+        html += '<span class="form-echo-value empty">(nêo preenchido)</span>';
       }
     } else {
       // text / default
@@ -2057,7 +2057,7 @@ function populateFormFromInput(recipeName, input) {
   }
 }
 
-// Abre o modal Nova Execução pré-preenchido com valores da run original
+// Abre o modal Nova Execuçêo pré-preenchido com valores da run original
 function openNewRunModal(recipe, input) {
   if (typeof selectedRecipe !== 'undefined') {
     window.selectedRecipe = recipe;
@@ -2082,10 +2082,10 @@ function openNewRunModal(recipe, input) {
   document.getElementById('new-run-modal').style.display = 'flex';
 }
 
-// Clonar valores de uma run pro modal Nova Execução — pré-preenche e abre
+// Clonar valores de uma run pro modal Nova Execuçêo — pré-preenche e abre
 async function cloneRunToModal(runId) {
   const r = await api('/runs/' + runId);
-  if (!r.ok) { alert('Run não encontrada'); return; }
+  if (!r.ok) { alert('Run nêo encontrada'); return; }
   const run = await r.json();
   const inp = run.input || {};
   openNewRunModal(run.recipe, inp);
@@ -2128,7 +2128,7 @@ function escapeHtml(s) {
 
 // ── actions ───────────────────────────────────────────────────
 async function deleteRun(runId) {
-  if (!confirm(`Deletar permanentemente a run ${runId.slice(0,8)}…?\n\nArtefatos (imagens/vídeos) no storage NÃO serão removidos — apenas o registro da execução.`)) return;
+  if (!confirm(`Deletar permanentemente a run ${runId.slice(0,8)}…?\n\nArtefatos (imagens/vídeos) no storage NêO serêo removidos — apenas o registro da execuçêo.`)) return;
   const r = await api('/runs/' + runId, { method: 'DELETE' });
   if (!r.ok) {
     const txt = await r.text();
@@ -2155,7 +2155,7 @@ async function rerunAll(runId) {
   } else alert('Falhou: ' + r.status);
 }
 async function rerunFrom(runId, stageId) {
-  if (!confirm(`Re-rodar a partir do stage '${stageId}'? Stages anteriores serão copiados da run original (não re-executados).`)) return;
+  if (!confirm(`Re-rodar a partir do stage '${stageId}'? Stages anteriores serêo copiados da run original (nêo re-executados).`)) return;
   const r = await api('/runs/' + runId + '/rerun-from/' + stageId, { method: 'POST' });
   if (r.ok) {
     const data = await r.json();
@@ -2173,7 +2173,7 @@ loadRecipes();
 
 // Backlog #23 — auto-refresh preserva scroll + colapsos
 setInterval(() => {
-  loadRecipes();  // atualiza contadores (coluna 1, não afeta scroll do detail)
+  loadRecipes();  // atualiza contadores (coluna 1, nêo afeta scroll do detail)
   if (selectedRecipe) loadRuns(selectedRecipe);
   if (selectedRunId) {
     fetch('/runs/' + selectedRunId).then(r => r.json()).then(run => {

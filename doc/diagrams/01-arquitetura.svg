@@ -125,9 +125,9 @@ LLM + memória FTS5" data-shape="rectangle">
   <rect x="701.8708333333333" y="510.50000000000006" width="167.92" height="53.800000000000004" rx="0" ry="0" fill="#2d3d5a" stroke="#7d9dd3" stroke-width="0.75" />
   <text x="785.8308333333333" y="537.4000000000001" text-anchor="middle" font-size="13" font-weight="500" fill="#e8edf5"><tspan x="785.8308333333333" dy="-3.9000000000000012">Agent Loop</tspan><tspan x="785.8308333333333" dy="16.900000000000002">LLM + memória FTS5</tspan></text>
 </g>
-<g class="node" data-id="Classifier" data-label="Intenção?" data-shape="diamond">
+<g class="node" data-id="Classifier" data-label="Intençêo?" data-shape="diamond">
   <polygon points="822.2678333333333,612.3000000000001 884.1418333333334,674.1740000000001 822.2678333333333,736.0480000000001 760.3938333333333,674.1740000000001" fill="#2d3d5a" stroke="#7d9dd3" stroke-width="0.75" />
-  <text x="822.2678333333333" y="674.1740000000001" text-anchor="middle" font-size="13" font-weight="500" fill="#e8edf5" dy="4.55">Intenção?</text>
+  <text x="822.2678333333333" y="674.1740000000001" text-anchor="middle" font-size="13" font-weight="500" fill="#e8edf5" dy="4.55">Intençêo?</text>
 </g>
 <g class="node" data-id="Quick" data-label="Quick Dispatch
 1 pedido → 1 job" data-shape="rectangle">

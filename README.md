@@ -1,34 +1,34 @@
-﻿# imkt5
+ï»¿# imkt5
 
-Plataforma modular multi-tenant para pipelines de mÃ­dia (imagem, Ã¡udio, vÃ­deo, texto) com **entrada conversacional** (Telegram/WhatsApp/Web), **fila de jobs**, e **local-first com fallback remoto**.
+Plataforma modular multi-tenant para pipelines de mêÂ­dia (imagem, êÂ¡udio, vêÂ­deo, texto) com **entrada conversacional** (Telegram/WhatsApp/Web), **fila de jobs**, e **local-first com fallback remoto**.
 
 ```
-Canais (TG Â· WA Â· Web)  â†’  Gateway  â†’  Fila  â†’  Workers
+Canais (TG êÂ· WA êÂ· Web)  ê¢â â  Gateway  ê¢â â  Fila  ê¢â â  Workers
 ```
 
-Cada worker Ã© um serviÃ§o HTTP independente. Cada pedido Ã© um `Job` que o Gateway despacha para o worker certo baseado em **capability** (`image.generation`, `audio.tts`, `research.market`, etc.). MÃºltiplas instÃ¢ncias do mesmo worker sÃ£o distribuÃ­das pelo matcher (local antes de remoto).
+Cada worker êÂ© um serviêÂ§o HTTP independente. Cada pedido êÂ© um `Job` que o Gateway despacha para o worker certo baseado em **capability** (`image.generation`, `audio.tts`, `research.market`, etc.). MêÂºltiplas instêÂ¢ncias do mesmo worker sêÂ£o distribuêÂ­das pelo matcher (local antes de remoto).
 
 ## Status
 
-**Funciona end-to-end** â€” gateway HTTP + UI web + 4 workers reais plugados. 35 testes passando.
+**Funciona end-to-end** ê¢â¬â gateway HTTP + UI web + 4 workers reais plugados. 35 testes passando.
 
 | Componente | Estado |
 |---|---|
-| Contratos multi-tenant | âœ… implementado |
-| Recipe engine (YAML declarativo + 3 modos de aprovaÃ§Ã£o) | âœ… implementado |
-| Capability registry com local-first + health check | âœ… implementado |
-| Quick dispatch (1 capability â†’ 1 job) | âœ… implementado |
-| HTTP dispatcher + saturaÃ§Ã£o + logging | âœ… implementado |
-| UI web em `/ui` | âœ… implementado |
-| Config centralizado 3 nÃ­veis (global/tenant/user) | âœ… implementado |
-| Worker `research` (Tavily) | âœ… validado live |
-| Worker `auto-reviewer` (Ollama+OpenRouter) | âœ… validado live |
-| Worker `inemaimg-adapter` (flux2-klein, qwen-edit, ernie) | âœ… validado live |
-| Worker `inemavox-adapter` (TTS/dubbing/transcribe) | âœ… adapter pronto |
-| Canal Telegram/WhatsApp | â¸ pendente |
-| PersistÃªncia Postgres | â¸ pendente (hoje in-memory) |
-| 12 workers do timesmkt3 (copywriter, ad-designer, etc.) | â¸ a portar |
-| Workers yt-pub-lives (substitui 10 clones) | â¸ a portar |
+| Contratos multi-tenant | ê¢Åâ¦ implementado |
+| Recipe engine (YAML declarativo + 3 modos de aprovaêÂ§êÂ£o) | ê¢Åâ¦ implementado |
+| Capability registry com local-first + health check | ê¢Åâ¦ implementado |
+| Quick dispatch (1 capability ê¢â â 1 job) | ê¢Åâ¦ implementado |
+| HTTP dispatcher + saturaêÂ§êÂ£o + logging | ê¢Åâ¦ implementado |
+| UI web em `/ui` | ê¢Åâ¦ implementado |
+| Config centralizado 3 nêÂ­veis (global/tenant/user) | ê¢Åâ¦ implementado |
+| Worker `research` (Tavily) | ê¢Åâ¦ validado live |
+| Worker `auto-reviewer` (Ollama+OpenRouter) | ê¢Åâ¦ validado live |
+| Worker `inemaimg-adapter` (flux2-klein, qwen-edit, ernie) | ê¢Åâ¦ validado live |
+| Worker `inemavox-adapter` (TTS/dubbing/transcribe) | ê¢Åâ¦ adapter pronto |
+| Canal Telegram/WhatsApp | ê¢ÂÂ¸ pendente |
+| PersistêÂªncia Postgres | ê¢ÂÂ¸ pendente (hoje in-memory) |
+| 12 workers do timesmkt3 (copywriter, ad-designer, etc.) | ê¢ÂÂ¸ a portar |
+| Workers yt-pub-lives (substitui 10 clones) | ê¢ÂÂ¸ a portar |
 
 ## Quickstart
 
@@ -47,24 +47,24 @@ open http://localhost:8080/ui
 ./scripts/stop-dev.sh
 ```
 
-PrÃ©-requisitos:
-- **Ollama** rodando (`qwen2.5:14b` baixado) â€” pra `auto-reviewer`
-- **inemaimg** rodando em `:8000` (opcional â€” pra gerar imagem real)
-- **inemavox** rodando em `:8010` (opcional â€” pra TTS real)
-- `TAVILY_API_KEY` no `.env` (jÃ¡ populado a partir do timesmkt3)
+PrêÂ©-requisitos:
+- **Ollama** rodando (`qwen2.5:14b` baixado) ê¢â¬â pra `auto-reviewer`
+- **inemaimg** rodando em `:8000` (opcional ê¢â¬â pra gerar imagem real)
+- **inemavox** rodando em `:8010` (opcional ê¢â¬â pra TTS real)
+- `TAVILY_API_KEY` no `.env` (jêÂ¡ populado a partir do timesmkt3)
 
 Teste via `curl`:
 ```bash
 curl -X POST http://localhost:8080/jobs \
   -H "Content-Type: application/json" \
-  -d '{"capability":"research.market","payload":{"queries":["cafÃ© 2026"]}}'
+  -d '{"capability":"research.market","payload":{"queries":["cafêÂ© 2026"]}}'
 ```
 
 ## Arquitetura em 3 linhas
 
-1. **Quick dispatch** â€” pedido simples (1 capability) Ã© um `POST /jobs` direto.
-2. **Recipe Runner** â€” fluxos compostos (mÃºltiplas capabilities encadeadas) vÃªm de YAML em `recipes/*.yaml`, com dependÃªncias/paralelismo/aprovaÃ§Ãµes declarativas.
-3. **Capability matcher** â€” registry de workers com `local: true/false` + `priority` + `health`; fallback automÃ¡tico local â†’ remoto.
+1. **Quick dispatch** ê¢â¬â pedido simples (1 capability) êÂ© um `POST /jobs` direto.
+2. **Recipe Runner** ê¢â¬â fluxos compostos (mêÂºltiplas capabilities encadeadas) vêÂªm de YAML em `recipes/*.yaml`, com dependêÂªncias/paralelismo/aprovaêÂ§êÂµes declarativas.
+3. **Capability matcher** ê¢â¬â registry de workers com `local: true/false` + `priority` + `health`; fallback automêÂ¡tico local ê¢â â remoto.
 
 Diagramas em `doc/diagrams/` (SVG + PNG).
 
@@ -72,40 +72,40 @@ Diagramas em `doc/diagrams/` (SVG + PNG).
 
 ```
 imkt5/
-â”œâ”€â”€ imkt5/              pacote Python (gateway, dispatcher, runner, tipos)
-â”‚   â”œâ”€â”€ config.py       loader de config 3-nÃ­veis
-â”‚   â”œâ”€â”€ gateway/        HTTP dispatcher, FastAPI, UI web, jobs store
-â”‚   â”œâ”€â”€ capabilities/   registry + matcher (local-first)
-â”‚   â”œâ”€â”€ recipes/        YAML loader, state-machine runner, approvals
-â”‚   â”œâ”€â”€ memory/         SQLite FTS5 multi-tenant
-â”‚   â”œâ”€â”€ tools/          dispatch_job + run_recipe (tools pro LLM)
-â”‚   â””â”€â”€ types/          dataclasses canÃ´nicas
-â”œâ”€â”€ workers/            serviÃ§os HTTP independentes
-â”‚   â”œâ”€â”€ _base/          BaseWorker + storage helper
-â”‚   â”œâ”€â”€ auto-reviewer/  LLM review (Ollama local + OpenRouter fallback)
-â”‚   â”œâ”€â”€ inemaimg-adapter/  wrapper do inemaimg (image.generation)
-â”‚   â”œâ”€â”€ inemavox-adapter/  wrapper do inemavox (audio.*)
-â”‚   â””â”€â”€ research/       Tavily (research.market)
-â”œâ”€â”€ config/
-â”‚   â”œâ”€â”€ defaults.yaml   fonte Ãºnica dos magic numbers globais
-â”‚   â””â”€â”€ workers.yaml    catÃ¡logo de workers registrados
-â”œâ”€â”€ profiles/           config por tenant
-â”‚   â”œâ”€â”€ _template/      stack de identidade (SOUL/AGENTS/USER/MEMORY)
-â”‚   â””â”€â”€ <tenant_id>/    SOUL.md + config.yaml + knowledge/
-â”œâ”€â”€ recipes/            fluxos compostos (YAML)
-â”œâ”€â”€ scripts/            start-dev.sh, stop-dev.sh, notify.sh
-â”œâ”€â”€ data/               artefatos locais (gitignored)
-â”œâ”€â”€ logs/               logs de cada processo (gitignored)
-â”œâ”€â”€ tests/              35 testes
-â””â”€â”€ doc/                documentaÃ§Ã£o
+ê¢âÅê¢ââ¬ê¢ââ¬ imkt5/              pacote Python (gateway, dispatcher, runner, tipos)
+ê¢ââ   ê¢âÅê¢ââ¬ê¢ââ¬ config.py       loader de config 3-nêÂ­veis
+ê¢ââ   ê¢âÅê¢ââ¬ê¢ââ¬ gateway/        HTTP dispatcher, FastAPI, UI web, jobs store
+ê¢ââ   ê¢âÅê¢ââ¬ê¢ââ¬ capabilities/   registry + matcher (local-first)
+ê¢ââ   ê¢âÅê¢ââ¬ê¢ââ¬ recipes/        YAML loader, state-machine runner, approvals
+ê¢ââ   ê¢âÅê¢ââ¬ê¢ââ¬ memory/         SQLite FTS5 multi-tenant
+ê¢ââ   ê¢âÅê¢ââ¬ê¢ââ¬ tools/          dispatch_job + run_recipe (tools pro LLM)
+ê¢ââ   ê¢ââê¢ââ¬ê¢ââ¬ types/          dataclasses canêÂ´nicas
+ê¢âÅê¢ââ¬ê¢ââ¬ workers/            serviêÂ§os HTTP independentes
+ê¢ââ   ê¢âÅê¢ââ¬ê¢ââ¬ _base/          BaseWorker + storage helper
+ê¢ââ   ê¢âÅê¢ââ¬ê¢ââ¬ auto-reviewer/  LLM review (Ollama local + OpenRouter fallback)
+ê¢ââ   ê¢âÅê¢ââ¬ê¢ââ¬ inemaimg-adapter/  wrapper do inemaimg (image.generation)
+ê¢ââ   ê¢âÅê¢ââ¬ê¢ââ¬ inemavox-adapter/  wrapper do inemavox (audio.*)
+ê¢ââ   ê¢ââê¢ââ¬ê¢ââ¬ research/       Tavily (research.market)
+ê¢âÅê¢ââ¬ê¢ââ¬ config/
+ê¢ââ   ê¢âÅê¢ââ¬ê¢ââ¬ defaults.yaml   fonte êÂºnica dos magic numbers globais
+ê¢ââ   ê¢ââê¢ââ¬ê¢ââ¬ workers.yaml    catêÂ¡logo de workers registrados
+ê¢âÅê¢ââ¬ê¢ââ¬ profiles/           config por tenant
+ê¢ââ   ê¢âÅê¢ââ¬ê¢ââ¬ _template/      stack de identidade (SOUL/AGENTS/USER/MEMORY)
+ê¢ââ   ê¢ââê¢ââ¬ê¢ââ¬ <tenant_id>/    SOUL.md + config.yaml + knowledge/
+ê¢âÅê¢ââ¬ê¢ââ¬ recipes/            fluxos compostos (YAML)
+ê¢âÅê¢ââ¬ê¢ââ¬ scripts/            start-dev.sh, stop-dev.sh, notify.sh
+ê¢âÅê¢ââ¬ê¢ââ¬ data/               artefatos locais (gitignored)
+ê¢âÅê¢ââ¬ê¢ââ¬ logs/               logs de cada processo (gitignored)
+ê¢âÅê¢ââ¬ê¢ââ¬ tests/              35 testes
+ê¢ââê¢ââ¬ê¢ââ¬ doc/                documentaêÂ§êÂ£o
 ```
 
-## DocumentaÃ§Ã£o
+## DocumentaêÂ§êÂ£o
 
 | Doc | Quando ler |
 |---|---|
-| [`doc/architecture.md`](doc/architecture.md) | Entender o design canÃ´nico |
-| [`doc/backlog.md`](doc/backlog.md) | ðŸ—ºï¸ **Roadmap completo do que falta** â€” priorizado, com esforÃ§o |
+| [`doc/architecture.md`](doc/architecture.md) | Entender o design canêÂ´nico |
+| [`doc/backlog.md`](doc/backlog.md) | ê°Å¸âÂºê¯Â¸Â **Roadmap completo do que falta** ê¢â¬â priorizado, com esforêÂ§o |
 | [`doc/QUICKSTART.md`](doc/QUICKSTART.md) | Testar end-to-end com curl |
 | [`doc/creating-workers.md`](doc/creating-workers.md) | Criar um worker novo |
 | [`doc/creating-recipes.md`](doc/creating-recipes.md) | Criar uma receita nova |
@@ -113,17 +113,17 @@ imkt5/
 | [`doc/concurrency-model.md`](doc/concurrency-model.md) | Como o sistema escala |
 | [`doc/env-inventory.md`](doc/env-inventory.md) | Mapa de credenciais dos projetos-fonte |
 | [`doc/api-mapping-inemaimg-inemavox.md`](doc/api-mapping-inemaimg-inemavox.md) | Contratos reais dos upstreams |
-| [`doc/admin-ui-viability.md`](doc/admin-ui-viability.md) | AnÃ¡lise da UI de admin (viabilidade) |
+| [`doc/admin-ui-viability.md`](doc/admin-ui-viability.md) | AnêÂ¡lise da UI de admin (viabilidade) |
 | [`doc/diagrams/`](doc/diagrams/) | Diagramas visuais (arquitetura, provider chain, fluxos) |
-| [`CLAUDE.md`](CLAUDE.md) | Regras pra futuras sessÃµes de Claude Code |
+| [`CLAUDE.md`](CLAUDE.md) | Regras pra futuras sessêÂµes de Claude Code |
 
 ## Origens
 
-- **Blueprint arquitetural**: `intelecto` (spec â€” contratos `BaseProvider/Channel/Tool` + stack de identidade em Markdown)
-- **PeÃ§as reutilizadas**: `openpcbot` (schema SQLite, WhatsApp bridge, dashboard structure)
-- **Workers a absorver** (prÃ³ximas fases): `timesmkt3` (12 agentes) Â· `yt-pub-lives*` (consolidaÃ§Ã£o dos 10 clones)
+- **Blueprint arquitetural**: `intelecto` (spec ê¢â¬â contratos `BaseProvider/Channel/Tool` + stack de identidade em Markdown)
+- **PeêÂ§as reutilizadas**: `openpcbot` (schema SQLite, WhatsApp bridge, dashboard structure)
+- **Workers a absorver** (prêÂ³ximas fases): `timesmkt3` (12 agentes) êÂ· `yt-pub-lives*` (consolidaêÂ§êÂ£o dos 10 clones)
 
-## LicenÃ§a
+## LicenêÂ§a
 
 MIT
 

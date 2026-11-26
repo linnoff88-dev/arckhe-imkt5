@@ -1,7 +1,7 @@
-"""Gates de aprovação — três modos.
+"""Gates de aprovaçêo — três modos.
 
 Cada gate implementa `ApprovalGate` (definido em `runner.py`) e resolve
-a decisão *assíncronamente*, chamando de volta `runner.on_approval_decided`
+a decisêo *assíncronamente*, chamando de volta `runner.on_approval_decided`
 quando a resposta chegar.
 """
 

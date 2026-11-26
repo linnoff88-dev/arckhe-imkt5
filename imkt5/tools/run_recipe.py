@@ -22,7 +22,7 @@ class RunRecipeTool(BaseTool):
     description = (
         "Dispara uma receita (fluxo composto multi-estágio). "
         "Use para campanhas, pipelines de conteúdo, processos que "
-        "envolvem múltiplas etapas com aprovação opcional. "
+        "envolvem múltiplas etapas com aprovaçêo opcional. "
         "Para pedidos simples, use `dispatch_job`."
     )
     parameters = {

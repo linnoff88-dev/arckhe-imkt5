@@ -4,8 +4,8 @@ Contexto estável sobre o tenant / usuário principal. Carregado em todo
 system prompt.
 
 ## Quem é
-- Nome / organização.
-- Papel / função.
+- Nome / organizaçêo.
+- Papel / funçêo.
 
 ## Preferências
 - Formato preferido (texto curto, relatório estruturado, etc.).

@@ -46,19 +46,19 @@ class OutlineToVideoPlanWorker(BaseWorker):
         if not slides:
             raise ValueError("outline.slides vazio")
         if not ads:
-            raise ValueError("ads vazio — stage images não gerou imagens?")
+            raise ValueError("ads vazio — stage images nêo gerou imagens?")
         if len(ads) < len(slides):
             # Último fallback: repete última imagem pra cobrir slides extras
             ads = list(ads) + [ads[-1]] * (len(slides) - len(ads))
 
-        # Motions alternados pra não ficar visualmente estático
+        # Motions alternados pra nêo ficar visualmente estático
         motion_types = ["push-in", "ken-burns-in", "drift", "ken-burns-out"]
 
         scenes = []
         for i, s in enumerate(slides):
             dur = max(3, int(s.get("duration_s") or 10))
             overlay = s.get("title") or ""
-            # Hook e CTA destacados em posição top; conteúdo default top também
+            # Hook e CTA destacados em posiçêo top; conteúdo default top também
             position = "top"
             # Tipografia: hook maior, cta bold, content normal
             stype = s.get("type") or "content"

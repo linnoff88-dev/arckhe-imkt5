@@ -12,7 +12,7 @@ version: 11
 #   image_model             string    (default env OLLAMA/flux2-klein)
 #   image_formats           string[]  (default feed,stories,yt_thumb)
 #   image_reference         string    url de imagem-ref pra qwen-edit
-#   image_reference_note    string    instrução pro background_prompt
+#   image_reference_note    string    instruçêo pro background_prompt
 #   image_background_color  string    hex
 #   video_mode              string    quick|pro|skip   (default quick)
 #   video_template          string    (default auto)
@@ -32,7 +32,7 @@ stages:
       query: $.input.brief
     approval: {mode: none}
 
-  # Item 7 — brief_strategic tem gate opcional (bifurcação: direção ruim
+  # Item 7 — brief_strategic tem gate opcional (bifurcaçêo: direçêo ruim
   # é caríssima pra descobrir no fim). Default: none. Ativar via
   # `approval_mode: "human"` (ou "auto") no input da run.
   - id: brief
@@ -103,8 +103,8 @@ stages:
       images: $.input.image_reference
     approval: {mode: none}
 
-  # Video scene plan. Já recebe direção de arte (roda desde o início).
-  # Item 7 — stage de maior leverage pra aprovação: cena ruim vale caro pra
+  # Video scene plan. Já recebe direçêo de arte (roda desde o início).
+  # Item 7 — stage de maior leverage pra aprovaçêo: cena ruim vale caro pra
   # render. Default none; promove via approval_mode global.
   - id: video
     requires: video.cinematic
@@ -124,7 +124,7 @@ stages:
     approval: {mode: none}
 
   # TTS por cena (mkt3-style): fanout sobre scenes → 1 mp3 por cena.
-  # ffmpeg-local mede duração de cada e sincroniza scene.duration com audio.
+  # ffmpeg-local mede duraçêo de cada e sincroniza scene.duration com audio.
   # Dedup (sha256) no inemavox-adapter evita regerar narrações idênticas
   # entre runs similares (economia 40-60%).
   - id: voiceover
@@ -174,7 +174,7 @@ stages:
       narration_urls: $.stages.voiceover.output.outputs[*].audio_url
       use_brand_overlay: $.input.use_brand_overlay
       tenant_id: $.tenant.tenant_id
-      # Repassa direção de arte pro renderer (música, SFX, hook, transição)
+      # Repassa direçêo de arte pro renderer (música, SFX, hook, transiçêo)
       style: $.stages.video_art_direction.output.style
       music_genre: $.stages.video_art_direction.output.music_genre
       hook_pattern: $.stages.video_art_direction.output.hook_pattern

@@ -1,7 +1,7 @@
 """UI web single-page do Gateway.
 
 HTML + CSS + JS inline — zero dependências externas, serve direto do
-FastAPI. Para interação rápida: chat-like, mostra workers disponíveis,
+FastAPI. Para interaçêo rápida: chat-like, mostra workers disponíveis,
 input de prompt/payload, lista de jobs recentes com auto-refresh.
 """
 from imkt5.gateway._media_modal import MEDIA_MODAL_HTML as _MEDIA_MODAL_HTML
@@ -147,7 +147,7 @@ button.ghost:hover { color:var(--fg); background:var(--bg3); }
     <div id="panel-job">
       <div class="tab-hint">
         <strong>Novo Job</strong> = executa UMA capability direto (ex.: gerar imagem, fazer pesquisa, TTS).
-        Rápido, sem aprovação, sem composição. Use pra tarefas simples.
+        Rápido, sem aprovaçêo, sem composiçêo. Use pra tarefas simples.
       </div>
       <form id="job-form">
         <label>Capability
@@ -208,7 +208,7 @@ button.ghost:hover { color:var(--fg); background:var(--bg3); }
 <script>
 const API = window.location.origin;
 
-// ── configuração por capability ────────────────────────────────────
+// ── configuraçêo por capability ────────────────────────────────────
 const CAP_CONFIG = {
   "research.market": {
     hint: "busca real no Tavily",
@@ -254,7 +254,7 @@ const CAP_CONFIG = {
   },
   "review.auto": {
     hint: "LLM decide approved/rejected — cole o texto a revisar",
-    placeholder: "ex.: Lançamento do café gelado cremoso, perfeito para o verão.",
+    placeholder: "ex.: Lançamento do café gelado cremoso, perfeito para o verêo.",
     buildPayload: (text) => ({
       criteria: [
         "o texto está em português",
@@ -347,7 +347,7 @@ async function loadSidebar() {
   document.getElementById("recipes").innerHTML = recipes
     .map(r => `<div><strong>${r.name}</strong> v${r.version} (${r.stages.length} stages)</div>`).join("");
 
-  // popula selects APENAS no primeiro load — não resetar depois
+  // popula selects APENAS no primeiro load — nêo resetar depois
   if (!bootstrapped) {
     const capSel = document.getElementById("cap-select");
     capSel.innerHTML = Object.keys(caps).sort()
@@ -518,7 +518,7 @@ async function refreshJobs() {
 loadSidebar();
 refreshJobs();
 setInterval(refreshJobs, 2000);
-setInterval(loadSidebar, 10000);  // agora não reseta nada (bootstrapped=true)
+setInterval(loadSidebar, 10000);  // agora nêo reseta nada (bootstrapped=true)
 </script>
 </body>
 </html>

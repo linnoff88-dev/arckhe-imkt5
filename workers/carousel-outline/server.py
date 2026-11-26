@@ -77,7 +77,7 @@ def _slide_has_cta(slide: dict) -> bool:
 DEFAULT_CLOSING_BY_TENANT = {
     "inema": {
         "cta_headline": "Comece grátis: inema.club",
-        "cta_context": "A plataforma gratuita de formação em IA.",
+        "cta_context": "A plataforma gratuita de formaçêo em IA.",
         "brand_headline": "INEMA.CLUB",
         "brand_context": "Atrás dos computadores tem gente. Use as máquinas/IA para escalar.",
         "handle": "@inema.tds",
@@ -97,7 +97,7 @@ def _enforce_closing(slides: list[dict], *, tenant_id: str | None) -> None:
     closing_mode = (last.get("closing_mode") or "").strip().lower()
     defaults = DEFAULT_CLOSING_BY_TENANT.get(tenant_id or "") or {}
 
-    # Heurística quando LLM não setou closing_mode
+    # Heurística quando LLM nêo setou closing_mode
     if closing_mode not in ("cta", "brand"):
         # Algum slide intermediário (0..N-2) já tem CTA? → brand moment
         intermediate_has_cta = any(
@@ -116,7 +116,7 @@ def _enforce_closing(slides: list[dict], *, tenant_id: str | None) -> None:
             last["context"] = defaults.get("brand_context") or ""
         if not (last.get("slide_label") or "").strip():
             last["slide_label"] = defaults.get("handle") or "Marca"
-        # Brand moment NÃO precisa de bg — fica tipográfico.
+        # Brand moment NêO precisa de bg — fica tipográfico.
         # Mantém bg_prompt se LLM gerou (pode ser útil como textura).
     else:  # cta
         if not (last.get("headline") or "").strip():
@@ -186,11 +186,11 @@ class CarouselOutlineWorker(BaseWorker):
         style_guidance = ""
         if style_hint:
             style_guidance = (
-                f"\n## DIREÇÃO VISUAL (do art_director)\n\n"
+                f"\n## DIREÇêO VISUAL (do art_director)\n\n"
                 f"Style escolhido: **{style_hint}**.\n"
                 f"{_style_hint_text(style_hint)}\n"
                 f"Aplica essas dicas em TODOS os `bg_prompt` — o modelo de "
-                f"geração de imagem vai receber esses prompts, então descreva "
+                f"geraçêo de imagem vai receber esses prompts, entêo descreva "
                 f"a cena visual em inglês alinhada ao mood do style.\n"
             )
 
@@ -217,7 +217,7 @@ class CarouselOutlineWorker(BaseWorker):
             data = {"slides": data}
         slides = data.get("slides", [])
         if not slides:
-            raise RuntimeError(f"LLM não gerou slides. keys={list(data.keys())}")
+            raise RuntimeError(f"LLM nêo gerou slides. keys={list(data.keys())}")
 
         # O primeiro slide (cover) sempre reaproveita o TEXTO ORIGINAL
         # do usuário como headline — preserva a ideia como âncora.
@@ -226,7 +226,7 @@ class CarouselOutlineWorker(BaseWorker):
         original_headline = topic
         original_context = ""
         if len(topic) > 60:
-            # Quebra numa pontuação próxima do limite pra não cortar palavra
+            # Quebra numa pontuaçêo próxima do limite pra nêo cortar palavra
             cut = 60
             for stop in ("—", " — ", ". ", "! ", "? ", ": ", ", "):
                 idx = topic.rfind(stop, 0, 80)
@@ -259,9 +259,9 @@ class CarouselOutlineWorker(BaseWorker):
                             stat[sub] = _strip_markdown(stat[sub])
 
         # Garante fechamento no último slide: closing_mode obrigatório.
-        # Se LLM não setou, aplica heurística:
+        # Se LLM nêo setou, aplica heurística:
         #   - Se algum slide intermediário tem URL/CTA → closing_mode = "brand"
-        #   - Senão → closing_mode = "cta" + completa com fallback textual
+        #   - Senêo → closing_mode = "cta" + completa com fallback textual
         _enforce_closing(slides, tenant_id=job.tenant_id)
         return {
             "slides": slides,

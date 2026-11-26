@@ -8,7 +8,7 @@ Servido em GET /admin. Single-page com 4 abas:
   - Audit: visualiza logs recentes.
 
 Tudo textual (YAML/JSON). Editor visual drag-and-drop (E#19) fica
-pra uma iteração separada — requer libs maiores (react-flow etc).
+pra uma iteraçêo separada — requer libs maiores (react-flow etc).
 """
 from imkt5.gateway._media_modal import MEDIA_MODAL_HTML as _MEDIA_MODAL_HTML
 from imkt5.gateway._modal_close import UNIVERSAL_MODAL_HTML as _UNIVERSAL_MODAL_HTML
@@ -250,7 +250,7 @@ async function api(url, opts = {}) {
   if (r.status === 401) {
     alert('Token inválido/ausente. Clique em [token] no topo pra configurar.');
   } else if (r.status === 403) {
-    alert('Sem permissão (403).');
+    alert('Sem permissêo (403).');
   }
   return r;
 }

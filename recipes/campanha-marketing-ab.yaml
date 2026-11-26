@@ -3,7 +3,7 @@ version: 2
 # Item 6 — A/B variants recipe-level.
 #
 # Gera N vídeos diferentes variando hook e CTA. Ideal pra testar qual
-# combinação performa melhor em Reels/TikTok/Shorts.
+# combinaçêo performa melhor em Reels/TikTok/Shorts.
 #
 # Input extra (além dos campos de campanha-marketing):
 #   hook_variants    list   ex.: ["stat_shot", "question_abrupt", "pov"]
@@ -16,7 +16,7 @@ version: 2
 #   → video_render_ab (fanout sobre variantes)
 #
 # Dedup de TTS (item 3) economiza 40-60% quando cenas do meio (solution/proof)
-# não mudam entre variantes — só hook[0] e CTA[N-1] são variables.
+# nêo mudam entre variantes — só hook[0] e CTA[N-1] sêo variables.
 
 stages:
 
@@ -71,7 +71,7 @@ stages:
     approval: {mode: none}
 
   # Item 6c (flag ab_ai_suggest): LLM sugere hook_variants+cta_variants
-  # quando user não passou explicitamente. Fallback pra input.hook_variants
+  # quando user nêo passou explicitamente. Fallback pra input.hook_variants
   # se esta stage for skipped.
   - id: ab_suggest
     requires: video.ab_suggest
@@ -101,7 +101,7 @@ stages:
     requires: video.cinematic
     needs: [ad_design, images, video_art_direction, ab_suggest]
     when: $.input.skip_video != true
-    # Aceita hook_variants do input OU sugestões do ab_suggest (opção C)
+    # Aceita hook_variants do input OU sugestões do ab_suggest (opçêo C)
     fanout_over: $.input.hook_variants || $.stages.ab_suggest.output.hook_variants
     payload_from:
       creative_brief: $.stages.brief.output.creative_brief
@@ -111,13 +111,13 @@ stages:
       art_direction_style: $.stages.video_art_direction.output.style
       art_direction_motion: $.stages.video_art_direction.output.motion_preset
       art_direction_transition: $.stages.video_art_direction.output.transition
-      # Hook pattern atual da iteração (vem do fanout)
+      # Hook pattern atual da iteraçêo (vem do fanout)
       art_direction_hook_pattern: $.fanout_item
     approval: {mode: none}
 
-  # Narração por cena pra CADA variante de hook.
+  # Narraçêo por cena pra CADA variante de hook.
   # outputs[*].scene_plan.scenes[*].narration => lista achatada
-  # Nota: simplificação v4 — geramos 1 voiceover dedicado por variante
+  # Nota: simplificaçêo v4 — geramos 1 voiceover dedicado por variante
   # (todas as cenas de todas variantes concatenadas). O renderer corta.
   - id: voiceover_ab
     requires: audio.tts

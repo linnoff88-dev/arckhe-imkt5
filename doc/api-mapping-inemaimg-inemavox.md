@@ -1,6 +1,6 @@
 # Mapeamento de APIs — inemaimg e inemavox
 
-> Relatório da exploração de código feita para construir os adapters do
+> Relatório da exploraçêo de código feita para construir os adapters do
 > `imkt5`. **Capturado em 2026-04-16**; validar antes de mudanças maiores.
 
 ## inemaimg
@@ -50,8 +50,8 @@ Response:
 }
 ```
 
-Tempo típico: **10–60s** por imagem. Output é **base64 inline** (não salva
-em disco, não devolve URL).
+Tempo típico: **10–60s** por imagem. Output é **base64 inline** (nêo salva
+em disco, nêo devolve URL).
 
 ### Modelos no registry
 
@@ -76,7 +76,7 @@ devolvem `job_id`, cliente faz polling ou subscribe via WebSocket.
 **Workers internos**: `chatterbox_tts_worker.py`, `chatterbox_vc_worker.py`,
 `baixar_v1.py`, `clipar_v1.py`, `dublar_pro_v5.py`. Tudo via subprocess.
 
-### Padrão de uso
+### Padrêo de uso
 
 ```
 POST /api/jobs/<op>   →  {"id": "abc", "status": "queued"}
@@ -87,7 +87,7 @@ WS   /ws/jobs/abc     →  eventos em tempo real
 
 ### Operações
 
-| Método | Path | Descrição |
+| Método | Path | Descriçêo |
 |---|---|---|
 | `POST` | `/api/jobs/tts` | TTS simples; body `{text, engine, lang}` |
 | `POST` | `/api/jobs/tts/upload` | TTS com voice clone (multipart) |
@@ -136,7 +136,7 @@ jobs/{job_id}/
 
 ## Implicações para os adapters do `imkt5`
 
-### Colisão de porta em dev local
+### Colisêo de porta em dev local
 
 Ambos usam **8000** por default. Soluções possíveis:
 
@@ -169,13 +169,13 @@ ou do Quick Dispatch, é sempre "capability → URL de artefato em S3".
 
 ### O adapter precisa de storage
 
-Para não depender de passar base64 pelos canais (Telegram/WA/Web), adapters
+Para nêo depender de passar base64 pelos canais (Telegram/WA/Web), adapters
 fazem upload do artefato em MinIO e devolvem URL. Isso já está no contrato
 dos Jobs (`output.image_url`, `output.audio_url`).
 
-Enquanto MinIO não está rodando, adapters podem:
+Enquanto MinIO nêo está rodando, adapters podem:
 - Salvar arquivo local em `data/artifacts/{tenant}/{job_id}/...`
 - Devolver `file://` path no output
 
-Faço essa gradação: dev local usa filesystem, prod usa MinIO/S3. Controlado
+Faço essa gradaçêo: dev local usa filesystem, prod usa MinIO/S3. Controlado
 por `S3_ENDPOINT` no `.env`.

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>imkt5 — plataforma de pipelines de mídia com fila de jobs</title>
-<meta name="description" content="imkt5: plataforma modular multi-tenant que roteia pedidos de imagem, áudio, vídeo e texto para workers via fila de jobs. Guia de uso e instalação.">
+<meta name="description" content="imkt5: plataforma modular multi-tenant que roteia pedidos de imagem, áudio, vídeo e texto para workers via fila de jobs. Guia de uso e instalaçêo.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -124,16 +124,16 @@
         <a class="btn ghost" href="https://github.com/inematds/imkt5" target="_blank" rel="noopener">Ver no GitHub</a>
       </div>
     </div>
-    <figure><img src="assets/hero.png" alt="Ilustração do gateway imkt5 despachando jobs para workers"></figure>
+    <figure><img src="assets/hero.png" alt="Ilustraçêo do gateway imkt5 despachando jobs para workers"></figure>
   </div>
 </header>
 
 <section id="oque"><div class="wrap">
   <span class="chip">O que é</span>
   <h2>Roteador de trabalho pra pipelines de mídia</h2>
-  <p class="sub">Cada worker (imagem, áudio, pesquisa, revisão) é um serviço HTTP independente, rodável sozinho. O Gateway despacha por <strong>capability</strong> (ex.: <code>image.generation</code>, <code>audio.tts</code>, <code>research.market</code>), com múltiplas instâncias distribuídas local antes de remoto. Projeto em fase de scaffold ativo — parte já funciona ponta a ponta, parte ainda está no roadmap (veja abaixo).</p>
+  <p class="sub">Cada worker (imagem, áudio, pesquisa, revisêo) é um serviço HTTP independente, rodável sozinho. O Gateway despacha por <strong>capability</strong> (ex.: <code>image.generation</code>, <code>audio.tts</code>, <code>research.market</code>), com múltiplas instâncias distribuídas local antes de remoto. Projeto em fase de scaffold ativo — parte já funciona ponta a ponta, parte ainda está no roadmap (veja abaixo).</p>
   <div class="grid g3">
-    <div class="card"><h3>🧩 Recipe engine</h3><p>Fluxos compostos declarados em YAML (<code>recipes/*.yaml</code>), com dependências, paralelismo (fanout) e 3 modos de aprovação por etapa.</p></div>
+    <div class="card"><h3>🧩 Recipe engine</h3><p>Fluxos compostos declarados em YAML (<code>recipes/*.yaml</code>), com dependências, paralelismo (fanout) e 3 modos de aprovaçêo por etapa.</p></div>
     <div class="card"><h3>🔀 Capability matcher</h3><p>Registry de workers com <code>local:true/false</code> + prioridade + health-check periódico; cai pro próximo worker se o preferido estiver fora do ar.</p></div>
     <div class="card"><h3>🏢 Multi-tenant desde o schema</h3><p><code>tenant_id</code> em toda assinatura e linha de dado — sem "tenant default" escondido. Config em 3 níveis: global / tenant / usuário.</p></div>
   </div>
@@ -142,7 +142,7 @@
 <section id="fluxo"><div class="wrap">
   <span class="chip">Como funciona</span>
   <h2>Canal → Gateway → Fila → Worker</h2>
-  <p class="sub">Hoje a entrada é via HTTP direto (<code>POST /jobs</code>) ou a UI web em <code>/ui</code>; os canais Telegram/WhatsApp ainda estão pendentes (veja Roadmap). Dois modos de despacho:</p>
+  <p class="sub">Hoje a entrada é via HTTP direto (<code>POST /jobs</code>) ou a UI web em <code>/ui</code>; os canais Telegram/WhatsApp ainda estêo pendentes (veja Roadmap). Dois modos de despacho:</p>
   <div class="flow">
     <span>Canais (Web hoje · TG/WA planejados)</span><span class="arr">→</span>
     <span>Gateway HTTP</span><span class="arr">→</span>
@@ -163,7 +163,7 @@
     <div class="card"><h3>Python 3.11+</h3><p>Ambiente do projeto.</p><pre><span class="c"># criar e instalar</span>
 <span class="k">python -m venv .venv</span>
 <span class="k">.venv/bin/pip install -e ".[dev]" pyyaml fakeredis httpx</span></pre></div>
-    <div class="card"><h3>Ollama local</h3><p>Necessário pro worker <code>auto-reviewer</code> (revisão via LLM).</p><pre><span class="c"># baixar o modelo usado</span>
+    <div class="card"><h3>Ollama local</h3><p>Necessário pro worker <code>auto-reviewer</code> (revisêo via LLM).</p><pre><span class="c"># baixar o modelo usado</span>
 <span class="k">ollama pull qwen2.5:14b</span>
 <span class="k">ollama serve</span></pre></div>
     <div class="card"><h3>TAVILY_API_KEY</h3><p>Opcional — precisa estar no <code>.env</code> pro worker <code>research</code> (pesquisa de mercado).</p><pre><span class="c"># .env</span>
@@ -206,7 +206,7 @@
 
   <div class="step"><div class="b">5</div><div>
     <h3>Dispare um job (quick dispatch)</h3>
-    <p>Pesquisa de mercado via Tavily — não depende de nenhum serviço local.</p>
+    <p>Pesquisa de mercado via Tavily — nêo depende de nenhum serviço local.</p>
 <pre><span class="k">curl -X POST http://localhost:8080/jobs \
   -H "Content-Type: application/json" \
   -d '{"capability":"research.market","payload":{"queries":["café 2026"]}}'</span>  <span class="c"># -&gt; {"job_id": "..."}</span></pre>
@@ -214,7 +214,7 @@
 
   <div class="step"><div class="b">6</div><div>
     <h3>Acompanhe o resultado</h3>
-    <p>Quick dispatch é fire-and-forget — o resultado sai no log do worker, não na resposta do POST.</p>
+    <p>Quick dispatch é fire-and-forget — o resultado sai no log do worker, nêo na resposta do POST.</p>
 <pre><span class="k">tail -20 logs/research.log</span></pre>
   </div></div>
 
@@ -227,7 +227,7 @@
 <section id="exemplos"><div class="wrap">
   <span class="chip">Exemplos</span>
   <h2>Dois jobs reais, via curl</h2>
-  <p class="sub">O projeto ainda não tem front-end com galeria — estes são os payloads exatos usados no <code>doc/QUICKSTART.md</code> do repo.</p>
+  <p class="sub">O projeto ainda nêo tem front-end com galeria — estes sêo os payloads exatos usados no <code>doc/QUICKSTART.md</code> do repo.</p>
   <div class="ex">
     <div class="card">
 <pre><span class="c"># pesquisa de mercado (Tavily, real)</span>
@@ -245,7 +245,7 @@
       <figcaption>Worker <code>research</code> — validado live.</figcaption>
     </div>
     <div class="card">
-<pre><span class="c"># geração de imagem (inemaimg / flux2-klein, real)</span>
+<pre><span class="c"># geraçêo de imagem (inemaimg / flux2-klein, real)</span>
 <span class="k">curl -s -X POST http://localhost:8080/jobs \
   -H "Content-Type: application/json" \
   -d '{
@@ -268,12 +268,12 @@
 <section id="roadmap"><div class="wrap">
   <span class="chip">Roadmap</span>
   <h2>Onde o projeto está de verdade</h2>
-  <p class="sub">Direto do status do README — sem prometer o que ainda não existe no código.</p>
-  <div class="phase"><div class="tag">✅ Feito</div><div class="d"><strong>Fundação do gateway</strong><span>Contratos multi-tenant, recipe engine (YAML + 3 modos de aprovação), capability registry local-first, quick dispatch, HTTP dispatcher, UI web em <code>/ui</code>, config em 3 níveis, 35 testes passando.</span></div></div>
+  <p class="sub">Direto do status do README — sem prometer o que ainda nêo existe no código.</p>
+  <div class="phase"><div class="tag">✅ Feito</div><div class="d"><strong>Fundaçêo do gateway</strong><span>Contratos multi-tenant, recipe engine (YAML + 3 modos de aprovaçêo), capability registry local-first, quick dispatch, HTTP dispatcher, UI web em <code>/ui</code>, config em 3 níveis, 35 testes passando.</span></div></div>
   <div class="phase"><div class="tag">✅ Validado</div><div class="d"><strong>4 workers reais</strong><span><code>research</code> (Tavily), <code>auto-reviewer</code> (Ollama + OpenRouter), <code>inemaimg-adapter</code> (flux2-klein/qwen-edit/ernie) e <code>inemavox-adapter</code> (TTS/dubbing/transcribe, adapter pronto).</span></div></div>
-  <div class="phase"><div class="tag">⏸ Pendente</div><div class="d"><strong>Canais conversacionais</strong><span>Telegram e WhatsApp ainda não estão implementados — hoje só HTTP direto / UI web.</span></div></div>
+  <div class="phase"><div class="tag">⏸ Pendente</div><div class="d"><strong>Canais conversacionais</strong><span>Telegram e WhatsApp ainda nêo estêo implementados — hoje só HTTP direto / UI web.</span></div></div>
   <div class="phase"><div class="tag">⏸ Pendente</div><div class="d"><strong>Persistência</strong><span>Jobs e runs de receita ficam em memória hoje; Postgres é a próxima camada, pra sobreviver a restart.</span></div></div>
-  <div class="phase"><div class="tag">⏸ Pendente</div><div class="d"><strong>Mais workers</strong><span>12 workers do <code>timesmkt3</code> (copywriter, ad-designer, etc.) e os workers do <code>yt-pub-lives*</code> ainda precisam ser portados — vários já têm pasta em <code>workers/</code> mas não estão registrados/health-validados em <code>config/workers.yaml</code>.</span></div></div>
+  <div class="phase"><div class="tag">⏸ Pendente</div><div class="d"><strong>Mais workers</strong><span>12 workers do <code>timesmkt3</code> (copywriter, ad-designer, etc.) e os workers do <code>yt-pub-lives*</code> ainda precisam ser portados — vários já têm pasta em <code>workers/</code> mas nêo estêo registrados/health-validados em <code>config/workers.yaml</code>.</span></div></div>
 </div></section>
 
 <footer>

@@ -5,7 +5,7 @@ Capability: `video.render`. Porta 8105.
 Fase 1 (paridade mkt3 + features 2026):
   - Motion interpolado (zoom_start → zoom_end, intensity)
   - Music ducking (trilha -18dB sob voz via sidechaincompress)
-  - SFX por transição (swoosh/stab via adelay)
+  - SFX por transiçêo (swoosh/stab via adelay)
   - Karaoke captions palavra-por-palavra (drawtext com enable timing)
   - Hook pattern (primeira cena com motion mais agressivo + SFX stab)
 
@@ -40,7 +40,7 @@ from workers._base.storage import get_storage
 
 FONT_BOLD = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
 
-# Fontes do estilo editorial magazine (padrão mkt3 video-quick).
+# Fontes do estilo editorial magazine (padrêo mkt3 video-quick).
 # Serif black pro headline, Inter sem-serif pro body. Se ausentes, cai pro FONT_BOLD.
 _FONT_DIR = Path(__file__).parent / "assets" / "fonts"
 FONT_SERIF_EDITORIAL = str(_FONT_DIR / "PlayfairDisplay.ttf")
@@ -67,7 +67,7 @@ NARRATION_SPEED_BY_STYLE = {
     "retro_futurism": 1.10,
     "premium_minimal": 1.0, "emocional_cinematic": 1.0, "nature_organic": 1.0,
     "organic_earth": 1.0, "neo_minimal_luxury": 1.0,
-    "wellness_soft": 1.0,  # clamp inferior; não aceleramos (pode ir 0.95 via override)
+    "wellness_soft": 1.0,  # clamp inferior; nêo aceleramos (pode ir 0.95 via override)
 }
 
 # Item 8 — styles que ativam parallax default (nível 1)
@@ -108,13 +108,13 @@ CAPTION_ZONE_BY_STYLE = {
 SAFE_ZONE_Y = (0.25, 0.60)
 
 # Item 12b — safe zones POR PLATAFORMA (flag opcional).
-# tiktok tem botões à direita + descrição em baixo → zona vertical mais alta.
-# instagram_reels: descrição no rodapé → zona ~45-60%.
+# tiktok tem botões à direita + descriçêo em baixo → zona vertical mais alta.
+# instagram_reels: descriçêo no rodapé → zona ~45-60%.
 # youtube_shorts: similar ao tiktok mas com share à direita.
-# Quando `platform` não é passado, cai pro SAFE_ZONE_Y + caption_zone do style.
+# Quando `platform` nêo é passado, cai pro SAFE_ZONE_Y + caption_zone do style.
 PLATFORM_SAFE_ZONES = {
     "tiktok": (0.30, 0.55),            # evita: top 15% (search), bottom 30% (desc + botões)
-    "reels": (0.35, 0.55),             # evita: top 10% + bottom 35% (descrição/audio)
+    "reels": (0.35, 0.55),             # evita: top 10% + bottom 35% (descriçêo/audio)
     "instagram_reels": (0.35, 0.55),
     "shorts": (0.28, 0.58),            # youtube shorts: similar ao tiktok
     "youtube_shorts": (0.28, 0.58),
@@ -127,7 +127,7 @@ PLATFORM_SAFE_ZONES = {
 
 def _resolve_narration_speed(user_override: Any, style: str) -> float:
     """Item 2 — resolve narration speed. User override > style default > 1.0.
-    Clamp [1.0, 1.25] (fora disso desliga pra não distorcer)."""
+    Clamp [1.0, 1.25] (fora disso desliga pra nêo distorcer)."""
     if user_override is not None:
         try:
             s = float(user_override)
@@ -160,8 +160,8 @@ def _caption_zone_for_style(
     bound = SAFE_ZONE_Y
     if platform:
         bound = PLATFORM_SAFE_ZONES.get(platform.lower(), SAFE_ZONE_Y)
-    # Intersecção: zone ∩ bound. Se disjuntos, volta pro bound (plataforma
-    # manda — o botão do tiktok não some porque o template pede caption baixa).
+    # Intersecçêo: zone ∩ bound. Se disjuntos, volta pro bound (plataforma
+    # manda — o botêo do tiktok nêo some porque o template pede caption baixa).
     y_start = max(bound[0], zone[0])
     y_end = min(bound[1], zone[1])
     if y_end <= y_start + 0.05:
@@ -206,7 +206,7 @@ def _select_music(genre: str | None) -> Path | None:
 
 def _sfx_for_style(style: str | None, hook_pattern: str | None) -> tuple[Path | None, Path | None]:
     """Retorna (hook_sfx, transition_sfx) com base no style+hook.
-    Hook usa stab (forte); transição usa swoosh (suave)."""
+    Hook usa stab (forte); transiçêo usa swoosh (suave)."""
     hook = SFX_DIR / "stab.mp3"
     transition = SFX_DIR / "swoosh.mp3"
     if hook_pattern in ("pattern_interrupt", "stat_shot"):
@@ -214,7 +214,7 @@ def _sfx_for_style(style: str | None, hook_pattern: str | None) -> tuple[Path | 
     else:
         hook_sfx = None
     trans_sfx = transition if transition.exists() else None
-    # styles tranquilos não usam SFX
+    # styles tranquilos nêo usam SFX
     if style in ("premium_minimal", "emocional_cinematic", "editorial_documentary", "nature_organic"):
         hook_sfx = None
         trans_sfx = None
@@ -222,7 +222,7 @@ def _sfx_for_style(style: str | None, hook_pattern: str | None) -> tuple[Path | 
 
 
 def _motion_zoompan(motion: dict, width: int, height: int, total_frames: int, fps: int = 30) -> str:
-    """Monta expressão zoompan a partir de motion = {type, zoom_start, zoom_end, intensity}.
+    """Monta expressêo zoompan a partir de motion = {type, zoom_start, zoom_end, intensity}.
     Aceita também o motion.type legado sem zoom_start/end (infere).
     """
     mtype = (motion or {}).get("type", "static")
@@ -230,7 +230,7 @@ def _motion_zoompan(motion: dict, width: int, height: int, total_frames: int, fp
     z_start = float(motion.get("zoom_start", 0) or 0)
     z_end = float(motion.get("zoom_end", 0) or 0)
 
-    # Infere zoom_start/end a partir do tipo se não vier parametrizado
+    # Infere zoom_start/end a partir do tipo se nêo vier parametrizado
     if not z_start and not z_end:
         if mtype in ("zoom_in", "push-in", "ken-burns-in"):
             z_start, z_end = 1.0, 1.08 if intensity != "strong" else 1.15
@@ -247,7 +247,7 @@ def _motion_zoompan(motion: dict, width: int, height: int, total_frames: int, fp
         else:
             z_start, z_end = 1.0, 1.0  # static
 
-    # Expressão linear: z_start + (z_end - z_start) * on/total
+    # Expressêo linear: z_start + (z_end - z_start) * on/total
     z_expr = f"({z_start:.3f}+({z_end - z_start:.3f})*on/{total_frames})"
 
     # x/y: center-cropped default; pan lateral se pan_*
@@ -301,8 +301,8 @@ def _build_vf(
         zoom = _motion_zoompan(motion, width, height, total_frames, fps)
         vf = f"{base},{zoom}"
 
-    # Color grading por seção narrativa (Fase 2).
-    # cool = azul/frio (hook/tensão); warm = dourado (solução/CTA).
+    # Color grading por seçêo narrativa (Fase 2).
+    # cool = azul/frio (hook/tensêo); warm = dourado (soluçêo/CTA).
     if color_grade == "cool":
         vf = f"{vf},colorchannelmixer=rr=0.88:gg=0.92:bb=1.08,eq=saturation=0.92"
     elif color_grade == "warm":
@@ -325,8 +325,8 @@ def _build_vf(
         and not skip_drawtext_overlay
         and (scene.get("text_overlay") or "").strip()
     ):
-        # text_overlay (drawbox+drawtext) só quando ASS não está ativo E
-        # chrome_text_overlay também não está. Evita conflito visual entre
+        # text_overlay (drawbox+drawtext) só quando ASS nêo está ativo E
+        # chrome_text_overlay também nêo está. Evita conflito visual entre
         # título estático + karaoke fluindo + PNG overlay.
         vf = f"{vf},{_build_text_overlay(scene, width, height, tmp, idx)}"
 
@@ -334,13 +334,13 @@ def _build_vf(
 
 
 def _build_text_overlay(scene: dict, width: int, height: int, tmp: Path, idx: int) -> str:
-    """Text overlay estilo MAGAZINE EDITORIAL (padrão mkt3 video-quick):
+    """Text overlay estilo MAGAZINE EDITORIAL (padrêo mkt3 video-quick):
        - serif black (Playfair Display) — headline dominante
        - SEM drawbox preto cobrindo fundo (apenas um gradiente sutil)
        - shadow forte: '0 4px 12px rgba(0,0,0,0.8)' = shadowy=4 + dark box
        - outline 3px preto (bordercolor+borderw) pra legibilidade
        - safe zone: 120px topo em 9:16 (6.25% altura), 80px em 1:1
-       - text_position default 'top' (NUNCA 'bottom' por baixo = área de ação).
+       - text_position default 'top' (NUNCA 'bottom' por baixo = área de açêo).
     """
     overlay = (scene.get("text_overlay") or "").strip()
     font_size = int(scene.get("font_size", 88))
@@ -384,7 +384,7 @@ def _build_text_overlay(scene: dict, width: int, height: int, tmp: Path, idx: in
     # Overlay escuro SUTIL na zona do texto (vignette local) em vez de drawbox
     # cobrindo tudo. Usa apenas a FAIXA vertical onde o texto fica, com
     # gradient horizontal que desaparece nas laterais.
-    # Implementação: boxblur só atrás do texto, alpha baixa.
+    # Implementaçêo: boxblur só atrás do texto, alpha baixa.
     shadow_y1 = max(0, y_txt - int(font_size * 0.3))
     shadow_h = block_h + int(font_size * 0.6)
     opacity = scene.get("overlay_opacity", 0.32)  # antes era 0.55; reduzido
@@ -471,7 +471,7 @@ def _build_ass_karaoke_with_zone(
     """
     font_size = max(70, int(height * 0.045))
 
-    # Posição: centro da caption_zone, convertido pra MarginV (from bottom)
+    # Posiçêo: centro da caption_zone, convertido pra MarginV (from bottom)
     y_pct_center = (caption_zone[0] + caption_zone[1]) / 2.0
     # y_pixels from top = y_pct_center * height → dist from bottom = height - y_pixels
     margin_v = int(height - (y_pct_center * height) - font_size / 2)
@@ -550,7 +550,7 @@ def _ass_preset_tag(preset: str, is_last: bool) -> str:
 def _build_ass_karaoke(words_global: list[dict], width: int, height: int) -> str:
     """Gera conteúdo .ass com 1 dialog por palavra. `words_global` tem
     timings ABSOLUTOS (video inteiro). Cada palavra aparece no seu slot;
-    ASS engine garante zero overlap mesmo com narração densa."""
+    ASS engine garante zero overlap mesmo com narraçêo densa."""
     font_size = max(70, int(height * 0.045))
     # PrimaryColour em ASS é &HAABBGGRR& (alpha inverso): amarelo = &H0000FFFF
     # OutlineColour preto; Alignment 2 = bottom center; MarginV = distância ao bottom
@@ -583,7 +583,7 @@ def _build_ass_karaoke(words_global: list[dict], width: int, height: int) -> str
 def _annotate_freeze_word_timings(scenes: list[dict], words: list[dict]) -> None:
     """Item 14b — quando whisper deu timings reais, sobrescreve freeze_at
     pra EXATAMENTE o start da palavra marcada com emphasis=true no LLM.
-    Se scene.emphasis_word não tem match nos whisper words, deixa o
+    Se scene.emphasis_word nêo tem match nos whisper words, deixa o
     freeze_at heurístico (60% da cena).
     """
     # Agrupa words por scene_index
@@ -613,7 +613,7 @@ def _annotate_freeze_word_timings(scenes: list[dict], words: list[dict]) -> None
 
 def _freeze_spec_for_scene(sc: dict, scene_type: str, idx: int) -> dict | None:
     """Item 14 — decide se cena leva freeze. LLM planner pode passar
-    freeze_at/duration/zoom/sfx explícitos no scene; senão heurística
+    freeze_at/duration/zoom/sfx explícitos no scene; senêo heurística
     auto dispara em cenas com stat_a/stat_b OU scene_type proof/solution."""
     # Explícito pelo planner
     if sc.get("freeze_at") is not None:
@@ -652,7 +652,7 @@ _DEPTH_MODEL = None
 
 def _depth_anything_model():
     """Item 8b — lazy load do Depth-Anything V2 (se disponível).
-    Se transformers + torch não instalados, devolve None — pipeline cai
+    Se transformers + torch nêo instalados, devolve None — pipeline cai
     silenciosamente pro nível 1 (fake parallax).
     """
     global _DEPTH_MODEL
@@ -662,7 +662,7 @@ def _depth_anything_model():
         # Depth-Anything é disponível via transformers (pipeline
         # 'depth-estimation'). Requer torch instalado.
         from transformers import pipeline
-        import torch  # noqa: F401  (verificação)
+        import torch  # noqa: F401  (verificaçêo)
         _DEPTH_MODEL = pipeline(
             "depth-estimation",
             model=os.environ.get("DEPTH_MODEL", "depth-anything/Depth-Anything-V2-Small-hf"),
@@ -707,14 +707,14 @@ def _build_depth_parallax_filter(
     depth_path: Path, width: int, height: int, duration: int,
 ) -> str:
     """Item 8b — constrói filter_complex pra parallax baseado em depth map.
-    Implementação simples: 2 camadas (foreground / background) divididas
+    Implementaçêo simples: 2 camadas (foreground / background) divididas
     pelo depth, ambas com zoompan diferente; overlay final.
 
     Uso simplificado aqui: aplica deslocamento horizontal pequeno proporcional
-    ao depth (geomap pseudo-3D). Integração completa com depth requer
+    ao depth (geomap pseudo-3D). Integraçêo completa com depth requer
     displacement map ffmpeg (displace filter).
     """
-    # displace com depth como mapa horizontal: cria ilusão 3D
+    # displace com depth como mapa horizontal: cria ilusêo 3D
     # -i main -i depth → displace=<edge=wrap>
     return (
         f"[0:v]scale={int(width*1.1)}:{int(height*1.1)},crop={width}:{height}[bg];"
@@ -740,8 +740,8 @@ def _build_karaoke_per_scene(
     full_narration_fallback: str = "",
 ) -> list[dict]:
     """Item 4 — constrói karaoke words com timing PER-SCENE.
-    Cada cena distribui suas palavras dentro do seu audio_duration (não
-    dentro do scene_duration inteiro, senão fica lento demais nas cenas
+    Cada cena distribui suas palavras dentro do seu audio_duration (nêo
+    dentro do scene_duration inteiro, senêo fica lento demais nas cenas
     com pad de silêncio). Fallback pra split global se nenhuma cena tem
     narration.
 
@@ -762,7 +762,7 @@ def _build_karaoke_per_scene(
         if not words:
             continue
         start_abs = starts[i]
-        # Distribui no audio_duration da cena (quando tem), senão no scene_dur.
+        # Distribui no audio_duration da cena (quando tem), senêo no scene_dur.
         window = audio_durations[i] if audio_durations[i] > 0 else scene_durations[i]
         window = max(0.3, window)
         per_word = max(0.18, window / len(words))
@@ -806,12 +806,12 @@ class FfmpegLocalWorker(BaseWorker):
         plan = payload.get("scene_plan") or payload
         scenes = plan.get("scenes") or []
         if not scenes:
-            raise ValueError("scene_plan precisa de 'scenes' não vazio")
+            raise ValueError("scene_plan precisa de 'scenes' nêo vazio")
 
         width = int(plan.get("width", 1080))
         height = int(plan.get("height", 1920))
 
-        # ── Narração: item 4 (per-scene) + fallback legado (single) ──
+        # ── Narraçêo: item 4 (per-scene) + fallback legado (single) ──
         narration_urls = payload.get("narration_urls")  # list[str] (item 4)
         narration_url = payload.get("narration_url") or plan.get("narration_file")
         full_narration = plan.get("full_narration") or plan.get("narration_script") or ""
@@ -825,7 +825,7 @@ class FfmpegLocalWorker(BaseWorker):
         style = (payload.get("style") or plan.get("art_direction", {}).get("style") or "").strip()
         hook_pattern = (payload.get("hook_pattern") or plan.get("hook_pattern") or "").strip()
         # Default True; trata explicit None como default também (vem da recipe
-        # quando user não informa; payload.get retorna None, não default).
+        # quando user nêo informa; payload.get retorna None, nêo default).
         use_sfx = payload.get("use_sfx")
         use_sfx = True if use_sfx is None else bool(use_sfx)
         # Karaoke default OFF (pedido do user 2026-04-19). Antes era ON.
@@ -862,7 +862,7 @@ class FfmpegLocalWorker(BaseWorker):
             hold_final_s = 3.0
         hold_final_s = max(0.5, min(hold_final_s, 8.0))
         # c79 fase α — pacing: "normal" (default = comportamento atual) ou "tight"
-        # (clamp cada cena a 1.5-2s pra sensação c79 law 1)
+        # (clamp cada cena a 1.5-2s pra sensaçêo c79 law 1)
         pacing = (payload.get("pacing") or "").strip().lower()
         # Item 5b: loop visual — flag OFF default
         loop_visual = bool(payload.get("loop_visual", False))
@@ -907,7 +907,7 @@ class FfmpegLocalWorker(BaseWorker):
         with tempfile.TemporaryDirectory(prefix=f"ffrender-{job.job_id}-") as tmp:
             tmp_path = Path(tmp)
 
-            # 1) Baixa imagens + narração
+            # 1) Baixa imagens + narraçêo
             image_paths: list[Path] = []
             for i, sc in enumerate(scenes):
                 img_url = sc.get("image")
@@ -945,7 +945,7 @@ class FfmpegLocalWorker(BaseWorker):
                     try:
                         await _fetch_to(url, raw)
                     except Exception as exc:  # noqa: BLE001
-                        log.warning("falha baixando narração cena %d: %s", i, exc)
+                        log.warning("falha baixando narraçêo cena %d: %s", i, exc)
                         continue
                     # Path 2) aplica atempo (item 2) se speed != 1.0
                     if narration_speed and abs(narration_speed - 1.0) > 0.001:
@@ -994,7 +994,7 @@ class FfmpegLocalWorker(BaseWorker):
 
             # Karaoke agora é aplicado DEPOIS do concat via ASS subtitles.
             # Item 1 — faster-whisper por cena quando áudio disponível,
-            # senão cai pro split uniforme por cena (item 4).
+            # senêo cai pro split uniforme por cena (item 4).
             ass_karaoke_path: Path | None = None
             if use_karaoke:
                 all_words = await self._build_karaoke_words(
@@ -1027,8 +1027,8 @@ class FfmpegLocalWorker(BaseWorker):
                 dur = scene_durations[i]
                 out = tmp_path / f"clip_{i:02d}.mp4"
 
-                # Color grading por posição narrativa (Fase 2):
-                # hook (i=0) + tensão (middle) = cool; solução+cta (final) = warm.
+                # Color grading por posiçêo narrativa (Fase 2):
+                # hook (i=0) + tensêo (middle) = cool; soluçêo+cta (final) = warm.
                 scene_type = (sc.get("type") or "").lower()
                 grade = None
                 if use_color_grading:
@@ -1079,14 +1079,14 @@ class FfmpegLocalWorker(BaseWorker):
                     # dá "rima visual" pro TikTok/Reels rewatch).
                     render_img = image_paths[0]
 
-                # -t no OUTPUT (não no input). Sem -framerate no input;
-                # senão o zoompan multiplica frames (d × n_input_frames).
+                # -t no OUTPUT (nêo no input). Sem -framerate no input;
+                # senêo o zoompan multiplica frames (d × n_input_frames).
                 text_png_path = text_overlay_paths[i] if chrome_text_overlay else None
                 if text_png_path is not None:
                     # c79 fase α-bis: compose PNG RGBA sobre o clip base via
                     # filter_complex. Input 0 = imagem-base, input 1 = PNG alpha.
                     # Sintaxe: [0:v]<vf>[base];[base][1:v]overlay=0:0[vout]
-                    escaped_vf = vf  # vf já não tem aspas simples quebradas
+                    escaped_vf = vf  # vf já nêo tem aspas simples quebradas
                     fc = f"[0:v]{escaped_vf}[base];[base][1:v]overlay=0:0:format=auto[vout]"
                     await _run_ffmpeg([
                         "-y",
@@ -1125,7 +1125,7 @@ class FfmpegLocalWorker(BaseWorker):
 
                 scene_clips.append(out)
 
-            # 3) Concat dos clips — com xfade se `use_crossfade`, senão concat.
+            # 3) Concat dos clips — com xfade se `use_crossfade`, senêo concat.
             concat_mp4 = tmp_path / "concat.mp4"
             if use_crossfade and len(scene_clips) > 1:
                 await self._concat_with_xfade(
@@ -1158,7 +1158,7 @@ class FfmpegLocalWorker(BaseWorker):
                     if subbed.exists() and subbed.stat().st_size > 0:
                         concat_mp4 = subbed
                 except Exception:  # noqa: BLE001
-                    pass  # silencioso — falha do ASS não quebra o render
+                    pass  # silencioso — falha do ASS nêo quebra o render
 
             # ── Concat narrações per-scene com pads (item 4) ──
             final_narration: Path | None = audio_local
@@ -1167,7 +1167,7 @@ class FfmpegLocalWorker(BaseWorker):
                 and sum(1 for a in audio_per_scene if a is not None) > 1
             )
             if has_multi_narration:
-                # Preenche cenas sem áudio com silent stubs (0.3s pads serão concat'd)
+                # Preenche cenas sem áudio com silent stubs (0.3s pads serêo concat'd)
                 full_audio_list: list[Path] = []
                 for i in range(len(scenes)):
                     if audio_per_scene[i] is not None:
@@ -1198,7 +1198,7 @@ class FfmpegLocalWorker(BaseWorker):
                     log.warning("concat_narrations falhou: %s — usa single", exc)
                     final_narration = audio_per_scene[0]
 
-            # Mix de áudio: narração (merged ou single) + música (ducking) + SFX
+            # Mix de áudio: narraçêo (merged ou single) + música (ducking) + SFX
             final = tmp_path / "final.mp4"
             await self._mix_audio(
                 concat_mp4=concat_mp4,
@@ -1293,7 +1293,7 @@ class FfmpegLocalWorker(BaseWorker):
                     "end": start_abs + float(w["end"]),
                     "scene_index": i,
                 })
-        # Fallback global (sem cenas com narração)
+        # Fallback global (sem cenas com narraçêo)
         if not out and full_narration_fallback:
             total = sum(scene_durations)
             return _split_script_words(full_narration_fallback, total)
@@ -1374,7 +1374,7 @@ class FfmpegLocalWorker(BaseWorker):
         out: Path,
     ) -> None:
         """Concat com xfade entre clips. transition → escolhe tipo de
-        transição ffmpeg (fade, fadeblack, slideleft, dissolve, etc.)."""
+        transiçêo ffmpeg (fade, fadeblack, slideleft, dissolve, etc.)."""
         # Map de transições do art-director para xfade presets
         # c79-inspired additions (whip_streak, zoom_punch) usam filters
         # avançados do ffmpeg (hblur, zoomin). Opt-in via payload.transition
@@ -1431,10 +1431,10 @@ class FfmpegLocalWorker(BaseWorker):
         scene_durations: list[int],
     ) -> None:
         """Monta o mix de áudio final. Caminhos:
-        - só narração → narração + padding
-        - narração + música → ducking (música -18dB sob voz)
+        - só narraçêo → narraçêo + padding
+        - narraçêo + música → ducking (música -18dB sob voz)
         - + SFX → adelay nos tempos certos
-        - sem narração → só música (ou silêncio)
+        - sem narraçêo → só música (ou silêncio)
         """
         args = ["-y", "-i", str(concat_mp4)]
         filter_parts = []
@@ -1447,7 +1447,7 @@ class FfmpegLocalWorker(BaseWorker):
         if has_narr:
             args += ["-i", str(narration)]
             # Só faz asplit (pro sidechain da música) se vamos USAR a música.
-            # Senão, asplit cria output órfão e ffmpeg rejeita ("unconnected output").
+            # Senêo, asplit cria output órfêo e ffmpeg rejeita ("unconnected output").
             if has_music:
                 filter_parts.append(
                     f"[{input_idx}:a]aformat=sample_fmts=s16:channel_layouts=stereo,apad,"
@@ -1468,7 +1468,7 @@ class FfmpegLocalWorker(BaseWorker):
                 f"volume={vol}[mus_raw]"
             )
             if has_narr:
-                # Sidechain compress: música duck pela narração (narr_side)
+                # Sidechain compress: música duck pela narraçêo (narr_side)
                 filter_parts.append(
                     f"[mus_raw][narr_side]sidechaincompress=threshold=0.05:ratio=8:"
                     f"attack=5:release=400[mus]"
@@ -1487,7 +1487,7 @@ class FfmpegLocalWorker(BaseWorker):
             sfx_inputs.append("sfx_hook")
             input_idx += 1
         if trans_sfx and trans_sfx.exists() and len(scene_durations) > 1:
-            # SFX swoosh 100ms antes de cada transição (menos a última)
+            # SFX swoosh 100ms antes de cada transiçêo (menos a última)
             t = 0
             for si, dur in enumerate(scene_durations[:-1]):
                 t += dur
@@ -1637,7 +1637,7 @@ async def _whisper_words(
 
 
 async def _ffprobe_duration(path: Path) -> float:
-    """Retorna duração do áudio/vídeo em segundos via ffprobe."""
+    """Retorna duraçêo do áudio/vídeo em segundos via ffprobe."""
     proc = await asyncio.create_subprocess_exec(
         "ffprobe", "-v", "error", "-show_entries", "format=duration",
         "-of", "json", str(path),
@@ -1656,7 +1656,7 @@ async def _ffprobe_duration(path: Path) -> float:
 
 async def _apply_atempo(src: Path, dst: Path, speed: float) -> Path:
     """Aplica atempo=speed (preserva pitch). Clamp 0.5-2.0 (filtro nativo);
-    fora clampamos a 1.0 pra não distorcer."""
+    fora clampamos a 1.0 pra nêo distorcer."""
     if speed <= 0 or abs(speed - 1.0) < 0.001:
         # nada a fazer — copia
         dst.write_bytes(src.read_bytes())
@@ -1680,7 +1680,7 @@ async def _concat_narrations_with_pads(
     out: Path,
 ) -> None:
     """Concatena N mp3s com padding de silêncio por cena pra sincronizar
-    com duração de cada scene. Cada narração começa no start da sua cena
+    com duraçêo de cada scene. Cada narraçêo começa no start da sua cena
     e é seguida de silêncio até o fim da cena.
     """
     # Usa concat demuxer com silence intercalado
@@ -1695,7 +1695,7 @@ async def _concat_narrations_with_pads(
     # Gera silêncio para cada cena (pad = scene_dur - audio_dur, >=0)
     pad_durs = [max(0.0, durations_scene[i] - durations_audio[i]) for i in range(n)]
 
-    # Prepara cada narração com pad via filter_complex:
+    # Prepara cada narraçêo com pad via filter_complex:
     # [i:a]apad=pad_dur=X,atrim=0:scene_dur[a_i]
     filter_labels = []
     for i in range(n):

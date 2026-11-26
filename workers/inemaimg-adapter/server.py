@@ -51,7 +51,7 @@ PROFILES_PATH = Path(__file__).resolve().parents[2] / "config" / "image-model-pr
 
 # Regra universal: imagens geradas NUNCA devem ter texto embutido.
 # Texto/headline/caption/CTA é renderizado DEPOIS (carousel-designer/ffmpeg).
-# Mantido como fallback quando o profile do modelo não especifica.
+# Mantido como fallback quando o profile do modelo nêo especifica.
 TEXT_NEGATIVE = (
     "text, letters, words, captions, writing, font, typography, "
     "logo, watermark, signature, label, sign, banner, heading, "
@@ -71,7 +71,7 @@ def _load_profiles() -> dict[str, Any]:
     try:
         return json.loads(PROFILES_PATH.read_text(encoding="utf-8"))
     except Exception as exc:  # noqa: BLE001
-        log.warning("profiles file não carregou (%s) — usa defaults hardcoded", exc)
+        log.warning("profiles file nêo carregou (%s) — usa defaults hardcoded", exc)
         return {
             "defaults": {
                 "max_length": 500,
@@ -190,7 +190,7 @@ class InemaimgAdapter(BaseWorker):
         user_prompt = payload.get("prompt")
         if not user_prompt or not isinstance(user_prompt, str) or not user_prompt.strip():
             raise ValueError(
-                f"payload precisa de 'prompt' (string não-vazia). Recebido: {type(user_prompt).__name__}={user_prompt!r}"
+                f"payload precisa de 'prompt' (string nêo-vazia). Recebido: {type(user_prompt).__name__}={user_prompt!r}"
             )
 
         model = payload.get("model") or INEMAIMG_MODEL_DEFAULT
@@ -208,7 +208,7 @@ class InemaimgAdapter(BaseWorker):
             user_negative_prompt=payload.get("negative_prompt"),
         )
 
-        # Aplica default_steps/guidance do profile se user não passou
+        # Aplica default_steps/guidance do profile se user nêo passou
         profile = _profile_for(model)
 
         body: dict[str, Any] = {
@@ -218,7 +218,7 @@ class InemaimgAdapter(BaseWorker):
         if final_negative:
             body["negative_prompt"] = final_negative
 
-        # Aplica defaults do profile quando user não especificou
+        # Aplica defaults do profile quando user nêo especificou
         if "steps" not in payload and profile.get("default_steps"):
             body["steps"] = profile["default_steps"]
         if "guidance_scale" not in payload and profile.get("default_guidance_scale"):
@@ -253,7 +253,7 @@ class InemaimgAdapter(BaseWorker):
 
         b64 = data.get("image")
         if not b64:
-            raise RuntimeError(f"upstream não retornou 'image'. keys={list(data.keys())}")
+            raise RuntimeError(f"upstream nêo retornou 'image'. keys={list(data.keys())}")
 
         filename = f"{model}-{job.job_id}.png"
         try:

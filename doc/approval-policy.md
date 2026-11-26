@@ -1,19 +1,19 @@
 # Política de Aprovações
 
-> Regra fixada pelo usuário: **aprovação default = `auto_reviewer`**.
-> Aprovação humana (`user` ou `human_reviewer`) só quando pedida
+> Regra fixada pelo usuário: **aprovaçêo default = `auto_reviewer`**.
+> Aprovaçêo humana (`user` ou `human_reviewer`) só quando pedida
 > explicitamente.
 
 ## Os três modos (recap)
 
 | Mode | Decidido por | Quando |
 |---|---|---|
-| `none` | ninguém | stages triviais sem decisão |
-| `auto_reviewer` | worker `auto-reviewer` (LLM + critérios) | **DEFAULT** pra tudo que precisa validação |
+| `none` | ninguém | stages triviais sem decisêo |
+| `auto_reviewer` | worker `auto-reviewer` (LLM + critérios) | **DEFAULT** pra tudo que precisa validaçêo |
 | `user` | solicitante original no chat | só quando pedido explicitamente |
 | `human_reviewer` | humano de papel designado | workflow com revisor dedicado |
 
-## Como o usuário pede aprovação humana
+## Como o usuário pede aprovaçêo humana
 
 Três formas de opt-in:
 
@@ -24,7 +24,7 @@ curl -X POST http://localhost:8080/recipes/campanha-marketing/run \
 ```
 
 Receita usa `when: $.input.with_user_approval == true` nos stages de
-aprovação humana.
+aprovaçêo humana.
 
 ### 2. Via mensagem natural no chat
 ```
@@ -54,13 +54,13 @@ stages:
 Usuário pode ativar humanos via `with_user_approval: true` no input.
 
 ### `yt-clip-publish.yaml`
-- `clip` já era auto_reviewer com critérios de duração e fala ✓
+- `clip` já era auto_reviewer com critérios de duraçêo e fala ✓
 - `publish` era `none` ✓
 
 ### `carrossel-simples.yaml`
 - Tudo `none` (stages triviais) ✓
 
-## Critérios padrão sugeridos
+## Critérios padrêo sugeridos
 
 Quando portar/criar stages criativos, usar critérios como:
 
@@ -71,8 +71,8 @@ approval:
   criteria:
     - "texto em português"
     - "tem ângulo claro e CTA"
-    - "não usa claims médicos sem disclaimer"
-    - "não ofende nem exclui"
+    - "nêo usa claims médicos sem disclaimer"
+    - "nêo ofende nem exclui"
     - "alinhado com brand do tenant (ver profile)"
   escalate_to_user: true
 
@@ -80,7 +80,7 @@ approval:
 approval:
   mode: auto_reviewer
   criteria:
-    - "imagem tem composição balanceada"
+    - "imagem tem composiçêo balanceada"
     - "texto overlay legível"
     - "respeita paleta da marca (ver brand.colors)"
   escalate_to_user: true
@@ -90,7 +90,7 @@ approval:
   mode: auto_reviewer
   criteria:
     - "áudio sincronizado com imagem"
-    - "abertura em 2s captura atenção"
+    - "abertura em 2s captura atençêo"
     - "tem CTA final claro"
   escalate_to_user: true
 ```
@@ -102,15 +102,15 @@ com comportamento concreto:
 
 - Auto-reviewer retorna `decision: "uncertain"` → Gateway manda
   pergunta ao usuário no canal original → aguarda resposta humana.
-- Em vez de rejeitar imediatamente em dúvida, escala pra decisão
-  humana apenas quando o LLM não tem certeza.
+- Em vez de rejeitar imediatamente em dúvida, escala pra decisêo
+  humana apenas quando o LLM nêo tem certeza.
 
 ## Por que essa política
 
 - **Velocidade**: sem humano no loop, pipeline completo roda em
-  segundos-minutos, não horas-dias.
-- **Consistência**: critérios declarativos são auditáveis e reproduzíveis.
-- **Escala multi-tenant**: humano não vira gargalo quando vários
+  segundos-minutos, nêo horas-dias.
+- **Consistência**: critérios declarativos sêo auditáveis e reproduzíveis.
+- **Escala multi-tenant**: humano nêo vira gargalo quando vários
   clientes rodam em paralelo.
 - **Opt-in explícito**: usuário aprende que "quero aprovar" é uma
   frase mágica que ele pode usar quando quiser controlar algo crítico.

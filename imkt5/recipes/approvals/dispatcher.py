@@ -85,7 +85,7 @@ class CompositeApprovalGate:
 
         if mode == ApprovalMode.USER:
             if self._user_gate is None:
-                raise RuntimeError("user_gate não configurado")
+                raise RuntimeError("user_gate nêo configurado")
             await self._user_gate.ask(
                 tenant_id=run.tenant_id,
                 user_id=run.user_id,
@@ -99,7 +99,7 @@ class CompositeApprovalGate:
 
         if mode == ApprovalMode.HUMAN_REVIEWER:
             if self._reviewer_gate is None:
-                raise RuntimeError("reviewer_gate não configurado")
+                raise RuntimeError("reviewer_gate nêo configurado")
             if not approval.reviewer_role:
                 raise ValueError("human_reviewer exige reviewer_role")
             await self._reviewer_gate.ask(
@@ -113,7 +113,7 @@ class CompositeApprovalGate:
 
         if mode == ApprovalMode.AUTO_REVIEWER:
             if self._auto_gate is None:
-                raise RuntimeError("auto_gate não configurado")
+                raise RuntimeError("auto_gate nêo configurado")
             decision = await self._auto_gate.evaluate(
                 tenant_id=run.tenant_id,
                 run_id=run.run_id,

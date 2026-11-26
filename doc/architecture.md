@@ -70,7 +70,7 @@ adapter/provider/tool concreto herda destas. **Sem exceções.**
 
 ### `ToolContext`
 Mudança vs. Intelecto original: tools recebem `ctx: ToolContext` com
-`tenant_id` e `user_id` explícitos. Não existe tool que roda anonimamente.
+`tenant_id` e `user_id` explícitos. Nêo existe tool que roda anonimamente.
 
 ## Fluxo de um pedido (end-to-end)
 
@@ -101,8 +101,8 @@ do mesmo usuário = múltiplos jobs (ou o mesmo, se `dedupe_key` bater).
   propaga para o worker.
 - **Fila**: jobs carregam `tenant_id`; workers logam com `tenant_id`;
   métricas agrupam por `tenant_id`.
-- **Secrets**: chaves de API por tenant vão para KMS/vault externo, nunca
-  Fernet-por-hardware (estratégia do Intelecto que não escala).
+- **Secrets**: chaves de API por tenant vêo para KMS/vault externo, nunca
+  Fernet-por-hardware (estratégia do Intelecto que nêo escala).
 
 ## Mapa de reuso de `openpcbot`
 
@@ -116,69 +116,69 @@ do mesmo usuário = múltiplos jobs (ou o mesmo, se `dedupe_key` bater).
 - `src/dashboard.ts` + `src/dashboard-html.ts` — base do `WebChannel` + admin UI.
 
 **Descartar:**
-- `src/router.ts` — classificador de LLM, não router de jobs.
-- `src/scheduler.ts` — cron, não fila real.
-- `agents/{comms,content,ops,research}/` — chat-loops, não workers.
+- `src/router.ts` — classificador de LLM, nêo router de jobs.
+- `src/scheduler.ts` — cron, nêo fila real.
+- `agents/{comms,content,ops,research}/` — chat-loops, nêo workers.
 - `src/config.ts:ALLOWED_CHAT_ID` + `isAuthorised()` (25+ sites) — substituir
   por middleware multi-tenant.
 
-## Princípios de composição (rodada 3)
+## Princípios de composiçêo (rodada 3)
 
-5. **Provider é Worker.** Não há distinção interna entre "provider" e
+5. **Provider é Worker.** Nêo há distinçêo interna entre "provider" e
    "worker" — ambos implementam o mesmo contrato e declaram a mesma
    capability. Metadata `local: true|false` + `priority: <int>` governam
-   a seleção. Fallback entre providers (local → remoto) é apenas o
+   a seleçêo. Fallback entre providers (local → remoto) é apenas o
    runner escolhendo o próximo worker saudável com a mesma capability.
-6. **Quick dispatch.** Pedidos simples não entram em receita. Gateway
-   Conversacional classifica a intenção:
+6. **Quick dispatch.** Pedidos simples nêo entram em receita. Gateway
+   Conversacional classifica a intençêo:
    - Simples (`gera uma imagem`, `dubla este áudio`) → `dispatch_job`
      direto para capability.
    - Composto conhecido → `run_recipe(name=...)`.
    - Composto novo → `run_recipe(ad_hoc=[...])` — receita montada em
      runtime.
-7. **Aprovação default = `none`.** Pipeline corre sem intervenção
-   humana a menos que a receita declare aprovação. Três modos quando
+7. **Aprovaçêo default = `none`.** Pipeline corre sem intervençêo
+   humana a menos que a receita declare aprovaçêo. Três modos quando
    requerido: `user`, `human_reviewer`, `auto_reviewer`.
 8. **Research é opt-in.** Mesmo em campanha completa, pesquisa de
-   mercado não corre por padrão — vem de `with_research: true` no
+   mercado nêo corre por padrêo — vem de `with_research: true` no
    input, via frase explícita do usuário ou toggle no painel.
-9. **Delivery = três modos paralelos**, não estágio:
+9. **Delivery = três modos paralelos**, nêo estágio:
    - `chat` — entrega automática no canal de origem.
    - `download` — painel Web com endpoint `/jobs/{id}/bundle.zip`.
-   - `publish` — ação do painel que dispara workers `platform-*` sob
+   - `publish` — açêo do painel que dispara workers `platform-*` sob
      demanda. Nenhum publish automático.
 
-## Princípios de composição (rodada 2)
+## Princípios de composiçêo (rodada 2)
 
-1. **Receitas são dinâmicas, não rígidas.** Cada estágio declara uma
+1. **Receitas sêo dinâmicas, nêo rígidas.** Cada estágio declara uma
    `capability` necessária; o Recipe Runner casa com workers que a
    oferecem. Estágios podem ser adicionados sob demanda — quando um novo
    worker registra uma capability relevante, receitas passam a incluir-lo
    sem tocar código.
-2. **Origens e destinos são bindings parametrizáveis.** `SourceBinding` e
+2. **Origens e destinos sêo bindings parametrizáveis.** `SourceBinding` e
    `PublishBinding` descrevem credenciais e alvos. Uma receita pode varrer
    `fanout_over: $.tenant.source_bindings` para N origens; outro stage
    varre destinos. Clonagem de código deixa de existir.
-3. **Aprovação tem três modos** declarados por estágio:
+3. **Aprovaçêo tem três modos** declarados por estágio:
    - `user` — solicitante responde no chat.
    - `human_reviewer` — humano designado (papel) decide.
    - `auto_reviewer` — agente LLM decide com base em critérios; escalona
      para humano em caso de dúvida.
-4. **Painel de distribuição ≠ stage.** Publicação final é ação do Gateway
-   Web (painel), não job. Reduz latência e desvia da fila.
+4. **Painel de distribuiçêo ≠ stage.** Publicaçêo final é açêo do Gateway
+   Web (painel), nêo job. Reduz latência e desvia da fila.
 
 ## Catálogo de workers (após análise de `timesmkt3` e `yt-pub-lives*`)
 
-### De `yt-pub-lives*` — consolidação de 10 clones
+### De `yt-pub-lives*` — consolidaçêo de 10 clones
 
-Os 10 `yt-pub-lives<N>` **não são 10 tenants**. Em produção hoje são 10
+Os 10 `yt-pub-lives<N>` **nêo sêo 10 tenants**. Em produçêo hoje sêo 10
 destinos publicando clips do canal `UC2QbQDyPKuHk93dwo5iq3Sw`, mas o design
-não deve fixar origem — **origem e destino são ambos parametrizáveis**:
+nêo deve fixar origem — **origem e destino sêo ambos parametrizáveis**:
 
-| worker_type | Função |
+| worker_type | Funçêo |
 |---|---|
-| `yt-source-ingest` | Baixa lives de **qualquer** canal-origem parametrizado, extrai transcrição, cataloga. |
-| `yt-clip` | Analisa transcrição via LLM (Piramyd/Claude/OpenRouter), corta clips via FFmpeg. |
+| `yt-source-ingest` | Baixa lives de **qualquer** canal-origem parametrizado, extrai transcriçêo, cataloga. |
+| `yt-clip` | Analisa transcriçêo via LLM (Piramyd/Claude/OpenRouter), corta clips via FFmpeg. |
 | `yt-publish` | Dado um clip + credencial de destino, gera thumbnail e publica. Fan-out: N execuções (uma por destino). |
 | `tiktok-ingest` | Baixa vídeos de canais TikTok via yt-dlp. |
 
@@ -190,10 +190,10 @@ Uma receita varre `fanout_over: $.tenant.source_bindings` para gerar um
 `ingest` por origem; outro stage varre `publish_bindings` para fazer N
 publicações em paralelo. Cartesiano quando relevante.
 
-### De `timesmkt3` — decomposição em workers por capability
+### De `timesmkt3` — decomposiçêo em workers por capability
 
 Cada agente tem `SKILL.md` que vira contrato do worker. **Cada worker
-declara capabilities**; receita pede capabilities, não worker específico:
+declara capabilities**; receita pede capabilities, nêo worker específico:
 
 | worker_type | Capabilities | Origem no timesmkt3 |
 |---|---|---|
@@ -210,7 +210,7 @@ declara capabilities**; receita pede capabilities, não worker específico:
 | `platform-threads` | `platform.threads` | skill TH |
 | `platform-linkedin` | `platform.linkedin` | skill LI |
 
-**`distribution_agent` do timesmkt3 NÃO vira worker.** Suas funções
+**`distribution_agent` do timesmkt3 NêO vira worker.** Suas funções
 (upload Supabase, gerar Publish MD, agendar post) viram **ações do painel
 Web** do Gateway — o usuário vê artefatos prontos e aciona.
 
@@ -222,15 +222,15 @@ Web** do Gateway — o usuário vê artefatos prontos e aciona.
 | `inemavox` | `/home/nmaldaner/projetos/inemavox/` (análise pendente) |
 
 Achado extra: o `timesmkt3` **já integra `inemaimgProvider`** como uma das
-opções de geração de imagem. O contrato que o `imkt5` define aqui ratifica
+opções de geraçêo de imagem. O contrato que o `imkt5` define aqui ratifica
 um caminho que já estava começando.
 
 ## Receitas
 
-Workers são folhas; **receitas** são as árvores. Ficam em `recipes/` como
+Workers sêo folhas; **receitas** sêo as árvores. Ficam em `recipes/` como
 YAML declarativo, executadas pelo Recipe Runner do Gateway.
 
-### Modos de aprovação (por estágio)
+### Modos de aprovaçêo (por estágio)
 
 ```yaml
 approval:
@@ -244,8 +244,8 @@ approval:
   escalate_to_human_on: uncertain
 ```
 
-Todas as decisões vão para `approval_log` — auditoria unificada
-independentemente do modo. Workers de auto-review são workers normais do
+Todas as decisões vêo para `approval_log` — auditoria unificada
+independentemente do modo. Workers de auto-review sêo workers normais do
 `imkt5` (iniciando com `auto-reviewer` nativo).
 
 ### Exemplo: `campanha-marketing` (derivada do pipeline do timesmkt3)
@@ -262,7 +262,7 @@ Aprovações distribuídas por estágio:
 - `video` — `human_reviewer` (supervisor de conteúdo).
 - `platforms` — `user`.
 
-Não há stage final de distribuição — o **painel Web** do Gateway exibe os
+Nêo há stage final de distribuiçêo — o **painel Web** do Gateway exibe os
 artefatos e oferece ações (publicar imediatamente, agendar, baixar pacote).
 
 ### Exemplo: `yt-clip-publish` (substitui os 10 schedulers dos clones)
@@ -274,11 +274,11 @@ yt-source-ingest (fanout sobre source_bindings)
 ```
 
 Ambas extremidades variam. Um tenant pode clipar do canal A e B, e
-publicar em destinos X, Y, Z — cada combinação roda em paralelo.
+publicar em destinos X, Y, Z — cada combinaçêo roda em paralelo.
 
 ## Decisões fixadas no scaffold
 
-| Decisão | Valor | Por quê |
+| Decisêo | Valor | Por quê |
 |---|---|---|
 | Linguagem core | Python ≥ 3.11 | Fiel ao blueprint Intelecto |
 | Orquestrador de fila | RQ + Redis | Python-nativo, simples; substituível |
@@ -313,6 +313,6 @@ Pendente (próximas fases, em ordem):
 5. **Providers concretos** — `OpenRouterProvider`, `OllamaProvider`.
 6. **Canal Telegram** — primeiro adapter real, porta simplificada de
    openpcbot.
-7. **Análise dos projetos-worker** — ficha padrão nos 4+ projetos.
+7. **Análise dos projetos-worker** — ficha padrêo nos 4+ projetos.
 8. **Primeiro worker** — escolher o menor (provável: `inemaimg`) e
    encapsulá-lo no contrato Job.

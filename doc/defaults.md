@@ -73,7 +73,7 @@
 | `timeout_seconds` | `180` | 120 |
 | `local` | `true` | `false` |
 
-Defaults implícitos estão em `RegisteredWorker` (`imkt5/types/capabilities.py`).
+Defaults implícitos estêo em `RegisteredWorker` (`imkt5/types/capabilities.py`).
 
 ## Categoria F — Workers específicos
 
@@ -120,14 +120,14 @@ Arquivo: `imkt5/main.py` — `StubTenantContext`.
 
 ---
 
-## O que está **quebrado** nessa distribuição
+## O que está **quebrado** nessa distribuiçêo
 
 1. **Magic numbers no código**: `600.0`, `0.5`, `1000`, `120`, `3.0`, `500`, `1800`. Todos deveriam vir de config.
-2. **Ports hardcoded**: `8100`, `8200` (research, auto-reviewer) — outros workers puxam de env, esses dois não.
-3. **Duplicação**: CAP_CONFIG na UI duplica o que os adapters já sabem fazer.
+2. **Ports hardcoded**: `8100`, `8200` (research, auto-reviewer) — outros workers puxam de env, esses dois nêo.
+3. **Duplicaçêo**: CAP_CONFIG na UI duplica o que os adapters já sabem fazer.
 4. **Ausência de fonte única**: quando você vê um número estranho, precisa caçar em 5 lugares.
 
-## Proposta de centralização
+## Proposta de centralizaçêo
 
 Criar **`config/defaults.yaml`** (novo) com todos os magic numbers + defaults globais:
 
@@ -206,6 +206,6 @@ Regra de precedência:
 
 ## Referências rápidas
 
-- Valores atuais carregados: `GET http://localhost:8080/config` *(endpoint a criar após centralização)*
+- Valores atuais carregados: `GET http://localhost:8080/config` *(endpoint a criar após centralizaçêo)*
 - Conferir o que o registry tem: `GET http://localhost:8080/workers`
 - Ver receitas carregadas: `GET http://localhost:8080/recipes`

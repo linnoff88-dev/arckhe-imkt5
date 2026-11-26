@@ -103,7 +103,7 @@ class TelegramChannel(BaseChannel):
         self._identity_map = identity_map or {}
         self._default_tenant = default_tenant_id
         self._on_approval = on_approval
-        self._tenancy = tenancy_repo        # se setado, usa DB; senão, identity_map
+        self._tenancy = tenancy_repo        # se setado, usa DB; senêo, identity_map
         self._app: Application | None = None
         self._on_message: OnMessage | None = None
 
@@ -128,7 +128,7 @@ class TelegramChannel(BaseChannel):
 
     async def send(self, message: OutgoingMessage) -> None:
         if self._app is None:
-            raise RuntimeError("canal não iniciado")
+            raise RuntimeError("canal nêo iniciado")
         chat_id = int(message.channel_external_id)
         text = message.text or ""
 
@@ -159,7 +159,7 @@ class TelegramChannel(BaseChannel):
         kind = att.kind
         try:
             import asyncio as _asyncio
-            # Fetch em thread (boto3/httpx síncronos) pra não bloquear loop
+            # Fetch em thread (boto3/httpx síncronos) pra nêo bloquear loop
             data = await _asyncio.to_thread(_fetch_attachment_bytes, att.storage_path)
             import io as _io
             buf = _io.BytesIO(data)
@@ -256,7 +256,7 @@ class TelegramChannel(BaseChannel):
             else:
                 await self._reply(
                     update,
-                    f"⚠️ Não encontrei aprovação pendente pra run `{run_id_prefix}` stage `{stage_id}`.",
+                    f"⚠️ Nêo encontrei aprovaçêo pendente pra run `{run_id_prefix}` stage `{stage_id}`.",
                 )
             return
         # qualquer outro comando: trata como texto
@@ -273,10 +273,10 @@ class TelegramChannel(BaseChannel):
 
         if chat.id not in self._allowed:
             log.warning("ignoring msg from unauthorized chat_id=%d", chat.id)
-            await self._reply(update, "Desculpe, você não está autorizado.")
+            await self._reply(update, "Desculpe, você nêo está autorizado.")
             return
 
-        # Resolução de identidade: DB primeiro (se tenancy_repo disponível),
+        # Resoluçêo de identidade: DB primeiro (se tenancy_repo disponível),
         # depois identity_map estático, depois fallback pro default_tenant.
         ident: TelegramIdentity | None = None
         if self._tenancy is not None:

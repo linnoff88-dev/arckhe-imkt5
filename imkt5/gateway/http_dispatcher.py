@@ -9,7 +9,7 @@ Faz a ponte entre o Recipe Runner (in-process, async) e os workers
 3. Atualiza `in_flight` no registry (acquire/release).
 4. Notifica callback de fim de job (success/failure).
 
-Quando todas as instâncias estão saturadas, o dispatcher segura o job
+Quando todas as instâncias estêo saturadas, o dispatcher segura o job
 em uma fila local e tenta de novo quando alguma libera (ou pode ser
 configurado pra rejeitar imediatamente — útil pra back-pressure).
 """
@@ -71,7 +71,7 @@ class HttpDispatcher:
 
     async def dispatch(self, job: Job) -> None:
         """Enfileira pra processamento. Retorna imediatamente."""
-        # Se job ainda não está no store (quick-dispatch via tool LLM em vez
+        # Se job ainda nêo está no store (quick-dispatch via tool LLM em vez
         # de via rota HTTP), cria agora pra ser rastreável.
         if self._jobs_store and await self._jobs_store.get(job.job_id) is None:
             await self._jobs_store.create(
@@ -155,7 +155,7 @@ class HttpDispatcher:
                      job.job_id, job.parent_job_id)
             return
         if self._notifier is None:
-            log.info("delivery: notifier não configurado pro job %s", job.job_id)
+            log.info("delivery: notifier nêo configurado pro job %s", job.job_id)
             return
         log.info(
             "delivery: tentando entregar job %s no canal '%s' chat='%s'",

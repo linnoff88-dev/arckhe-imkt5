@@ -1,6 +1,6 @@
 # Session Handoff — 2026-04-20 → 21
 
-> Estado consolidado da sessão de trabalho Abril 2026. Use este doc pra
+> Estado consolidado da sessêo de trabalho Abril 2026. Use este doc pra
 > retomar sem precisar ler todo o histórico.
 
 ---
@@ -24,7 +24,7 @@
 
 | Commit | O que |
 |---|---|
-| `2a46f2e` | Detalhe da run: formulário completo com defaults + botão clonar |
+| `2a46f2e` | Detalhe da run: formulário completo com defaults + botêo clonar |
 | `78f5dbc` | Fix `_urls_in_output` recursivo nos stages outputs |
 | `d292316` | **3 abas no modal** (Formulário / Presets / Exemplos) + seções |
 | `159bcf3` | Fix dependsOn com checkbox (text_overlay_style ficava invisível) |
@@ -71,7 +71,7 @@ Reusa padrões de `extrator_rapido.py`:
 - Parse `t.me/c/<grupo>[/<topic>]`
 - `GetForumTopicsRequest` paginado (100/pg × 50pg)
 - `iter_messages(reply_to=topic_id)` pra tópico fórum
-- Download opcional fotos/docs com timeout + filtro extensão
+- Download opcional fotos/docs com timeout + filtro extensêo
 
 **Modos:** `list_topics` / `extract_topic` / `extract_all` / `incremental`.
 
@@ -119,7 +119,7 @@ Gateway + 12 workers:
 
 1. **Dois workers Telegram complementares** (online + offline, mesmo diretório de I/O)
 2. **`styles.json` como source of truth** dos estilos de text overlay
-3. **Flag `data-modal-no-dismiss`** no modal Nova Execução (só X ou Rodar fecham)
+3. **Flag `data-modal-no-dismiss`** no modal Nova Execuçêo (só X ou Rodar fecham)
 4. **`_urls_in_output` recursivo** pra URLs `file://` aninhadas em stages
 5. **Seções do form abertas por default** (user pode fechar)
 6. **Recipe `carrossel-simples` v7 + `carrossel-rico` v6 + `campanha-marketing` v12** — todos aceitam text overlay flags
@@ -136,7 +136,7 @@ Gateway + 12 workers:
 
 ---
 
-## 💬 Como retomar em sessão nova
+## 💬 Como retomar em sessêo nova
 
 Pra continuar onde parou, carrega `doc/session-handoff-2026-04-21.md` +
 olha `TaskList` (esperado: vazio ou com próximas parked).
@@ -153,4 +153,4 @@ ls doc/ | tail -5                                      # docs recentes
 
 ---
 
-Sessão fechada: 2026-04-21. Context estava 64% ao encerrar — ideal reset.
+Sessêo fechada: 2026-04-21. Context estava 64% ao encerrar — ideal reset.

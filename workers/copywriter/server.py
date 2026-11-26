@@ -55,7 +55,7 @@ class CopywriterWorker(BaseWorker):
         ]
         language = payload.get("language") or "pt-BR"
 
-        # knowledge do tenant — brand + platform guidelines são o que importa aqui
+        # knowledge do tenant — brand + platform guidelines sêo o que importa aqui
         knowledge = load_tenant_knowledge(
             job.tenant_id,
             files=["brand_identity.md", "platform_guidelines.md", "product_campaign.md"],

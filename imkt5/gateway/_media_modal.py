@@ -2,7 +2,7 @@
 
 Incluir no final do HTML de cada UI (antes do </body>). Adiciona:
   - CSS do overlay + fechar
-  - Função global openMediaModal(url)
+  - Funçêo global openMediaModal(url)
   - Listener delegado em document.body — detecta clicks em
     <img>, <video>, <audio>, ou <a href="..."> com url de mídia
     e abre no modal em vez de abrir nova aba.
@@ -72,7 +72,7 @@ MEDIA_MODAL_HTML = r"""
 #media-modal .media-nav.next { right: 24px; }
 #media-modal .media-nav:disabled { opacity: 0.3; cursor: default; background: rgba(13,17,23,0.85) !important; }
 
-/* Backlog #22 — botão X universal de fechar modal no canto */
+/* Backlog #22 — botêo X universal de fechar modal no canto */
 #media-modal .close-x {
   position: absolute;
   top: 20px; right: 24px;

@@ -5,7 +5,7 @@
 
 ## Workers — 4 capabilities
 
-### 1. `sources-import` — ingestão (3 fontes)
+### 1. `sources-import` — ingestêo (3 fontes)
 
 Entrada de material pro pipeline. Plugin-based — cada fonte é um fetcher
 implementando a mesma interface.
@@ -26,7 +26,7 @@ implementando a mesma interface.
     se distribuem em sequência entre os `publish_bindings` do tenant
     via `fanout_over` na receita.
 
-**Polling** (não inotify) — tempo configurável:
+**Polling** (nêo inotify) — tempo configurável:
 ```yaml
 # config/defaults.yaml
 sources_import:
@@ -34,12 +34,12 @@ sources_import:
 ```
 
 Capability: `video.source_ingest` (fanout sobre `source_bindings`).
-Cada fetcher roda uma vez por execução, coleta materiais novos, retorna
+Cada fetcher roda uma vez por execuçêo, coleta materiais novos, retorna
 lista com metadata.
 
-### 2. `yt-transcribe` — transcrição (genérica)
+### 2. `yt-transcribe` — transcriçêo (genérica)
 
-**Worker SEPARADO** — não é exclusivo do yt-cuts. Transcreve qualquer
+**Worker SEPARADO** — nêo é exclusivo do yt-cuts. Transcreve qualquer
 vídeo/áudio, assim como o `inemavox` já faz hoje.
 
 Capability: `audio.transcribe`, `video.transcribe`.
@@ -47,7 +47,7 @@ Capability: `audio.transcribe`, `video.transcribe`.
 Input: `{input: <path_or_url>, format: srt|txt|json}`.
 Output: transcript file URL.
 
-Uso reutilizável: legendas pra qualquer vídeo, análise de áudio, não
+Uso reutilizável: legendas pra qualquer vídeo, análise de áudio, nêo
 precisa cortar.
 
 ### 3. `yt-cuts` — cortes
@@ -63,13 +63,13 @@ Output: `{clips: [{path, start, end, topic_title}]}`.
 ### 4. `yt-metadata` — metadata por plataforma
 
 **Stage intermediário opcional** antes de publicar. LLM gera título,
-descrição, tags, capítulos otimizados pra plataforma-alvo. Com
+descriçêo, tags, capítulos otimizados pra plataforma-alvo. Com
 auto-review contra regras (tamanho máximo de título, palavras-chave,
 spam check).
 
 Capability: `video.metadata`.
 
-### 5. `yt-publish` — publicação (fanout sobre destinos)
+### 5. `yt-publish` — publicaçêo (fanout sobre destinos)
 
 Capability: `video.publish`, `platform.youtube`.
 
@@ -82,15 +82,15 @@ Fanout automático sobre `$.tenant.publish_bindings` — 1 job por destino.
 
 ## Decisões (respostas às 7 perguntas)
 
-| # | Pergunta | Decisão |
+| # | Pergunta | Decisêo |
 |---|---|---|
-| 1 | Diretório de import | **Por tenant + global** com distribuição (como no yt-pub-lives hoje) |
+| 1 | Diretório de import | **Por tenant + global** com distribuiçêo (como no yt-pub-lives hoje) |
 | 2 | Watcher | **Polling**, intervalo configurável via `config/defaults.yaml` |
-| 3 | Transcrição | **Worker separado** (`yt-transcribe`) — genérico, pode transcrever qualquer vídeo |
-| 4 | Aprovação de clip | **auto_reviewer** com critérios, escalate_to_user em dúvida |
+| 3 | Transcriçêo | **Worker separado** (`yt-transcribe`) — genérico, pode transcrever qualquer vídeo |
+| 4 | Aprovaçêo de clip | **auto_reviewer** com critérios, escalate_to_user em dúvida |
 | 5 | Outras redes | **Plugin-based** no `sources-import`; TikTok primeiro, extensível |
-| 6 | Metadata de publicação | **Stage intermediário** `yt-metadata` com LLM + auto-review |
-| 7 | Migração credenciais | **Adapter lê `.enc`** agora; KMS + migração real depois |
+| 6 | Metadata de publicaçêo | **Stage intermediário** `yt-metadata` com LLM + auto-review |
+| 7 | Migraçêo credenciais | **Adapter lê `.enc`** agora; KMS + migraçêo real depois |
 
 Regra global: **aprovações default = auto_reviewer** (ver `doc/approval-policy.md`).
 
@@ -110,22 +110,22 @@ Regra global: **aprovações default = auto_reviewer** (ver `doc/approval-policy
 ║                                                                  ║
 ║  DB: materials (tenant_id, source_ref, path, status=ready)       ║
 ╠══════════════════════════════════════════════════════════════════╣
-║  2. TRANSCRIÇÃO                                                  ║
+║  2. TRANSCRIÇêO                                                  ║
 ║  yt-transcribe (worker genérico — audio/video.transcribe)        ║
 ║  material → transcript.srt / .txt / .json                        ║
 ╠══════════════════════════════════════════════════════════════════╣
 ║  3. CORTES                                                       ║
 ║  yt-cuts (LLM analisa transcript → ffmpeg corta)                 ║
-║  Auto-review: duração 30-180s, não corta fala                    ║
+║  Auto-review: duraçêo 30-180s, nêo corta fala                    ║
 ║  escalate_to_user em dúvida                                      ║
 ║                                                                  ║
 ║  DB: clips (material_id, path, topic, status=ready)              ║
 ╠══════════════════════════════════════════════════════════════════╣
 ║  4. METADATA (novo stage intermediário)                          ║
-║  yt-metadata (LLM gera título + descrição + tags + capítulos)    ║
+║  yt-metadata (LLM gera título + descriçêo + tags + capítulos)    ║
 ║  Auto-review: tamanhos, palavras-chave, spam                     ║
 ╠══════════════════════════════════════════════════════════════════╣
-║  5. PUBLICAÇÃO (fanout sobre destinos)                           ║
+║  5. PUBLICAÇêO (fanout sobre destinos)                           ║
 ║  yt-publish — 1 job por PublishBinding ativo do tenant           ║
 ║  Adapter lê credentials.enc dos yt-pub-lives<N> (curto prazo)    ║
 ║                                                                  ║
@@ -170,7 +170,7 @@ stages:
       mode: auto_reviewer
       criteria:
         - "clip dura 30-180s"
-        - "não corta fala no meio"
+        - "nêo corta fala no meio"
         - "tem início e fim coerentes"
         - "sem silêncios longos"
       escalation: on_uncertain
@@ -185,7 +185,7 @@ stages:
       mode: auto_reviewer
       criteria:
         - "título ≤ 100 chars"
-        - "descrição tem 200+ chars"
+        - "descriçêo tem 200+ chars"
         - "tags: mínimo 5, máximo 15"
         - "sem palavras bloqueadas"
 
@@ -253,7 +253,7 @@ UI de gerenciamento (absorve `yt-pub-lives2/master-dashboard`):
 - **Fontes configuradas** (lista + CRUD de `source_bindings`)
 - **Destinos configurados** (lista + CRUD de `publish_bindings`)
 - **Materiais** — arquivos importados + status
-- **Clips** — clips gerados, preview, botão republicar
+- **Clips** — clips gerados, preview, botêo republicar
 - **Publicações** — histórico por destino, filtros por data/status
 - **Ações manuais**: upload de arquivo, disparar processamento, aprovar clip manual
 

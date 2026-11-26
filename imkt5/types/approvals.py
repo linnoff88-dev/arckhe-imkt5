@@ -4,7 +4,7 @@ Três modos declarados por estágio de receita:
 
 - `user` — solicitante original aprova no canal em que pediu.
 - `human_reviewer` — humano designado por papel (`reviewer_role`).
-- `auto_reviewer` — agente LLM executa critérios e retorna decisão;
+- `auto_reviewer` — agente LLM executa critérios e retorna decisêo;
   pode escalonar para humano em caso de `uncertain`.
 
 Log unificado independente do modo — auditoria igual para as três rotas.
@@ -39,7 +39,7 @@ class EscalationPolicy(str, Enum):
 
 
 def _default_approval_timeout() -> int:
-    """Lê do settings; fallback defensivo se config não carregou."""
+    """Lê do settings; fallback defensivo se config nêo carregou."""
     try:
         from imkt5.config import load
         return int(load().approvals.default_timeout_seconds)
@@ -49,7 +49,7 @@ def _default_approval_timeout() -> int:
 
 @dataclass(frozen=True, slots=True)
 class Approval:
-    """Configuração declarativa de um gate de aprovação (vem da receita)."""
+    """Configuraçêo declarativa de um gate de aprovaçêo (vem da receita)."""
 
     mode: ApprovalMode = ApprovalMode.NONE
     timeout_seconds: int = field(default_factory=_default_approval_timeout)
@@ -63,7 +63,7 @@ class Approval:
 
 @dataclass(frozen=True, slots=True)
 class ApprovalLog:
-    """Decisão concreta registrada. Sempre que um gate resolve, uma
+    """Decisêo concreta registrada. Sempre que um gate resolve, uma
     linha aqui. Auditoria por tenant/parent_job."""
 
     approval_id: str

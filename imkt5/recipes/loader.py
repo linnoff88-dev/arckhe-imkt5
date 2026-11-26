@@ -47,12 +47,12 @@ class RecipeStage:
     worker: str | None = None
 
     needs: tuple[str, ...] = ()
-    when: str | None = None        # expressão booleana (ex.: "$.input.with_research == true")
+    when: str | None = None        # expressêo booleana (ex.: "$.input.with_research == true")
     payload_from: dict[str, Any] = field(default_factory=dict)
 
     # Concorrência
     parallel: int = 1              # roda N cópias (payload idêntico)
-    fanout_over: str | None = None # expressão que resolve pra lista; um job por item
+    fanout_over: str | None = None # expressêo que resolve pra lista; um job por item
     fanout_over_capabilities: tuple[str, ...] = ()  # alternativa: um job por capability
 
     approval: Approval = field(default_factory=Approval)

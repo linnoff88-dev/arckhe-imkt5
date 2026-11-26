@@ -20,7 +20,7 @@ renderizar (template editorial).
 ## Estrutura obrigatória
 
 Slide 1 = **HOOK** (gatilho mental). Patterns pra escolher:
-- **Dados provocativos**: números contrastantes que confrontam intuição.
+- **Dados provocativos**: números contrastantes que confrontam intuiçêo.
   Use `stat_a` e `stat_b` (tipo 70% vs 39%).
 - **Curiosidade / pattern interrupt**: "A dissonância que ninguém quer
   enxergar." Frase impactante como headline.
@@ -28,7 +28,7 @@ Slide 1 = **HOOK** (gatilho mental). Patterns pra escolher:
 
 Slides 2..N-1 = **conteúdo** progressivo. Cada slide UM ponto/dica.
 
-Slide N = **CTA**. Chamada concreta (não "aprenda mais" — diga o
+Slide N = **CTA**. Chamada concreta (nêo "aprenda mais" — diga o
 próximo passo específico). Incluir handle e domínio.
 
 ## Output schema
@@ -62,14 +62,14 @@ via `closing_mode`:
 ### Modo A — `closing_mode: "cta"` (call-to-action direto)
 
 Usado quando **nenhum** slide anterior tem CTA explícito. Último slide
-é a chamada pra ação:
+é a chamada pra açêo:
 - `headline`: o CTA (ex: "Comece grátis: inema.club")
 - `slide_label`: "CTA"
 - `is_closing: true`
 
 ### Modo B — `closing_mode: "brand"` (brand moment)
 
-Usado quando algum slide anterior **já contém** o CTA (padrão "proof
+Usado quando algum slide anterior **já contém** o CTA (padrêo "proof
 antecipado → CTA no meio → fechamento visual no final"). Último slide
 é assinatura visual da marca:
 - `headline`: tagline da marca (curta, ≤ 30 chars — ex: "INEMA.CLUB",
@@ -81,10 +81,10 @@ antecipado → CTA no meio → fechamento visual no final"). Último slide
 
 ### Como decidir A ou B
 
-1. Percorra os slides 0..N-2. Se algum tem padrão de CTA (texto com
+1. Percorra os slides 0..N-2. Se algum tem padrêo de CTA (texto com
    URL, "acesse", "entre em", verbo imperativo + marca) → use **B**.
-2. Se não achou CTA em slide intermediário → use **A**.
-3. Pro tenant **INEMA**: CTAs canônicos são `inema.club` (gratuito),
+2. Se nêo achou CTA em slide intermediário → use **A**.
+3. Pro tenant **INEMA**: CTAs canônicos sêo `inema.club` (gratuito),
    `inema.vip` (comunidade paga) e `@inema.tds`. Use exatamente esses
    textos, sem abreviar.
 
@@ -95,41 +95,41 @@ antecipado → CTA no meio → fechamento visual no final"). Último slide
 - `context` opcional mas valoroso pra content slides.
 - `question` no hook e/ou CTA (estilo gancho).
 - `slide_label` é meta/categoria ("Dados · 2026", "Verdade", "Dica 1", "CTA").
-- **NÃO use HTML** (ex: `<br>`, `<b>`, `<i>`) em NENHUM campo. Templates
+- **NêO use HTML** (ex: `<br>`, `<b>`, `<i>`) em NENHUM campo. Templates
   escapam tags e aparecem como texto literal no slide ("Temem<br>o impacto"
   vira texto em vez de quebra). Use texto corrido; o template quebra
   automaticamente por max-width + word-wrap. Quebras necessárias usam `\n`
-  (newline real), não `<br>`.
+  (newline real), nêo `<br>`.
 - Headline max ~60 chars.
 - Context max ~150 chars.
 - Stat label max ~40 chars (caso precise 2 linhas, deixa o wrap natural fazer).
 
 ### TEXTO LIMPO (obrigatório)
 
-Os campos `headline` e `context` são renderizados em HTML/CSS limpo.
-**NÃO use markdown**: nada de `**bold**`, `*itálico*`, `- lista`, `#` ou
+Os campos `headline` e `context` sêo renderizados em HTML/CSS limpo.
+**NêO use markdown**: nada de `**bold**`, `*itálico*`, `- lista`, `#` ou
 qualquer sintaxe. Só texto plano, 1-2 frases.
 
 Se o INPUT do usuário vem com markdown, REESCREVA como texto plano.
-Não copie blocos do input — o input é matéria-prima, não conteúdo final.
+Nêo copie blocos do input — o input é matéria-prima, nêo conteúdo final.
 Exemplo:
-- input bad: `**O que contadores aprendem:**\n* Automação\n* Fluxo em etapas`
+- input bad: `**O que contadores aprendem:**\n* Automaçêo\n* Fluxo em etapas`
 - headline/context good: `Como contadores podem automatizar fluxos repetitivos`
 - `bg_prompt` **obrigatório** em todos os slides — descreve a imagem de
   fundo em inglês, estilo prompt de Stable Diffusion. Traduza o conceito
-  do slide pra uma cena visual (não literal). Prefira: fotografia
+  do slide pra uma cena visual (nêo literal). Prefira: fotografia
   cinematográfica, atmosférica, com atmosfera/mood que case com o tema.
   Ex.: "minimalist workspace, laptop glowing, warm evening light,
   bokeh, shallow depth of field, editorial photography". Max ~150 chars.
 
 - **NUNCA peça texto/letras/escrita no `bg_prompt`**. O headline, caption
-  e CTA são renderizados depois pelo carousel-designer por cima da
+  e CTA sêo renderizados depois pelo carousel-designer por cima da
   imagem. Se você pede "a poster with the words 'FUTURE IS NOW'" ou
   "sign saying X", o modelo SD vai gerar texto ilegível que atrapalha o
   overlay. Proibido no bg_prompt: `text`, `letters`, `words`, `sign`,
   `poster with writing`, `typography`, `logo`, `label`, `caption`,
   `title`, `banner`, `heading`, `handwriting`, `signature`. Foque em
-  cena visual pura (pessoas, objetos, ambientes, iluminação, mood).
+  cena visual pura (pessoas, objetos, ambientes, iluminaçêo, mood).
 
 ## Suggested style
 

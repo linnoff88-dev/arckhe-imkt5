@@ -1,8 +1,8 @@
-"""Audit log persistente. Grava cada ação mutável no Postgres (tabela
+"""Audit log persistente. Grava cada açêo mutável no Postgres (tabela
 audit_log) e — se DB indisponível — em arquivo JSONL como fallback.
 
 Middleware FastAPI registra: método, path, tenant_id, user_id, status,
-duração. Ações específicas (approve/reject, config update, dispatch)
+duraçêo. Ações específicas (approve/reject, config update, dispatch)
 acrescentam detalhes via `record_event()`.
 """
 

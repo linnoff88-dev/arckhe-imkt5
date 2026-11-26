@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # scripts/start-dev.sh — sobe gateway + workers em background.
 #
-# Logs vão pra logs/<servico>.log. PIDs em logs/<servico>.pid.
+# Logs vêo pra logs/<servico>.log. PIDs em logs/<servico>.pid.
 # Use scripts/stop-dev.sh para parar tudo.
 #
 # Workers que iniciam:
@@ -16,7 +16,7 @@ set -euo pipefail
 
 cd "$(dirname "$0")/.."
 ROOT="$(pwd)"
-# workers são lançados como `python workers/foo/server.py`, o que põe a pasta
+# workers sêo lançados como `python workers/foo/server.py`, o que põe a pasta
 # do worker no sys.path[0] em vez de ROOT — sem isso `import workers._base`
 # (e `import imkt5`) quebram. Garante ROOT no path pra todos os subprocessos.
 export PYTHONPATH="$ROOT${PYTHONPATH:+:$PYTHONPATH}"
@@ -24,7 +24,7 @@ LOG_DIR="$ROOT/logs"
 mkdir -p "$LOG_DIR"
 
 VENV="$ROOT/.venv/bin/python"
-[ -x "$VENV" ] || { echo "venv não encontrado em .venv — rode 'python -m venv .venv && .venv/bin/pip install -e \".[dev]\" pyyaml httpx'"; exit 1; }
+[ -x "$VENV" ] || { echo "venv nêo encontrado em .venv — rode 'python -m venv .venv && .venv/bin/pip install -e \".[dev]\" pyyaml httpx'"; exit 1; }
 
 # carrega .env pra subprocesses
 if [ -f .env ]; then
@@ -103,16 +103,16 @@ INEMAIMG_HEALTH_URL="${INEMAIMG_URL:-http://localhost:8000}/health"
 if [ "$(probe "$INEMAIMG_HEALTH_URL")" = "200" ]; then
   start_bg "inemaimg-adapter" "$VENV" workers/inemaimg-adapter/server.py
 else
-  echo "  ⚠ inemaimg upstream não responde em $INEMAIMG_HEALTH_URL — skip"
+  echo "  ⚠ inemaimg upstream nêo responde em $INEMAIMG_HEALTH_URL — skip"
 fi
 
-# inemavox-adapter — inemavox não tem /health; tenta /api/jobs como liveness probe
+# inemavox-adapter — inemavox nêo tem /health; tenta /api/jobs como liveness probe
 INEMAVOX_PROBE_URL="${INEMAVOX_URL:-http://localhost:8010}/api/jobs"
 INEMAVOX_CODE="$(probe "$INEMAVOX_PROBE_URL")"
 if [ "$INEMAVOX_CODE" = "200" ] || [ "$INEMAVOX_CODE" = "404" ]; then
   start_bg "inemavox-adapter" "$VENV" workers/inemavox-adapter/server.py
 else
-  echo "  ⚠ inemavox upstream não responde em $INEMAVOX_PROBE_URL (got $INEMAVOX_CODE) — skip"
+  echo "  ⚠ inemavox upstream nêo responde em $INEMAVOX_PROBE_URL (got $INEMAVOX_CODE) — skip"
 fi
 
 echo
@@ -134,5 +134,5 @@ if [ "$(probe "http://localhost:$GATEWAY_PORT/workers")" = "200" ]; then
   echo
   echo "Veja doc/QUICKSTART.md para exemplos de curl."
 else
-  echo "⚠ gateway não respondeu — veja $LOG_DIR/gateway.log"
+  echo "⚠ gateway nêo respondeu — veja $LOG_DIR/gateway.log"
 fi

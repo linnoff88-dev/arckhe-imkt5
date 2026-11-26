@@ -12,7 +12,7 @@ gateway:
 dispatcher:
   # HttpDispatcher — ponte entre gateway e workers via HTTP
   request_timeout_seconds: 1200         # env: IMKT5_DISPATCH_TIMEOUT (20min — renders educativos longos)
-  retry_when_saturated_seconds: 2.0     # espera 2s entre tentativas de seleção
+  retry_when_saturated_seconds: 2.0     # espera 2s entre tentativas de seleçêo
   max_pending_jobs: 1000
   # 2s × 1800 = 3600s = 1h. Suficiente pra 2 renders longos enfileirados.
   max_select_retries: 1800
@@ -26,7 +26,7 @@ capability_registry:
 jobs_store:
   max_history: 500                       # env: IMKT5_JOBS_HISTORY
   # Se POSTGRES_URL setado, usa PostgresJobsStore (persistente);
-  # senão, in-memory (perde no restart).
+  # senêo, in-memory (perde no restart).
 
 approvals:
   default_timeout_seconds: 1800          # 30 min; env: IMKT5_APPROVAL_TIMEOUT
@@ -69,7 +69,7 @@ workers:
     poll_max_seconds: 600                # env: INEMAVOX_POLL_MAX_SECONDS
 
 # Payload defaults por capability — usados pela UI quando usuário entra
-# texto livre. Também servem como sugestão para clientes HTTP.
+# texto livre. Também servem como sugestêo para clientes HTTP.
 capability_payload_defaults:
 
   image.generation:

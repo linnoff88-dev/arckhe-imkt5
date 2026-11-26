@@ -2,14 +2,14 @@
 
 Contratos:
 
-- O runner NÃO executa o trabalho. Ele resolve estágios prontos (cujos
+- O runner NêO executa o trabalho. Ele resolve estágios prontos (cujos
   `needs` já completaram), constrói jobs e entrega a um `JobDispatcher`.
-- O runner NÃO sabe sobre fila. Isso fica com o `JobDispatcher`.
+- O runner NêO sabe sobre fila. Isso fica com o `JobDispatcher`.
 - O runner RECEBE eventos de término de job (`on_job_finished`) e avança
   a máquina.
 - Aprovações pausam o runner; retomadas vêm de `on_approval_decided`.
 
-Essa separação permite testar o runner com um dispatcher mock.
+Essa separaçêo permite testar o runner com um dispatcher mock.
 """
 
 from __future__ import annotations
@@ -84,7 +84,7 @@ class StageStatus(str, Enum):
 class StageState:
     stage_id: str
     status: StageStatus = StageStatus.PENDING
-    # jobs disparados pelo stage (1 se nem parallel nem fanout; N senão)
+    # jobs disparados pelo stage (1 se nem parallel nem fanout; N senêo)
     job_ids: list[str] = field(default_factory=list)
     # outputs por job (ordem: match com job_ids)
     outputs: list[dict[str, Any]] = field(default_factory=list)
@@ -136,13 +136,13 @@ class RecipeRun:
 
 
 class JobDispatcher(Protocol):
-    """Interface que o runner usa pra pedir execução de um job."""
+    """Interface que o runner usa pra pedir execuçêo de um job."""
 
     async def dispatch(self, job: Job) -> None: ...
 
 
 class ApprovalGate(Protocol):
-    """Interface que o runner usa pra pedir uma aprovação."""
+    """Interface que o runner usa pra pedir uma aprovaçêo."""
 
     async def request(
         self,
@@ -294,7 +294,7 @@ class RecipeRunner:
         stage_state = run.stages[stage_id]
         # UNCERTAIN conta como aprovado — o pipeline continua. Escalation
         # (`approval.escalation: on_uncertain` na receita) exigiria gate
-        # humano; enquanto não implementado, benefício da dúvida.
+        # humano; enquanto nêo implementado, benefício da dúvida.
         if decision in (ApprovalDecision.APPROVED, ApprovalDecision.UNCERTAIN):
             stage_state.status = StageStatus.SUCCESS
             stage_state.finished_at = _now()
@@ -341,7 +341,7 @@ class RecipeRunner:
 
     def _any_dep_failed(self, run: RecipeRun, stage: RecipeStage) -> bool:
         # Um dep bloqueia descendentes quando FAILED OU quando foi SKIPPED
-        # em cascada (por dep_failed). SKIPPED por `when` não bloqueia —
+        # em cascada (por dep_failed). SKIPPED por `when` nêo bloqueia —
         # é intencional.
         for d in stage.needs:
             dep_state = run.stages[d]
@@ -359,9 +359,9 @@ class RecipeRunner:
         state.status = StageStatus.RUNNING
         state.started_at = _now()
 
-        # Semântica: trabalho roda primeiro, aprovação depois (em on_job_finished).
+        # Semântica: trabalho roda primeiro, aprovaçêo depois (em on_job_finished).
         # Caso especial: stage sem trabalho que existe só pra ser gate
-        # de aprovação → entra direto em AWAITING_APPROVAL aqui.
+        # de aprovaçêo → entra direto em AWAITING_APPROVAL aqui.
         has_work = (
             stage.requires
             or stage.worker
@@ -386,7 +386,7 @@ class RecipeRunner:
             state.job_ids.append(job_id)
             self._job_index[job_id] = (run.run_id, stage.id, idx)
             # Se o payload carrega _required_capability (vem de
-            # fanout_over_capabilities), usa ele; senão, o que veio do stage.
+            # fanout_over_capabilities), usa ele; senêo, o que veio do stage.
             capability = payload.pop(
                 "_required_capability", stage.requires
             )
@@ -416,7 +416,7 @@ class RecipeRunner:
             items = resolve(stage.fanout_over, ctx) or []
             if not isinstance(items, list):
                 raise ValueError(
-                    f"fanout_over em '{stage.id}' não resolveu pra lista: {type(items).__name__}"
+                    f"fanout_over em '{stage.id}' nêo resolveu pra lista: {type(items).__name__}"
                 )
             # Resolve payload_from UMA VEZ por item, com fanout_item no ctx.
             # Permite referenciar campos do item via $.fanout_item.X dentro

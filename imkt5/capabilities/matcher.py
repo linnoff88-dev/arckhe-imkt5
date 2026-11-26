@@ -2,8 +2,8 @@
 
 Regras (em ordem):
 
-1. **Saturação**: workers com `in_flight >= max_concurrent` ficam fora da
-   seleção. Usado para respeitar serializadores upstream (ex.: inemaimg
+1. **Saturaçêo**: workers com `in_flight >= max_concurrent` ficam fora da
+   seleçêo. Usado para respeitar serializadores upstream (ex.: inemaimg
    tem max_concurrent=1 porque serializa internamente na GPU).
 2. **Saúde**: HEALTHY primeiro; DEGRADED/UNKNOWN como fallback se
    `allow_degraded=True`.
@@ -48,7 +48,7 @@ def select_worker(
 ) -> RegisteredWorker:
     """Escolhe o melhor worker para `capability` usando política local-first.
 
-    Se `respect_capacity=True` e todos os workers saudáveis estão saturados,
+    Se `respect_capacity=True` e todos os workers saudáveis estêo saturados,
     levanta `NoWorkerAvailable` — o caller decide entre enfileirar ou
     aceitar overload (passando `respect_capacity=False`).
     """

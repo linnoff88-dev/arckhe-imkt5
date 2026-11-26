@@ -1,8 +1,8 @@
 """Capability Registry.
 
 Mantém o catálogo de workers conhecidos e seu estado de saúde.
-Health-check é assíncrono e não bloqueante — `lookup()` sempre devolve
-a melhor opção conhecida naquele momento.
+Health-check é assíncrono e nêo bloqueante — `lookup()` sempre devolve
+a melhor opçêo conhecida naquele momento.
 """
 
 from __future__ import annotations
@@ -25,7 +25,7 @@ class HealthProbe(Protocol):
 async def _default_probe(
     worker: RegisteredWorker,
 ) -> tuple[WorkerHealth, str | None]:
-    """Probe HTTP padrão: GET {endpoint}/health com timeout curto."""
+    """Probe HTTP padrêo: GET {endpoint}/health com timeout curto."""
     from imkt5.config import load
     timeout = load().capability_registry.probe_timeout_seconds
     try:

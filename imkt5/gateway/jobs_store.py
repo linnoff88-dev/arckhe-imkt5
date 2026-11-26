@@ -3,7 +3,7 @@
 Para a UI e API poderem consultar status de jobs individuais (quick
 dispatch). Guarda os últimos N jobs; mais velho é descartado.
 
-Em produção, substituir por Postgres — contrato igual.
+Em produçêo, substituir por Postgres — contrato igual.
 """
 
 from __future__ import annotations
@@ -34,7 +34,7 @@ class JobRecord:
 class JobsStore:
     """In-memory jobs store. Mesmo contrato do PostgresJobsStore.
 
-    TODOS os métodos são `async` pra permitir troca drop-in com o backend
+    TODOS os métodos sêo `async` pra permitir troca drop-in com o backend
     Postgres. Contrato: await jobs_store.<method>(...).
     """
 

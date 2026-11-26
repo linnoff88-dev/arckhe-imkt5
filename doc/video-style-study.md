@@ -2,7 +2,7 @@
 
 > Relatório consolidado da análise dos templates, estilos e técnicas de
 > rendering de vídeo do **timesmkt3** + do **cchyperframes**
-> (MOTION_PHILOSOPHY), com comparação ao estado atual do **imkt5** e
+> (MOTION_PHILOSOPHY), com comparaçêo ao estado atual do **imkt5** e
 > lista priorizada de melhorias.
 >
 > Data: 2026-04-19. Commits relevantes: `3d81316` (editorial magazine),
@@ -14,7 +14,7 @@
 
 ### 1.1 Os 12 estilos visuais (`skills/video-art-direction/SKILL.md`)
 
-| # | Style | Uso | Paleta primária | Motion | Transição | Music |
+| # | Style | Uso | Paleta primária | Motion | Transiçêo | Music |
 |---|---|---|---|---|---|---|
 | 1 | **Neon Futurista** | tech/IA/startup | #00E5FF + #39FF14 | push-in, parallax-zoom | cut + glitch | synthwave 110-130 BPM |
 | 2 | **Premium Minimal** | luxo, aspiracional | mono (#F2EFE9 + #C9A96E) | drift, subtle breathe | crossfade_long | piano_solo |
@@ -35,7 +35,7 @@ mapeados no dict `DEFAULTS_PER_STYLE`.
 
 ### 1.2 Os 8 "ffmpeg presets" (`skills/video-engineering/style-dictionary.json`)
 
-Diferente dos styles visuais, são **perfis técnicos de encoding**. Cada
+Diferente dos styles visuais, sêo **perfis técnicos de encoding**. Cada
 um carrega filter_chain ffmpeg específico e parâmetros de spring/easing
 pro Remotion.
 
@@ -50,7 +50,7 @@ pro Remotion.
 | 20_performance_ad | `setpts=0.5,tblend=average` | - | - | urgency |
 | inema_hightech | **default INEMA** — high-tech + urgency | - | - | conversion |
 
-**imkt5 status:** ❌ NÃO portado. Temos só color_grading (cool/warm)
+**imkt5 status:** ❌ NêO portado. Temos só color_grading (cool/warm)
 genérico + letterbox via padding implícito. Cada preset aqui é uma
 "receita completa" de render (grain + color curve + fps).
 
@@ -60,11 +60,11 @@ além de `style`. Ativaria filter_chain completo por preset.
 
 ### 1.3 Pipeline render (`pipeline/render-video-ffmpeg.js`)
 
-**Nível de sofisticação:** 667 linhas. Features relevantes:
+**Nível de sofisticaçêo:** 667 linhas. Features relevantes:
 
-1. **Detecção automática `imageHasText`** via regex no filename
+1. **Detecçêo automática `imageHasText`** via regex no filename
    (`/carousel_|logo_|banner|oficial|calendar/`).
-   → Se detectou: `text_overlay = ""` + `zoom = 1.0` (estático, não
+   → Se detectou: `text_overlay = ""` + `zoom = 1.0` (estático, nêo
    corta o texto embutido).
 
 2. **Banner/clip/imageHasText**: renderiza imagem 1:1 como **blurred
@@ -74,13 +74,13 @@ além de `style`. Ativaria filter_chain completo por preset.
    blur no background + overlay center crisp
    ```
 
-3. **Texto via ASS subtitles** (não `drawtext` direto). Permite kinetic
+3. **Texto via ASS subtitles** (nêo `drawtext` direto). Permite kinetic
    typography, word-by-word reveal, animações avançadas.
 
 4. **Fade in/out automático**: `min(0.4, duration/4)` em toda cena.
 
 5. **Background types por cena** (`text_layout.background`):
-   - `gradient`: faixa full-width na posição do texto
+   - `gradient`: faixa full-width na posiçêo do texto
    - `dark_box`: caixa retangular centrada (85% width)
    - `none`: texto puro sobre imagem
 
@@ -89,11 +89,11 @@ além de `style`. Ativaria filter_chain completo por preset.
 7. **Font size adaptativo**: `<30chars=80px, 30-60=64, 60+=52`.
 
 **imkt5 status:**
-- ✅ Fade in/out: NÃO tem (mkt3 faz `fade=t=in:st=0:d=0.4`)
+- ✅ Fade in/out: NêO tem (mkt3 faz `fade=t=in:st=0:d=0.4`)
 - ✅ Safe margin 120px: adicionado no último commit editorial
-- ❌ Detecção `imageHasText`: NÃO temos (mas temos prevenção via
-  TEXT_NEGATIVE + detecção heurística PIL no carousel-designer)
-- ❌ Blur background composite pra 1:1→9:16: NÃO temos
+- ❌ Detecçêo `imageHasText`: NêO temos (mas temos prevençêo via
+  TEXT_NEGATIVE + detecçêo heurística PIL no carousel-designer)
+- ❌ Blur background composite pra 1:1→9:16: NêO temos
 - ❌ Text via ASS: só temos pra karaoke. drawtext direto pro overlay.
 - ✅ Background types: temos só "faixa" (drawbox com opacity 0.32)
 - ✅ Font size adaptativo: ajustado no último commit (88→60→44)
@@ -145,7 +145,7 @@ Repo `github.com/inematds/cchyperframes` — engenharia reversa do
 - ✅ **Transições** (cut, crossfade_short/long, fade_black, whip_pan) via ffmpeg xfade
 - ✅ **Music genre** com 8 faixas sintéticas em `assets/music/`
 - ✅ **SFX** (stab/swoosh/ding) opt-in por style+hook
-- ✅ **Color grading** por seção narrativa (cool hook/tension → warm solution/CTA)
+- ✅ **Color grading** por seçêo narrativa (cool hook/tension → warm solution/CTA)
 - ✅ **Karaoke** via ASS + faster-whisper (word-level timings reais)
 - ✅ **Narration per-scene** (fanout TTS + sync ffprobe + dedup sha256)
 - ✅ **Hold final 3s** + loop visual
@@ -156,7 +156,7 @@ Repo `github.com/inematds/cchyperframes` — engenharia reversa do
 - ✅ **Editorial magazine typography** (Playfair + outline 3px + shadow cinematic)
 - ✅ **Vignette + grain** em pro mode (cchyperframes lei 2 + 10)
 
-### 3.2 Gaps (o que o mkt3 tem e nós não)
+### 3.2 Gaps (o que o mkt3 tem e nós nêo)
 
 **Alto impacto (quick wins):**
 
@@ -164,21 +164,21 @@ Repo `github.com/inematds/cchyperframes` — engenharia reversa do
 
 2. **Blur background composite 1:1→9:16**: quando imagem vem em formato diferente da cena alvo, em vez de crop+letterbox, usar **imagem original como blur background + center crisp**. Mata o crop ugly. ~1h.
 
-3. **Detecção `imageHasText` automática**: regex no filename + flag auto-zero em zoom/overlay. ~40min.
+3. **Detecçêo `imageHasText` automática**: regex no filename + flag auto-zero em zoom/overlay. ~40min.
 
 **Médio impacto:**
 
-4. **Style ffmpeg presets** (`01_hero_film`, `13_kinetic_typography`, `inema_hightech`): port do `style-dictionary.json` + aplicação via filter_chain. ~2-3h. Desbloqueia "hero film 2.35:1 + grain + 10-bit curves" com 1 flag.
+4. **Style ffmpeg presets** (`01_hero_film`, `13_kinetic_typography`, `inema_hightech`): port do `style-dictionary.json` + aplicaçêo via filter_chain. ~2-3h. Desbloqueia "hero film 2.35:1 + grain + 10-bit curves" com 1 flag.
 
-5. **Text via ASS para overlay estático** (não só karaoke): permite kinetic type (SCALE 8×, MORPH), background types (gradient/dark_box/none) per-scene. ~3h.
+5. **Text via ASS para overlay estático** (nêo só karaoke): permite kinetic type (SCALE 8×, MORPH), background types (gradient/dark_box/none) per-scene. ~3h.
 
 6. **Chrome gradient text**: pré-renderizar headline via Playwright + overlay PNG no ffmpeg. ~2h. Reutiliza stack do carousel-designer.
 
 **Longo prazo (grandes):**
 
-7. **Pipeline HTML+GSAP motion graphics** (hyperframes-style): refatoração gigante. Substituiria ffmpeg-local por chromium-based render. Permitiria TODAS as técnicas avançadas (liquid glass, sparkle particles, perspective grid animado). Só faz sentido quando tivermos volume de renders que pague a GPU.
+7. **Pipeline HTML+GSAP motion graphics** (hyperframes-style): refatoraçêo gigante. Substituiria ffmpeg-local por chromium-based render. Permitiria TODAS as técnicas avançadas (liquid glass, sparkle particles, perspective grid animado). Só faz sentido quando tivermos volume de renders que pague a GPU.
 
-### 3.3 O que temos que mkt3 NÃO tem
+### 3.3 O que temos que mkt3 NêO tem
 
 - ✅ **Multi-tenant** desde o schema (mkt3 é single-user)
 - ✅ **Fila capability-based** (mkt3 dispara direto)
@@ -190,11 +190,11 @@ Repo `github.com/inematds/cchyperframes` — engenharia reversa do
 
 ---
 
-## 4. Plano de evolução priorizado
+## 4. Plano de evoluçêo priorizado
 
 ### Fase 4a — Quick wins (total ~2h)
 - [ ] **F1**: fade in/out por cena no ffmpeg-local (20min)
-- [ ] **F2**: detecção imageHasText via regex filename (40min)
+- [ ] **F2**: detecçêo imageHasText via regex filename (40min)
 - [ ] **F3**: blur composite 1:1→9:16 quando dimensions mismatch (1h)
 
 ### Fase 4b — Style presets mkt3 (total ~3-4h)
@@ -228,19 +228,19 @@ Repo `github.com/inematds/cchyperframes` — engenharia reversa do
 
 ### Run QUICK (`f0b1470f-4493-4c1f-93bb-d798427c13fc`)
 - Input: brief + image_count=3 + video_mode=quick
-- Duração: 20.94s | Karaoke: False (novo default)
+- Duraçêo: 20.94s | Karaoke: False (novo default)
 - Stages: 9/9 OK
 - Art direction: ✅ escolheu style + motion + music automaticamente
 - Issues: texto no overlay ainda em DejaVu (pré-commit editorial)
 
 ### Run PRO (`d5eccdf5-8359-432e-ac6a-fe0fb2d1317c`)
 - Input: brief + video_mode=pro + use_parallax + freeze_frames + kinetic_presets
-- Duração: 22.09s | Karaoke: False
+- Duraçêo: 22.09s | Karaoke: False
 - Stages: 9/9 OK
-- Issues: vignette+grain NÃO aplicados (commit posterior ao run)
+- Issues: vignette+grain NêO aplicados (commit posterior ao run)
 
 **Re-teste necessário após commit `3d81316`** (editorial + vignette +
-grain) — próxima iteração.
+grain) — próxima iteraçêo.
 
 ---
 
@@ -263,6 +263,6 @@ grain) — próxima iteração.
 
 **Resumo:** Temos **~70% de paridade** com o mkt3 em features de vídeo,
 com edge superior em multi-tenant, dedup e approvals. Os 30% restantes
-são quase todos polish visual (fade, blur composite, ASS-driven text,
+sêo quase todos polish visual (fade, blur composite, ASS-driven text,
 perspective grid). Implementável em 2 fases (~6h core + ~3h polish)
 sem mudar arquitetura.

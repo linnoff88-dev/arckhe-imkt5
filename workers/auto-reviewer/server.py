@@ -1,6 +1,6 @@
 """auto-reviewer worker.
 
-Avalia artefatos contra critérios declarados em receita. Emite decisão
+Avalia artefatos contra critérios declarados em receita. Emite decisêo
 `approved | rejected | uncertain` com justificativa.
 
 Usa a chain do `workers._base.llm_client` (default: Claude Code via
@@ -22,9 +22,9 @@ from workers._base import BaseWorker
 from workers._base.llm_client import complete_json
 
 SYSTEM_PROMPT = """\
-Você é um revisor automático em um pipeline de produção. Sua função é
+Você é um revisor automático em um pipeline de produçêo. Sua funçêo é
 um GATE DE SANIDADE — detectar violações objetivas que justifiquem
-parar o pipeline. NÃO é seu papel avaliar qualidade estética ou
+parar o pipeline. NêO é seu papel avaliar qualidade estética ou
 opinar sobre escolhas criativas.
 
 REGRA DE OURO: aprove por default. Só reprove quando uma regra for
@@ -34,13 +34,13 @@ outro tom") = pass, nunca fail.
 
 Para cada critério:
 - "pass": evidência objetiva que a regra foi atendida
-- "fail": evidência objetiva que a regra foi violada (não suposição)
-- "unclear": critério ambíguo ou informação insuficiente
+- "fail": evidência objetiva que a regra foi violada (nêo suposiçêo)
+- "unclear": critério ambíguo ou informaçêo insuficiente
 
-Decisão global:
+Decisêo global:
 - "approved" se todos pass, OU se há unclear sem nenhum fail objetivo
 - "rejected" APENAS se há fail com evidência concreta (ex.: "faltam 2
-  variantes das 3 pedidas" — fato verificável, não opinião)
+  variantes das 3 pedidas" — fato verificável, nêo opiniêo)
 - "uncertain" se maioria é unclear
 
 Responda APENAS em JSON com este formato exato, sem texto antes ou depois:

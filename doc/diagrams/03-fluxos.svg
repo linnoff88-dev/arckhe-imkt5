@@ -179,9 +179,9 @@
   <line x1="787.001" y1="1513" x2="267.6395" y2="1513" stroke="var(--_line)" stroke-width="1" stroke-dasharray="6 4" marker-end="url(#seq-arrow)" />
   <text x="527.32025" y="1503" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">pacote pronto</text>
 </g>
-<g class="message" data-from="CH" data-to="U" data-label="💬 chat + ⬇️ link ZIP + 📣 botão publicar" data-line-style="dashed" data-arrow-head="filled" data-self="false">
+<g class="message" data-from="CH" data-to="U" data-label="💬 chat + ⬇️ link ZIP + 📣 botêo publicar" data-line-style="dashed" data-arrow-head="filled" data-self="false">
   <line x1="267.6395" y1="1553" x2="89.20849999999999" y2="1553" stroke="var(--_line)" stroke-width="1" stroke-dasharray="6 4" marker-end="url(#seq-arrow)" />
-  <text x="178.42399999999998" y="1543" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">💬 chat + ⬇️ link ZIP + 📣 botão publicar</text>
+  <text x="178.42399999999998" y="1543" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">💬 chat + ⬇️ link ZIP + 📣 botêo publicar</text>
 </g>
 <g class="note" data-position="over" data-actors="U,S3">
   <polygon points="735.2705,516 904.6085,516 910.6085,522 910.6085,539 735.2705,539" fill="var(--bg)" stroke="var(--_node-stroke)" stroke-width="0.75" />

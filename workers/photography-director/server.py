@@ -3,7 +3,7 @@
 Capability: `design.photo_direction`. Porta 8110.
 
 Produz photography_plan — linguagem visual completa (style preset,
-palette, tipografia por seção, câmera por seção, transições).
+palette, tipografia por seçêo, câmera por seçêo, transições).
 """
 
 from __future__ import annotations

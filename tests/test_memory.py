@@ -53,7 +53,7 @@ async def test_search_fts(store):
     await store.save(
         tenant_id="t1",
         user_id="u1",
-        content="reunião com cliente X sobre proposta",
+        content="reuniêo com cliente X sobre proposta",
         category=MemoryCategory.CONVERSATION,
     )
     await store.save(
@@ -97,6 +97,6 @@ async def test_forget_wrong_tenant(store):
         tenant_id="t1", user_id="u1", content="a",
         category=MemoryCategory.FACT,
     )
-    # tentar esquecer com tenant errado não deve deletar
+    # tentar esquecer com tenant errado nêo deve deletar
     assert not await store.forget(tenant_id="t2", user_id="u1", memory_id=mid)
     assert len(await store.recent(tenant_id="t1", user_id="u1")) == 1

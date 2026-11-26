@@ -4,7 +4,7 @@ Porta timesmkt3/skills/video-quick/SKILL.md — planner de vídeos curtos.
 Capabilities: `video.plan`, `video.cinematic` (alias temporário até
 existir um video-pro real).
 
-NÃO renderiza vídeo. Recebe imagens já geradas (pelo ad-designer +
+NêO renderiza vídeo. Recebe imagens já geradas (pelo ad-designer +
 inemaimg) e devolve um `scene_plan` JSON que um worker renderer
 (`ffmpeg-local` / `remotion-local`) vai consumir.
 
@@ -64,7 +64,7 @@ class VideoQuickWorker(BaseWorker):
         language = payload.get("language") or "pt-BR"
         video_template = payload.get("video_template") or "auto"
 
-        # Direção de arte (do video-art-director, se presente)
+        # Direçêo de arte (do video-art-director, se presente)
         art_style = payload.get("art_direction_style") or "generic"
         art_motion = payload.get("art_direction_motion") or "varied"
         art_transition = payload.get("art_direction_transition") or "cut"
@@ -82,14 +82,14 @@ class VideoQuickWorker(BaseWorker):
             f"## REGRAS DESTA RUN\n\n"
             f"- Idioma das narrations e text_overlays: {language}.\n"
             f"- Template: {video_template} (use como guia do estilo — 'auto' = livre).\n"
-            f"\n## DIREÇÃO DE ARTE (seguir à risca)\n"
+            f"\n## DIREÇêO DE ARTE (seguir à risca)\n"
             f"- Style: {art_style}\n"
             f"- Motion preset dominante: {art_motion}\n"
             f"- Transition preferida: {art_transition}\n"
             f"- Hook pattern (PRIMEIRA cena): {art_hook_pattern}\n"
             f"\n## REGRA DO HOOK\n"
             f"A cena[0] É O HOOK e tem regras especiais:\n"
-            f"- Duração 1.5-2s\n"
+            f"- Duraçêo 1.5-2s\n"
             f"- motion: {{'type': 'hard_zoom', 'zoom_start': 1.0, 'zoom_end': 1.15, 'intensity': 'strong'}}\n"
             f"- text_overlay: máximo 4 palavras, tipo gancho\n"
             f"- Baseado no hook_pattern '{art_hook_pattern}':\n"
@@ -100,7 +100,7 @@ class VideoQuickWorker(BaseWorker):
             f"  * value_bomb: entrega o benefício sem rodeio\n"
             f"  * contrast: antes/depois\n"
             f"\n## MOTION DAS CENAS SEGUINTES\n"
-            f"Use variações do preset '{art_motion}'; não repita o mesmo motion em 2 cenas consecutivas.\n"
+            f"Use variações do preset '{art_motion}'; nêo repita o mesmo motion em 2 cenas consecutivas.\n"
             f"Cada scene.motion DEVE ter: type, zoom_start (1.0-1.05), zoom_end (1.05-1.12), intensity.\n"
         )
 
@@ -138,7 +138,7 @@ class VideoQuickWorker(BaseWorker):
         if voiceover_url and not sp.get("narration_file"):
             sp["narration_file"] = voiceover_url
 
-        # full_narration = concatenação das narrations de cada cena
+        # full_narration = concatenaçêo das narrations de cada cena
         # (consumido pelo stage voiceover depois do video plan).
         narrations = [
             sc.get("narration", "").strip()

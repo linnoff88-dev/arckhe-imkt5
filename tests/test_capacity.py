@@ -1,4 +1,4 @@
-"""Saturação por max_concurrent + load-balancing entre instâncias."""
+"""Saturaçêo por max_concurrent + load-balancing entre instâncias."""
 
 import asyncio
 import pytest
@@ -86,7 +86,7 @@ async def test_release_libera_slot():
 
 
 async def test_respect_capacity_false_aceita_overload():
-    """Modo escape: ignorar saturação (cliente assume risco de fila)."""
+    """Modo escape: ignorar saturaçêo (cliente assume risco de fila)."""
     reg = await _make_registry()
     await reg.acquire("inemaimg-gpu0")
     await reg.acquire("inemaimg-gpu1")

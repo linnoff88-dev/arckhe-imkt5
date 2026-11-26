@@ -8,8 +8,8 @@ Duas implementações:
   capability). Evita acoplar RQ porque queremos async-first; o contrato
   interno é o `JobDispatcher` do runner.
 
-Ambas são stateless em relação ao job: só publicam/consomem. O estado
-persistente (status, outputs) vive em Postgres em produção; no scaffold
+Ambas sêo stateless em relaçêo ao job: só publicam/consomem. O estado
+persistente (status, outputs) vive em Postgres em produçêo; no scaffold
 atual, fica em memória.
 """
 
@@ -108,8 +108,8 @@ class InMemoryDispatcher:
 class JobQueue:
     """Fila baseada em Redis (lista por worker_type/capability).
 
-    Implementação intencionalmente simples: LPUSH no enqueue, BRPOP no
-    consume. Serialização JSON. Sem reenfileiramento automático — se
+    Implementaçêo intencionalmente simples: LPUSH no enqueue, BRPOP no
+    consume. Serializaçêo JSON. Sem reenfileiramento automático — se
     precisar de retry/dead-letter, refatora pra RQ/Celery/Temporal.
     """
 

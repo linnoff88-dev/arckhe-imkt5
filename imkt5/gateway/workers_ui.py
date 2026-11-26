@@ -369,7 +369,7 @@ async function renderWorkerDetail(name) {
   main.innerHTML = '<div class="empty">carregando detalhe do worker…</div>';
   const r = await fetch('/workers/' + encodeURIComponent(name));
   if (!r.ok) {
-    main.innerHTML = '<div class="empty">worker não encontrado</div>';
+    main.innerHTML = '<div class="empty">worker nêo encontrado</div>';
     return;
   }
   const d = await r.json();
@@ -400,7 +400,7 @@ async function renderWorkerDetail(name) {
 
   const skillHtml = d.skill_md
     ? `<div class="skill-md">${renderMarkdown(d.skill_md)}</div>`
-    : '<div style="color:#7d8590;font-size:12px;">Worker não tem SKILL.md.</div>';
+    : '<div style="color:#7d8590;font-size:12px;">Worker nêo tem SKILL.md.</div>';
 
   main.innerHTML = `
     <h2>${d.name} <span class="pill ${d.health}">${d.health}</span></h2>
@@ -570,7 +570,7 @@ async function renderDetail(jobId) {
   main.innerHTML = '<div class="empty">carregando…</div>';
 
   const r = await fetch('/jobs/' + jobId);
-  if (!r.ok) { main.innerHTML = '<div class="empty">job não encontrado</div>'; return; }
+  if (!r.ok) { main.innerHTML = '<div class="empty">job nêo encontrado</div>'; return; }
   const j = await r.json();
 
   const artifacts = extractArtifactUrls(j.output);
@@ -602,11 +602,11 @@ async function renderDetail(jobId) {
 
 async function retryJob(jobId) {
   const r = await fetch('/jobs/' + jobId);
-  if (!r.ok) { alert('job não encontrado'); return; }
+  if (!r.ok) { alert('job nêo encontrado'); return; }
   const j = await r.json();
   // Sem payload persistido no store, copia do backend via uma api /jobs/retry?
   // por ora, informa que retry requer payload original
-  if (!confirm('Reprocessar (dispatch novo job com mesmos capability/tenant/user)?\nObs: payload original não é persistido, será payload vazio.')) return;
+  if (!confirm('Reprocessar (dispatch novo job com mesmos capability/tenant/user)?\nObs: payload original nêo é persistido, será payload vazio.')) return;
   const resp = await fetch('/jobs', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

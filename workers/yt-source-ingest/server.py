@@ -4,10 +4,10 @@ Capability: `video.source_ingest`. Porta 8300.
 
 Consulta YouTube Data API v3 pela playlist de uploads de um canal
 (contentDetails.relatedPlaylists.uploads) e retorna vídeos publicados
-nas últimas N horas que ainda não foram vistos (cache em memória —
+nas últimas N horas que ainda nêo foram vistos (cache em memória —
 TODO: Postgres `seen_videos`).
 
-Sem `YOUTUBE_API_KEY`: modo mocked (retorna lista vazia, não quebra).
+Sem `YOUTUBE_API_KEY`: modo mocked (retorna lista vazia, nêo quebra).
 """
 
 from __future__ import annotations
@@ -59,7 +59,7 @@ class YTSourceIngestWorker(BaseWorker):
             items = ch_resp.json().get("items", [])
             if not items:
                 return {"channel_id": channel_id, "new_lives": [], "total_new": 0,
-                        "mode": "real", "note": "canal não encontrado"}
+                        "mode": "real", "note": "canal nêo encontrado"}
             uploads_pl = items[0]["contentDetails"]["relatedPlaylists"]["uploads"]
 
             # 2) Lista últimos 10 uploads

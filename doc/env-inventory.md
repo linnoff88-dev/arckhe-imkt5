@@ -1,6 +1,6 @@
 # Inventário de credenciais — projetos-fonte
 
-> Valores reais **não** estão neste documento. Só mapeia quais chaves
+> Valores reais **nêo** estêo neste documento. Só mapeia quais chaves
 > existem em cada projeto e onde reutilizá-las no `imkt5`.
 
 ## Resumo
@@ -15,7 +15,7 @@
 
 ## Mapeamento → uso no `imkt5`
 
-### Workers de mídia (geração)
+### Workers de mídia (geraçêo)
 | Capability | Key | Origem |
 |---|---|---|
 | `image.generation` (inemaimg local) | `INEMAIMG_URL`, `INEMAIMG_MODEL`, `INEMAIMG_QUALITY` | `timesmkt3/.env` |
@@ -42,17 +42,17 @@
 ### Canais de entrada
 | Canal | Keys | Origem |
 |---|---|---|
-| Telegram (**cuidado: tokens em uso produção**) | `TELEGRAM_BOT_TOKEN`, `TELEGRAM_ALLOWED_CHAT_IDS` | `timesmkt3/.env` (em uso pelo pipeline de marketing) |
+| Telegram (**cuidado: tokens em uso produçêo**) | `TELEGRAM_BOT_TOKEN`, `TELEGRAM_ALLOWED_CHAT_IDS` | `timesmkt3/.env` (em uso pelo pipeline de marketing) |
 | Telegram pessoal | `TELEGRAM_BOT_TOKEN`, `ALLOWED_CHAT_ID` | `openpcbot/.env` (assistente pessoal) |
 | Slack | `SLACK_USER_TOKEN` | `openpcbot/.env` |
 
-**Recomendação**: não reutilizar o bot do `timesmkt3` em produção para o
+**Recomendaçêo**: nêo reutilizar o bot do `timesmkt3` em produçêo para o
 `imkt5` — roubaria mensagens do pipeline vivo. Criar bot dedicado
 (`@imkt5_bot` via BotFather) quando Fase 5 chegar. Enquanto isso,
 notificações administrativas (ex.: "build pronto") podem usar qualquer
 um dos dois via `sendMessage` direto.
 
-### Publicação (PublishBindings)
+### Publicaçêo (PublishBindings)
 | Plataforma | Keys | Origem |
 |---|---|---|
 | YouTube (upload) | `YOUTUBE_API_KEY`, `YOUTUBE_CLIENT_ID`, `YOUTUBE_CLIENT_SECRET`, `YOUTUBE_REFRESH_TOKEN` | `timesmkt3/.env` |
@@ -72,16 +72,16 @@ um dos dois via `sendMessage` direto.
 ## Nota de segurança
 
 - **Nunca commitar** `imkt5/.env`; está no `.gitignore`.
-- Em produção, estas chaves **não** vão em `.env` — migrar para KMS
+- Em produçêo, estas chaves **nêo** vêo em `.env` — migrar para KMS
   (Vault/AWS/gcp-secret-manager) antes do deploy. `.env` é só ambiente
   de desenvolvimento local.
 - Cada chave tem um "dono" no projeto-fonte — evitar regenerá-las
-  enquanto os projetos originais estiverem em produção.
+  enquanto os projetos originais estiverem em produçêo.
 
 ## Estratégia de `credentials_ref` para bindings
 
 Tanto `SourceBinding` quanto `PublishBinding` carregam um campo
 `credentials_ref: str` (ver `imkt5/types/bindings.py`). No scaffold
 atual, o ref é **o nome da variável de ambiente** (ex.:
-`env:YOUTUBE_REFRESH_TOKEN`); na migração pra produção, vira o path
+`env:YOUTUBE_REFRESH_TOKEN`); na migraçêo pra produçêo, vira o path
 no KMS (ex.: `kms:secrets/tenant-abc/yt-source-xyz`).

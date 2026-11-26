@@ -37,7 +37,7 @@ class RegisteredWorker:
 
 @dataclass(frozen=True, slots=True)
 class WorkerStatus:
-    """Estado observado do worker. Mutável via substituição atômica no registry."""
+    """Estado observado do worker. Mutável via substituiçêo atômica no registry."""
 
     name: str
     health: WorkerHealth = WorkerHealth.UNKNOWN

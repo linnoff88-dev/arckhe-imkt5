@@ -8,7 +8,7 @@ Reutiliza padrões testados do projeto telegramtopicosindex:
   - GetForumTopicsRequest paginado pra listar tópicos
   - iter_messages(reply_to=topic_id) pra extrair mensagens de 1 tópico
   - download opcional de fotos + documentos com timeout
-  - filtro por extensão
+  - filtro por extensêo
   - output compatível com telegram-topics-search
 
 Setup 1×:
@@ -16,7 +16,7 @@ Setup 1×:
   2. python scripts/tg_auth.py +DDI <tenant>
 
 4 modos:
-  - list_topics    só lista, não extrai mensagens
+  - list_topics    só lista, nêo extrai mensagens
   - extract_topic  extrai 1 tópico específico (link deve ter /topic_id)
   - extract_all    extrai todos os tópicos do grupo
   - incremental    pula tópicos que já existem em disco (só novos)
@@ -104,7 +104,7 @@ def _from_id_serializable(obj) -> Any:
 
 
 # ────────────────────────────────────────────────────────────────
-# Extração de 1 tópico
+# Extraçêo de 1 tópico
 # ────────────────────────────────────────────────────────────────
 
 async def extrair_topico_individual(
@@ -267,7 +267,7 @@ async def extrair_topico_individual(
 
 
 # ────────────────────────────────────────────────────────────────
-# Listagem + extração de todos tópicos
+# Listagem + extraçêo de todos tópicos
 # ────────────────────────────────────────────────────────────────
 
 async def listar_topicos_grupo(client, chat_id: int) -> tuple[Any, list[dict]]:
@@ -464,7 +464,7 @@ class TelegramScraperWorker(BaseWorker):
         api_hash = os.environ.get("TELEGRAM_API_HASH")
         if not api_id or not api_hash:
             raise RuntimeError(
-                "TELEGRAM_API_ID + TELEGRAM_API_HASH não configurados no .env",
+                "TELEGRAM_API_ID + TELEGRAM_API_HASH nêo configurados no .env",
             )
         try:
             api_id_int = int(api_id)
@@ -474,7 +474,7 @@ class TelegramScraperWorker(BaseWorker):
         session_path = SESSION_DIR / tenant
         if not Path(str(session_path) + ".session").exists():
             raise RuntimeError(
-                f"Session file não existe: {session_path}.session\n"
+                f"Session file nêo existe: {session_path}.session\n"
                 f"Rode: python scripts/tg_auth.py +DDI_NUMERO {tenant}",
             )
 
@@ -483,7 +483,7 @@ class TelegramScraperWorker(BaseWorker):
         if not await client.is_user_authorized():
             await client.disconnect()
             raise RuntimeError(
-                f"Session não-autorizada. "
+                f"Session nêo-autorizada. "
                 f"Rode: python scripts/tg_auth.py +DDI_NUMERO {tenant}",
             )
 

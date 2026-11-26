@@ -1,6 +1,6 @@
 """Identidade no imkt5.
 
-- `Tenant`: unidade de isolamento de dados e configuração. Um tenant pode ter
+- `Tenant`: unidade de isolamento de dados e configuraçêo. Um tenant pode ter
   vários usuários (ex.: uma empresa) ou um só (ex.: pessoa física).
 - `User`: pessoa. Pode ser alcançável por vários canais — cada canal vira um
   `ChannelBinding`.
@@ -30,7 +30,7 @@ class Tenant:
     name: str
     created_at: datetime = field(default_factory=datetime.utcnow)
     # Caminho do stack de identidade (SOUL.md, AGENTS.md, USER.md, MEMORY.md).
-    # Convenção: `profiles/{tenant_id}/`.
+    # Convençêo: `profiles/{tenant_id}/`.
     profile_path: str = ""
 
 

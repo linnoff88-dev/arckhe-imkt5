@@ -65,7 +65,7 @@ async def render_one(browser, env: jinja2.Environment, style: dict) -> pathlib.P
     tmpl_path = TEMPLATES / f"{template}.html"
     if not tmpl_path.exists():
         raise FileNotFoundError(
-            f"Template {template}.html não existe (referenciado por {slug})"
+            f"Template {template}.html nêo existe (referenciado por {slug})"
         )
     tmpl = env.get_template(f"{template}.html")
 
@@ -138,7 +138,7 @@ async def main() -> None:
 
     OUT.mkdir(parents=True, exist_ok=True)
     if not STYLES_JSON.exists():
-        print(f"ERROR: {STYLES_JSON} não existe", file=sys.stderr)
+        print(f"ERROR: {STYLES_JSON} nêo existe", file=sys.stderr)
         sys.exit(2)
 
     manifest = json.loads(STYLES_JSON.read_text(encoding="utf-8"))

@@ -93,7 +93,7 @@ class ArtDirectorWorker(BaseWorker):
             template = "editorial"
             justification = f"[FALLBACK — LLM retornou '{data.get('template')}'] " + justification
         if style not in VALID_STYLES:
-            # tenta casar style ao template; se não bater, usa dark_cinematic
+            # tenta casar style ao template; se nêo bater, usa dark_cinematic
             style = {
                 "editorial": "dark_cinematic",
                 "magazine": "luxury_gold",

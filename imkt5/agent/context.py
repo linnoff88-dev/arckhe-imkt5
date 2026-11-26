@@ -26,7 +26,7 @@ class ContextBuilder:
         parts: list[str] = [
             "Você é o assistente do imkt5 — uma plataforma de pipeline de mídia "
             "(imagem, áudio, vídeo, pesquisa, análise). Você conversa em "
-            "português brasileiro, é direto e não inventa.",
+            "português brasileiro, é direto e nêo inventa.",
             "",
             "Você tem acesso a TOOLS pra executar trabalho pesado:",
             "- `dispatch_job(capability, payload)` para pedidos simples "

@@ -1,12 +1,12 @@
-"""KMS — abstração pra resolver referências de credenciais.
+"""KMS — abstraçêo pra resolver referências de credenciais.
 
 Backends:
 - `local` (default): secrets em `./data/secrets/<ref>.enc` cifrados com
   Fernet. Chave mestra em env `IMKT5_KMS_MASTER_KEY` (base64). Se ausente,
   gera e salva em `./data/secrets/master.key` (modo dev).
-- `env`: secrets em variáveis de ambiente (`SECRET_<REF_UPPER>`). Não
+- `env`: secrets em variáveis de ambiente (`SECRET_<REF_UPPER>`). Nêo
   cifra — útil em CI/testes.
-- `vault`: placeholder — futura integração com HashiCorp Vault.
+- `vault`: placeholder — futura integraçêo com HashiCorp Vault.
 
 Uso:
     from imkt5.security import get_kms
@@ -32,7 +32,7 @@ class KMS(Protocol):
 
 
 class LocalKMS:
-    """Fernet-encrypted file store. Boa pra dev; NÃO usar em produção
+    """Fernet-encrypted file store. Boa pra dev; NêO usar em produçêo
     compartilhada — chave mestra fica em disco junto dos secrets."""
 
     def __init__(self, root: str | Path | None = None, master_key: bytes | None = None) -> None:

@@ -1,7 +1,7 @@
 name: curso-educativo
 version: 1
 # Pipeline educativo: outline (hook→conteúdo→CTA) → imagens por slide →
-#                    voiceover (narração completa) → scene_plan →
+#                    voiceover (narraçêo completa) → scene_plan →
 #                    carousel JSON + MP4 final.
 #
 # Input:
@@ -51,7 +51,7 @@ stages:
       title: $.stages.outline.output.outline.title
     approval: {mode: none}
 
-  # 4) Voiceover — narração completa (hook + conteúdo + CTA)
+  # 4) Voiceover — narraçêo completa (hook + conteúdo + CTA)
   - id: voiceover
     requires: audio.tts
     needs: [outline]

@@ -1,4 +1,4 @@
-# Viabilidade — UI de administração
+# Viabilidade — UI de administraçêo
 
 > Análise honesta: qual esforço pra ter uma interface web que permita
 > editar defaults, gerenciar workers e criar/editar receitas — sem
@@ -12,10 +12,10 @@
 |---|---|---|---|
 | 1. Editor de config (defaults/tenant) | **Baixa** | 4–8h | Baixo — YAML é fácil de validar |
 | 2. CRUD de workers (registrar endpoints) | **Baixa-média** | 6–10h | Confundir "registrar worker" com "criar serviço" |
-| 3. Editor de receitas | **Média** | 1–3 dias | Validação complexa; preview visual opcional |
+| 3. Editor de receitas | **Média** | 1–3 dias | Validaçêo complexa; preview visual opcional |
 | 4. (bonus) Scaffolding de worker novo | **Alta** | 2–5 dias | Deploy/rebuild fora do escopo da UI |
 
-Tudo factível. Recomendação abaixo de por onde começar e onde parar.
+Tudo factível. Recomendaçêo abaixo de por onde começar e onde parar.
 
 ---
 
@@ -28,9 +28,9 @@ UI com editor YAML pra:
 
 ### Dificuldade: **BAIXA**
 
-YAML → parse → validação pydantic → escreve. Backend `GET/PUT /config` já existe em forma simples (`GET /config`); só falta o PUT + frontend.
+YAML → parse → validaçêo pydantic → escreve. Backend `GET/PUT /config` já existe em forma simples (`GET /config`); só falta o PUT + frontend.
 
-### Implementação
+### Implementaçêo
 
 **Backend** (adicionar ao `imkt5/gateway/api.py`):
 
@@ -54,14 +54,14 @@ async def update_tenant_config(tenant_id: str, body: dict):
 **Frontend** (nova rota `/admin` ou tab na UI atual):
 
 - Editor tipo `<textarea>` com syntax highlight (Monaco ou CodeMirror CDN, ~30KB)
-- Botão "Validar" (parse local)
-- Botão "Salvar" (PUT)
+- Botêo "Validar" (parse local)
+- Botêo "Salvar" (PUT)
 - Warning se salvar global em prod
 
 ### Riscos
 - Erro de YAML quebra o boot do gateway — **obrigatório** validar ANTES de escrever.
 - Sem undo. Adicionar backup automático (`defaults.yaml.bak.<timestamp>`).
-- Permissão: admin global ≠ admin de tenant. Precisa **autenticação** (hoje zero auth; MVP pode exigir token).
+- Permissêo: admin global ≠ admin de tenant. Precisa **autenticaçêo** (hoje zero auth; MVP pode exigir token).
 
 ### Valor
 Alto. Mudar um timeout ou adicionar `allowed_workers` num tenant sem SSH.
@@ -71,7 +71,7 @@ Alto. Mudar um timeout ou adicionar `allowed_workers` num tenant sem SSH.
 ## 2. CRUD de Workers (registro)
 
 ### O quê
-Dois casos distintos — é **crítico** não confundi-los:
+Dois casos distintos — é **crítico** nêo confundi-los:
 
 #### 2a. "Registrar worker que já existe"
 Apontar o registry pra um serviço HTTP que já está rodando em algum lugar. **Trivial** — só edita `config/workers.yaml`.
@@ -79,7 +79,7 @@ Apontar o registry pra um serviço HTTP que já está rodando em algum lugar. **
 Exemplo: "quero adicionar uma segunda GPU rodando inemaimg" → adiciona `inemaimg-gpu1` no YAML.
 
 #### 2b. "Criar um worker do zero"
-Gerar código + Dockerfile + deploy. **Não pertence à UI.** É trabalho de engenharia.
+Gerar código + Dockerfile + deploy. **Nêo pertence à UI.** É trabalho de engenharia.
 
 ### Dificuldade: **BAIXA** (só 2a)
 
@@ -101,15 +101,15 @@ async def unregister_worker(name: str):
 
 Frontend:
 - Formulário: name, endpoint, capabilities, local, priority, max_concurrent, timeout
-- Botão "Testar health" (faz GET `/health` no endpoint antes de registrar)
+- Botêo "Testar health" (faz GET `/health` no endpoint antes de registrar)
 - Lista de workers registrados com toggle enabled/disabled e delete
 
 ### Riscos
 - Remover o último worker de uma capability crítica (quebra receitas).
-- Registrar endpoint que responde `/health` mas não respeita `POST /execute`. Solução: teste mais rigoroso — enviar um Job de validação.
+- Registrar endpoint que responde `/health` mas nêo respeita `POST /execute`. Soluçêo: teste mais rigoroso — enviar um Job de validaçêo.
 
 ### Valor
-Alto em ambiente de produção. Médio em dev local.
+Alto em ambiente de produçêo. Médio em dev local.
 
 ---
 
@@ -122,18 +122,18 @@ Dois níveis possíveis:
 
 #### 3a. **YAML editor textual** (MVP)
 - `<textarea>` com syntax highlight
-- Validação sintática (parse)
-- Validação semântica (todas capabilities existem, `needs` apontam pra stages válidos, expressões `$.` fazem sentido)
-- Botão "Rodar dry-run" (tenta executar em modo sandbox, só reporta os jobs que seriam disparados)
+- Validaçêo sintática (parse)
+- Validaçêo semântica (todas capabilities existem, `needs` apontam pra stages válidos, expressões `$.` fazem sentido)
+- Botêo "Rodar dry-run" (tenta executar em modo sandbox, só reporta os jobs que seriam disparados)
 
 Dificuldade: **média**. 1 dia de backend + 1 dia de frontend.
 
 #### 3b. **Editor visual drag-and-drop** (bonus)
 - Canvas com stages como nós; arestas = `needs`
 - Dropdown de capability por stage
-- Painel de aprovação por stage
+- Painel de aprovaçêo por stage
 
-Dificuldade: **alta**. 3+ dias. ReactFlow + validação elaborada.
+Dificuldade: **alta**. 3+ dias. ReactFlow + validaçêo elaborada.
 
 ### Backend (3a)
 
@@ -154,7 +154,7 @@ async def save_recipe(name: str, body: RecipeRaw):
 
 @app.post("/admin/recipes/{name}/dry-run")
 async def dry_run(name: str, input: dict):
-    # roda uma "simulação" com dispatcher fake — só reporta
+    # roda uma "simulaçêo" com dispatcher fake — só reporta
     # quais jobs seriam criados, sem executar
     ...
 ```
@@ -163,7 +163,7 @@ async def dry_run(name: str, input: dict):
 Alto. Criar novos fluxos (campanhas customizadas por tenant, workflows de suporte) sem SSH.
 
 ### Riscos
-- Receita inválida em produção quebra Recipe Runner. **Obrigatório** validar no save.
+- Receita inválida em produçêo quebra Recipe Runner. **Obrigatório** validar no save.
 - Expressões com referências circulares (`$.stages.A` em A mesmo). Detectável, mas precisa checar.
 
 ---
@@ -180,13 +180,13 @@ UI permite: "criar um worker HTTP que chama uma API externa X com essas credenci
 
 ### Dificuldade: **alta**
 
-Não é difícil gerar o código — templates Jinja resolvem. O problema é o **deploy**:
+Nêo é difícil gerar o código — templates Jinja resolvem. O problema é o **deploy**:
 
 - Em dev local: ok, gera arquivo + precisa restart manual.
-- Em produção: precisa rebuild do container/imagem + `docker-compose up`. UI sozinha não resolve isso sem pipeline CI/CD integrado.
+- Em produçêo: precisa rebuild do container/imagem + `docker-compose up`. UI sozinha nêo resolve isso sem pipeline CI/CD integrado.
 
-### Recomendação
-**Não incluir no MVP.** Vale mais um template CLI:
+### Recomendaçêo
+**Nêo incluir no MVP.** Vale mais um template CLI:
 
 ```bash
 ./scripts/new-worker.sh meme-generator "image.meme" "image.upscale"
@@ -204,14 +204,14 @@ Mais simples, cobre 80% do valor.
 ### Sprint 1 (1–2 dias)
 - `GET/PUT /admin/config/defaults` + UI: editor de defaults global
 - `GET/PUT /admin/config/tenant/{tenant_id}` + UI: editor por tenant
-- Validação sintática + backup antes de escrever
+- Validaçêo sintática + backup antes de escrever
 
 ### Sprint 2 (1 dia)
 - `POST/DELETE /admin/workers` + UI: registrar/remover endpoints HTTP já existentes
-- Botão "Testar health" antes de registrar
+- Botêo "Testar health" antes de registrar
 
 ### Sprint 3 (2 dias)
-- `GET/PUT /admin/recipes/{name}` + UI: editor YAML textual com syntax highlight e validação
+- `GET/PUT /admin/recipes/{name}` + UI: editor YAML textual com syntax highlight e validaçêo
 - `POST /admin/recipes/{name}/dry-run` pra testar antes de salvar
 
 ### Opcional (outros 2–3 dias)
@@ -222,31 +222,31 @@ Mais simples, cobre 80% do valor.
 
 ## Pendências críticas antes desse MVP
 
-1. **Autenticação.** Hoje o gateway é aberto. Admin UI sem auth é inaceitável em qualquer ambiente multi-user.
-2. **Persistência do histórico.** Edição de config/receita deveria gerar audit log (quem mudou o quê, quando) — precisa Postgres.
+1. **Autenticaçêo.** Hoje o gateway é aberto. Admin UI sem auth é inaceitável em qualquer ambiente multi-user.
+2. **Persistência do histórico.** Ediçêo de config/receita deveria gerar audit log (quem mudou o quê, quando) — precisa Postgres.
 3. **RBAC.** Admin global ≠ admin de tenant. Role-based access control.
 
-Os três itens acima são **pré-requisitos** de produção — em dev local, dá pra começar sem.
+Os três itens acima sêo **pré-requisitos** de produçêo — em dev local, dá pra começar sem.
 
-## Alternativa: não fazer UI, investir em DX
+## Alternativa: nêo fazer UI, investir em DX
 
-Uma opção é **não** construir essa UI e investir em:
+Uma opçêo é **nêo** construir essa UI e investir em:
 
 - `.yaml` bem estruturado + schema documentado (já temos)
 - Git como fonte da verdade (`recipes/` e `config/` versionados)
 - Um bot no Telegram que responde `/config`, `/add-worker`, `/new-recipe` com fluxos guiados
 
-Argumento: em multi-tenant real, o admin é o dono da empresa, não um desenvolvedor. Um bot no Telegram é mais acessível que uma UI nova. Gateway conversacional (próximo passo do plano) já cobre isso parcialmente.
+Argumento: em multi-tenant real, o admin é o dono da empresa, nêo um desenvolvedor. Um bot no Telegram é mais acessível que uma UI nova. Gateway conversacional (próximo passo do plano) já cobre isso parcialmente.
 
-## Recomendação final
+## Recomendaçêo final
 
 **Começar por 1 (editor de config)** porque:
 - Menor esforço
 - Valor imediato (mudar timeout, ativar workers por tenant)
-- Padrão reutilizável (editor YAML com validação) vira base pros outros
+- Padrêo reutilizável (editor YAML com validaçêo) vira base pros outros
 
 **Pular scaffolding de worker** no MVP — deixa pra CLI.
 
 **Editor de receitas textual** (3a) entra no sprint 3; editor visual (3b) é backlog.
 
-Esta é uma feature que vale esperar o Gateway conversacional + canal Telegram ficarem prontos primeiro — sem canal, a UI web é o único acesso e fica frágil. Com Telegram em paralelo, a UI web é uma das interfaces, não a única.
+Esta é uma feature que vale esperar o Gateway conversacional + canal Telegram ficarem prontos primeiro — sem canal, a UI web é o único acesso e fica frágil. Com Telegram em paralelo, a UI web é uma das interfaces, nêo a única.

@@ -1,6 +1,6 @@
 # c79 × imkt5 — tabela comparativa consolidada
 
-> Resumo executivo da comparação entre `cchyperframes` (Hyperframes:
+> Resumo executivo da comparaçêo entre `cchyperframes` (Hyperframes:
 > Chromium headless + HTML + GSAP) e `imkt5` (ffmpeg-local + workers
 > stateless + fila + multi-tenant).
 >
@@ -11,7 +11,7 @@
 
 ## 1. Arquitetura / Engine
 
-| Dimensão | c79 (cchyperframes) | imkt5 (quick + pro) | Vencedor |
+| Dimensêo | c79 (cchyperframes) | imkt5 (quick + pro) | Vencedor |
 |---|---|---|---|
 | Render engine | Chromium headless + GSAP | ffmpeg filter_complex | 🤝 usos diferentes |
 | Autoria | HTML + CSS + JS hand-built | YAML recipe + JSON scene_plan | 🏆 imkt5 |
@@ -42,15 +42,15 @@
 | Outro hold 4-6s | ✅ lei 9 | ⚠ 3s default | 🏆 c79 |
 | Pacing 1.5s/cena | ✅ lei 1 | ⚠ 3-4s default | 🏆 c79 |
 | **12 styles artísticos** | ❌ 1 estética | ✅ art-director LLM | 🏆 imkt5 |
-| Color grading por seção | ❌ | ✅ cool hook→warm cta | 🏆 imkt5 |
+| Color grading por seçêo | ❌ | ✅ cool hook→warm cta | 🏆 imkt5 |
 
 ---
 
 ## 3. Áudio
 
-| Dimensão | c79 | imkt5 | Vencedor |
+| Dimensêo | c79 | imkt5 | Vencedor |
 |---|---|---|---|
-| Narração | Talking-head real (manual) | TTS sintético auto | 🤝 |
+| Narraçêo | Talking-head real (manual) | TTS sintético auto | 🤝 |
 | TTS dedup sha256 cache | ❌ | ✅ | 🏆 imkt5 |
 | Música underscore | ⚠ manual 0.15 vol | ✅ sidechain duck por style | 🏆 imkt5 |
 | SFX (stab/swoosh/ding) | ⚠ manual | ✅ opt-in style+hook | 🏆 imkt5 |
@@ -58,7 +58,7 @@
 
 ---
 
-## 4. Inteligência / Automação
+## 4. Inteligência / Automaçêo
 
 | Capacidade | c79 | imkt5 | Vencedor |
 |---|---|---|---|
@@ -78,7 +78,7 @@
 |---|---|---|---|
 | Vídeo 9:16 (reels/shorts/tiktok) | ✅ hand-built | ✅ automático | depende do ROI |
 | Vídeo 16:9 (landscape promo) | ✅ hand-built | ✅ automático | depende do ROI |
-| **Carrossel Instagram estático** | ❌ não existe | ✅ 5 templates | 🏆 imkt5 |
+| **Carrossel Instagram estático** | ❌ nêo existe | ✅ 5 templates | 🏆 imkt5 |
 | Campanha multi-asset | ❌ | ✅ campanha-marketing.yaml | 🏆 imkt5 |
 
 ---
@@ -96,13 +96,13 @@
 | Brand-moment final | ✅ logo + handle + tagline | ⚠ só em vídeo |
 | Callback (elemento volta) | ❌ | ✅ |
 | Autoria | LLM, 0 hand-build | 100% hand-build |
-| Tempo produção | ~90s | horas |
+| Tempo produçêo | ~90s | horas |
 
 ---
 
-## 7. Matriz de decisão — quando usar qual
+## 7. Matriz de decisêo — quando usar qual
 
-| Cenário | Recomendação |
+| Cenário | Recomendaçêo |
 |---|---|
 | Post Instagram carrossel 7 slides/dia | 🏆 imkt5 (único que faz) |
 | Reels/TikTok em escala (20+/semana) | 🏆 imkt5 |
@@ -139,20 +139,20 @@
 |---|---:|---:|
 | Visual / Motion Graphics | **9** | 3 |
 | Áudio | 0 | **3** |
-| Inteligência / Automação | 0 | **7** |
+| Inteligência / Automaçêo | 0 | **7** |
 | Escala / Infra | 0 | **5** |
 | Deliverables | 0 | **3** |
 | **TOTAL** | **9** | **21** |
 
 ---
 
-## 10. Conclusão
+## 10. Conclusêo
 
 - **c79** vence no "feels expensive" puro (motion graphics Infinite-tier).
-- **imkt5** vence em tudo que é volume, automação, multi-tenant e carrossel.
+- **imkt5** vence em tudo que é volume, automaçêo, multi-tenant e carrossel.
 - **Fase α** (6 técnicas CSS/PNG em ~6h) fecha ~80% do gap visual sem trocar engine.
 - **Fase β** (worker HTML+GSAP paralelo) só faz sentido quando cliente
   enterprise paga premium OU volume > 50 renders/dia.
 
-**Risco de implementação:** zero. Tudo atrás de flag opt-in ou template
+**Risco de implementaçêo:** zero. Tudo atrás de flag opt-in ou template
 novo. Runs antigos re-rodam idênticos; novos runs escolhem estética.

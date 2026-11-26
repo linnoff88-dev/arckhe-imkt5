@@ -5,12 +5,12 @@ Gateway. Responsabilidades:
 
 1. Receber eventos do transporte.
 2. Resolver a identidade-de-transporte em `(tenant_id, user_id)` canônicos
-   via `tenancy.resolver` — o adapter NÃO inventa tenants.
+   via `tenancy.resolver` — o adapter NêO inventa tenants.
 3. Baixar anexos para object storage e construir `IncomingMessage`.
 4. Invocar `on_message(incoming)` entregue pelo Gateway.
 5. Enviar `OutgoingMessage` quando o Gateway pedir.
 
-Um canal NÃO conhece o agent loop, nem memória, nem providers. Ele só traduz.
+Um canal NêO conhece o agent loop, nem memória, nem providers. Ele só traduz.
 """
 
 from __future__ import annotations

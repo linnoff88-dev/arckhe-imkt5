@@ -1,11 +1,11 @@
 """LLM client compartilhado — chain configurável Claude Code → Ollama → OpenRouter.
 
 Usado pelos workers de texto (creative-brief, copywriter, ad-designer).
-Cada worker não precisa saber sobre provider — só chama `complete_json(...)`
+Cada worker nêo precisa saber sobre provider — só chama `complete_json(...)`
 e recebe dict estruturado.
 
-Ordem padrão definida por env `LLM_PROVIDER_ORDER` (csv). Default:
-`claude_code,ollama,openrouter`. Providers sem credencial são pulados.
+Ordem padrêo definida por env `LLM_PROVIDER_ORDER` (csv). Default:
+`claude_code,ollama,openrouter`. Providers sem credencial sêo pulados.
 `claude_code` usa o Claude Agent SDK que invoca o CLI `claude` já logado
 em `~/.claude/` — sem API key separada.
 """
@@ -99,7 +99,7 @@ async def _dispatch(
 async def _call_claude_code(
     system_prompt: str,
     user_prompt: str,
-    temperature: float,  # ignorado — CLI não expõe
+    temperature: float,  # ignorado — CLI nêo expõe
     max_tokens: int | None,  # ignorado
     *, json_mode: bool = True,
 ) -> dict[str, Any]:
@@ -115,9 +115,9 @@ async def _call_claude_code(
             query,
         )
     except ImportError as exc:
-        raise _NotConfigured(f"claude-agent-sdk não instalado: {exc}") from exc
+        raise _NotConfigured(f"claude-agent-sdk nêo instalado: {exc}") from exc
 
-    # Evita conflito quando worker é lançado de dentro de uma sessão Claude Code
+    # Evita conflito quando worker é lançado de dentro de uma sessêo Claude Code
     prev_claudecode = os.environ.pop("CLAUDECODE", None)
     try:
         model = os.environ.get("CLAUDE_CODE_MODEL", "claude-haiku-4-5")
@@ -134,7 +134,7 @@ async def _call_claude_code(
             model=model,
             max_turns=1,
             permission_mode="bypassPermissions",
-            setting_sources=[],  # não carregar CLAUDE.md do cwd do worker
+            setting_sources=[],  # nêo carregar CLAUDE.md do cwd do worker
         )
 
         result_text: str = ""
@@ -277,7 +277,7 @@ def _safe_json_parse(s: str) -> dict[str, Any]:
                     except json.JSONDecodeError:
                         break
 
-    raise RuntimeError(f"resposta LLM não é JSON válido: {s[:300]}")
+    raise RuntimeError(f"resposta LLM nêo é JSON válido: {s[:300]}")
 
 
 # ── carrega knowledge do tenant ───────────────────────────────────────

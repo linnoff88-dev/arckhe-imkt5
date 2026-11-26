@@ -14,11 +14,11 @@ from typing import Any
 
 @dataclass(frozen=True, slots=True)
 class ToolContext:
-    """Identidade e contexto do chamador, injetado em toda execução de tool."""
+    """Identidade e contexto do chamador, injetado em toda execuçêo de tool."""
 
     tenant_id: str
     user_id: str
-    # Correlação: a chamada veio de uma mensagem específica.
+    # Correlaçêo: a chamada veio de uma mensagem específica.
     origin_channel: str
     origin_channel_external_id: str
 

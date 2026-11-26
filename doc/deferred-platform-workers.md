@@ -1,9 +1,9 @@
 # Workers de plataforma — diferidos
 
-> Decisão: os 6 workers `platform-*` **NÃO serão portados agora**. Ficam
+> Decisêo: os 6 workers `platform-*` **NêO serêo portados agora**. Ficam
 > documentados aqui pra retomada futura quando houver demanda real.
 
-## Quais são
+## Quais sêo
 
 Workers do `timesmkt3/skills/platform-*-agent/` que adaptam conteúdo para
 cada rede social. Cada um pega os mesmos assets (vídeo, imagens,
@@ -12,7 +12,7 @@ narrativa) e gera metadata formatado para a plataforma-alvo.
 | Worker | Capability | O que faz (resumido) |
 |---|---|---|
 | `platform-instagram` | `platform.instagram` | Carrossel (10 slides), stories, reels, captions com hashtags IG, hook de abertura, CTA |
-| `platform-youtube` | `platform.youtube` | Título SEO-otimizado, descrição longa, tags, capítulos, shorts 9:16 |
+| `platform-youtube` | `platform.youtube` | Título SEO-otimizado, descriçêo longa, tags, capítulos, shorts 9:16 |
 | `platform-tiktok` | `platform.tiktok` | Vídeo vertical, caption curta, hook de 2s obrigatório, trending hashtags |
 | `platform-facebook` | `platform.facebook` | Feed 1:1, stories 9:16, reels, vídeo 16:9 com legenda embutida |
 | `platform-threads` | `platform.threads` | Posts conversacionais ≤500 chars, sequência encadeada |
@@ -20,16 +20,16 @@ narrativa) e gera metadata formatado para a plataforma-alvo.
 
 ## Por que foram diferidos
 
-1. **Escopo inicial do `imkt5` não precisa.** Gerar imagem, áudio,
-   vídeo e campanha curta não exige formatação por plataforma ainda.
+1. **Escopo inicial do `imkt5` nêo precisa.** Gerar imagem, áudio,
+   vídeo e campanha curta nêo exige formataçêo por plataforma ainda.
 2. **Maioria das decisões é específica por rede e muda com frequência**
    (algoritmo do TikTok, limites do Threads, formato de carrossel IG).
    Congelar lógica agora gera retrabalho.
-3. **Complexidade não é no worker, é no conteúdo.** Um worker
-   `platform-*` é 80% prompt + 20% validação de specs. Tem valor só
+3. **Complexidade nêo é no worker, é no conteúdo.** Um worker
+   `platform-*` é 80% prompt + 20% validaçêo de specs. Tem valor só
    quando há estratégia de conteúdo por plataforma.
 
-## Onde estão os SKILL.md originais
+## Onde estêo os SKILL.md originais
 
 Referência para o porte futuro — os prompts + regras de conteúdo por
 plataforma já existem:
@@ -49,9 +49,9 @@ guarda specs por plataforma (formatos, dimensões, limites de caracteres).
 
 ## Como retomar no futuro
 
-Decisão pendente no retomar: **6 workers distintos** ou **1 worker
+Decisêo pendente no retomar: **6 workers distintos** ou **1 worker
 `platform-formatter` parametrizado** — ver `doc/backlog.md` §7 e
-conversa no chat. Minha recomendação continua sendo B (1 worker com
+conversa no chat. Minha recomendaçêo continua sendo B (1 worker com
 SKILL-<plataforma>.md por dentro).
 
 Checklist pra quando voltar:
@@ -76,8 +76,8 @@ Checklist pra quando voltar:
 
 ## Estimativa de esforço
 
-- **Opção A (6 workers separados)**: ~1 dia cada = 6 dias total
-- **Opção B (1 worker parametrizado)**: ~2-3 dias total (estrutura + 6 SKILL.md)
+- **Opçêo A (6 workers separados)**: ~1 dia cada = 6 dias total
+- **Opçêo B (1 worker parametrizado)**: ~2-3 dias total (estrutura + 6 SKILL.md)
 
 ## O que ISSO desbloqueia quando for feito
 
@@ -88,7 +88,7 @@ tranca no stage `platforms` por falta dos workers.
 
 Mesmo sem platform-*, ainda dá pra fazer:
 
-- Geração individual de imagem / áudio / vídeo
+- Geraçêo individual de imagem / áudio / vídeo
 - Pesquisa + brief + copy + ads + vídeo (stage `platforms` fica pending, depois manual)
 - Receita `carrossel-simples`
-- Receita `yt-clip-publish` (não passa por platform-*, usa `yt-publish` direto)
+- Receita `yt-clip-publish` (nêo passa por platform-*, usa `yt-publish` direto)

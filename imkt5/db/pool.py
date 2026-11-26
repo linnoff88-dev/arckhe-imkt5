@@ -1,6 +1,6 @@
 """Connection pool Postgres.
 
-Singleton lazy-initialized. Se `POSTGRES_URL` não estiver configurado,
+Singleton lazy-initialized. Se `POSTGRES_URL` nêo estiver configurado,
 Database fica desabilitado (callers caem no caminho in-memory).
 """
 
@@ -27,7 +27,7 @@ class Database:
 
     async def connect(self) -> None:
         if asyncpg is None:
-            raise RuntimeError("asyncpg não instalado")
+            raise RuntimeError("asyncpg nêo instalado")
         if self._pool is None:
             self._pool = await asyncpg.create_pool(
                 self._url,
@@ -44,7 +44,7 @@ class Database:
 
     def pool(self) -> Any:
         if self._pool is None:
-            raise RuntimeError("pool não inicializado; chame connect()")
+            raise RuntimeError("pool nêo inicializado; chame connect()")
         return self._pool
 
 
@@ -52,7 +52,7 @@ _db: Database | None = None
 
 
 def get_pool() -> Database | None:
-    """Retorna o Database se POSTGRES_URL estiver setado; senão None."""
+    """Retorna o Database se POSTGRES_URL estiver setado; senêo None."""
     global _db
     if _db is not None:
         return _db

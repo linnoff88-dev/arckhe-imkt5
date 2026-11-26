@@ -1,4 +1,4 @@
-"""AgentLoop — coração conversacional do Gateway.
+"""AgentLoop — coraçêo conversacional do Gateway.
 
 Recebe IncomingMessage → monta contexto (SOUL + memória) → chama LLM
 com tools (dispatch_job, run_recipe) → executa tools iteradas → devolve
@@ -115,7 +115,7 @@ class AgentLoop:
                 )
         else:
             final_text = (
-                "(limite de rodadas atingido — operação pode estar em andamento, "
+                "(limite de rodadas atingido — operaçêo pode estar em andamento, "
                 "consulte /jobs ou /runs)"
             )
 

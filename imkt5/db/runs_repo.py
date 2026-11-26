@@ -104,14 +104,14 @@ class RunsRepo:
         return out
 
     async def fail_orphans(self, *, older_than_seconds: int = 60) -> int:
-        """Marca como failed runs que ficaram não-terminais além do limite.
+        """Marca como failed runs que ficaram nêo-terminais além do limite.
 
         Usado no startup pra zerar runs presas por restart do gateway
         (stages pending/running/awaiting_approval sem ninguém pra avançar).
         Retorna quantas foram reconciliadas.
 
         Além da flag `finished=true failed=true` na run, ATUALIZA cada
-        stage individual não-terminal (running/pending/awaiting_approval)
+        stage individual nêo-terminal (running/pending/awaiting_approval)
         pra status=failed com error='orphan: gateway restart' — evita
         inconsistência onde run aparece como failed mas stage individual
         ainda mostra "running" na UI.
@@ -131,7 +131,7 @@ class RunsRepo:
                 stages = row["stages"]
                 if isinstance(stages, str):
                     stages = json.loads(stages)
-                # Rescrita: marca cada stage não-terminal como failed
+                # Rescrita: marca cada stage nêo-terminal como failed
                 for sid, s in stages.items():
                     if sid.startswith("_"):
                         continue
