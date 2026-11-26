@@ -97,8 +97,8 @@ Gateway + 12 workers:
 
 1. **Telegram user auth** (pra destravar `telegram-scraper` online):
    - `.env`: `TELEGRAM_API_ID` + `TELEGRAM_API_HASH` (pega em my.telegram.org)
-   - Rodar 1×: `python scripts/tg_auth.py +55SEU_NUMERO inema`
-   - Session fica em `data/tg-sessions/inema.session`
+   - Rodar 1×: `python scripts/tg_auth.py +55SEU_NUMERO ARCKHÉ`
+   - Session fica em `data/tg-sessions/ARCKHÉ.session`
 
 2. **Test pipeline Telegram completo** (scraper produz → search consome)
 

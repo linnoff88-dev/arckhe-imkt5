@@ -9,10 +9,10 @@
 Projetos citados pelo usuário como ponto de partida:
 
 - `timesmkt3`
-- `inemaimg`
-- `inemavox`
+- `ARCKHÉimg`
+- `ARCKHÉvox`
 - `yt-pub-lives` + variantes numeradas (`yt-pub-lives1..10`, `yt-pub-lives-thumb`)
-- `inemavox2`
+- `ARCKHÉvox2`
 
 Requisitos de alto nível:
 
@@ -82,7 +82,7 @@ A existência de múltiplos `yt-pub-lives<N>` é um sinal clássico de **worker 
 ┌─────────────────────────────────────────────────────────────┐
 │  WORKERS independentes, cada um com contrato HTTP/fila      │
 │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐       │
-│  │ inemaimg     │  │ inemavox     │  │ yt-pub-lives │  ...  │
+│  │ ARCKHÉimg     │  │ ARCKHÉvox     │  │ yt-pub-lives │  ...  │
 │  │ (gera img)   │  │ (TTS/dub)    │  │ (ingest YT)  │       │
 │  └──────────────┘  └──────────────┘  └──────────────┘       │
 │  Cada worker: stateless, escala horizontal, aceita          │
@@ -109,7 +109,7 @@ A existência de múltiplos `yt-pub-lives<N>` é um sinal clássico de **worker 
 ### Decisões pendentes (após as fichas)
 
 - **Orquestrador**: n8n (já em uso), BullMQ puro, ou Temporal? Tradeoff definido após ver o que os projetos já trazem.
-- **GPU / modelos pesados** (provável em `inemavox`): worker dedicado com fila própria e `concurrency=1`, ou pool?
+- **GPU / modelos pesados** (provável em `ARCKHÉvox`): worker dedicado com fila própria e `concurrency=1`, ou pool?
 - **Monorepo vs. multi-repo com lib compartilhada** (contrato de Job, clientes, tipos).
 
 ---

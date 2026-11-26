@@ -1,9 +1,9 @@
-"""inemaimg-adapter — wrapper HTTP real sobre o servidor inemaimg.
+"""ARCKHÉimg-adapter — wrapper HTTP real sobre o servidor ARCKHÉimg.
 
 Adapta o contrato do imkt5 (`capability=image.generation`) para a API do
-inemaimg (`POST /generate`). Fluxo:
+ARCKHÉimg (`POST /generate`). Fluxo:
 
-  imkt5 Job payload → POST inemaimg/generate → base64 PNG
+  imkt5 Job payload → POST ARCKHÉimg/generate → base64 PNG
                     → storage.save_base64 → URL (file:// em dev, s3:// em prod)
 
 Payload esperado (mínimo):
@@ -39,13 +39,13 @@ from imkt5.config import load as _load_cfg
 from workers._base import BaseWorker
 from workers._base.storage import get_storage
 
-log = logging.getLogger("imkt5.workers.inemaimg")
+log = logging.getLogger("imkt5.workers.ARCKHÉimg")
 logging.basicConfig(level=logging.INFO)
 
-_CFG = _load_cfg().workers.inemaimg_adapter
-INEMAIMG_URL = os.environ.get("INEMAIMG_URL", _CFG.upstream_url)
-INEMAIMG_MODEL_DEFAULT = os.environ.get("INEMAIMG_MODEL", _CFG.default_model)
-INEMAIMG_TIMEOUT = float(os.environ.get("INEMAIMG_TIMEOUT", _CFG.request_timeout_seconds))
+_CFG = _load_cfg().workers.ARCKHÉimg_adapter
+ARCKHÉIMG_URL = os.environ.get("ARCKHÉIMG_URL", _CFG.upstream_url)
+ARCKHÉIMG_MODEL_DEFAULT = os.environ.get("ARCKHÉIMG_MODEL", _CFG.default_model)
+ARCKHÉIMG_TIMEOUT = float(os.environ.get("ARCKHÉIMG_TIMEOUT", _CFG.request_timeout_seconds))
 
 PROFILES_PATH = Path(__file__).resolve().parents[2] / "config" / "image-model-profiles.json"
 
@@ -181,8 +181,8 @@ def build_image_prompt(
     return full, negative
 
 
-class InemaimgAdapter(BaseWorker):
-    name = "inemaimg-adapter"
+class ARCKHÉimgAdapter(BaseWorker):
+    name = "ARCKHÉimg-adapter"
     capabilities = ("image.generation",)
 
     async def handle(self, job) -> dict[str, Any]:
@@ -193,7 +193,7 @@ class InemaimgAdapter(BaseWorker):
                 f"payload precisa de 'prompt' (string nêo-vazia). Recebido: {type(user_prompt).__name__}={user_prompt!r}"
             )
 
-        model = payload.get("model") or INEMAIMG_MODEL_DEFAULT
+        model = payload.get("model") or ARCKHÉIMG_MODEL_DEFAULT
 
         # ── build_image_prompt aplica style_prefix+suffix+safety+orientation
         # do profile do modelo (timesmkt3-style). Substitui TEXT_NEGATIVE
@@ -233,18 +233,18 @@ class InemaimgAdapter(BaseWorker):
                 body[k] = payload[k]
 
         log.info("job %s → upstream %s/generate model=%s prompt=%s",
-                 job.job_id[:8], INEMAIMG_URL, model, full_prompt[:80])
+                 job.job_id[:8], ARCKHÉIMG_URL, model, full_prompt[:80])
 
         try:
-            async with httpx.AsyncClient(timeout=INEMAIMG_TIMEOUT) as client:
-                resp = await client.post(f"{INEMAIMG_URL}/generate", json=body)
+            async with httpx.AsyncClient(timeout=ARCKHÉIMG_TIMEOUT) as client:
+                resp = await client.post(f"{ARCKHÉIMG_URL}/generate", json=body)
                 if resp.status_code != 200:
                     # loga o corpo do erro do upstream antes de propagar
                     err_body = resp.text[:500] if resp.text else "(vazio)"
                     log.warning("upstream %s → %s body=%s",
-                                INEMAIMG_URL, resp.status_code, err_body)
+                                ARCKHÉIMG_URL, resp.status_code, err_body)
                     raise RuntimeError(
-                        f"inemaimg upstream retornou {resp.status_code}: {err_body}"
+                        f"ARCKHÉimg upstream retornou {resp.status_code}: {err_body}"
                     )
                 data = resp.json()
         except httpx.HTTPError as exc:
@@ -277,6 +277,6 @@ class InemaimgAdapter(BaseWorker):
 
 
 if __name__ == "__main__":
-    InemaimgAdapter().run(
-        port=int(os.environ.get("IMKT5_INEMAIMG_ADAPTER_PORT", _CFG.port))
+    ARCKHÉimgAdapter().run(
+        port=int(os.environ.get("IMKT5_ARCKHÉIMG_ADAPTER_PORT", _CFG.port))
     )

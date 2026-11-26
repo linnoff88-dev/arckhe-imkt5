@@ -1,6 +1,6 @@
 {
-  "_doc": "Perfis de prompt por modelo de geraçêo de imagem. O build_image_prompt do inemaimg-adapter carrega o perfil do modelo ativo e aplica prefix/suffix/safety/context + trunca pro max_length.",
-  "_lineage": "Portado de timesmkt3/skills/image-generation/model-profiles.json (2026-04-19). Adaptado pros modelos que o inemaimg upstream aceita.",
+  "_doc": "Perfis de prompt por modelo de geraçêo de imagem. O build_image_prompt do ARCKHÉimg-adapter carrega o perfil do modelo ativo e aplica prefix/suffix/safety/context + trunca pro max_length.",
+  "_lineage": "Portado de timesmkt3/skills/image-generation/model-profiles.json (2026-04-19). Adaptado pros modelos que o ARCKHÉimg upstream aceita.",
 
   "defaults": {
     "max_length": 500,
@@ -25,13 +25,13 @@
       "strengths": "Destilado, rápido (4 steps). Bom pra iteraçêo. Linguagem natural rica.",
       "prompt_tips": [
         "Prompts curtos e descritivos (< 200 chars ideal)",
-        "Especificar iluminaçêo: 'cinematic lighting', 'golden hour', 'soft diffused light'",
+        "Especificar iluminaçêo: 'cARCKHÉtic lighting', 'golden hour', 'soft diffused light'",
         "Bom com fotografia, pessoas, ambientes profissionais",
         "Fraco com texto em imagem (aumenta TEXT_NEGATIVE explícito)",
         "steps > 4 desperdiça tempo sem melhorar qualidade"
       ],
       "style_prefix": "",
-      "style_suffix": "Cinematic photography, photorealistic, sharp focus, professional quality. No text, no letters, no words, no watermark, no logo, no typography, no signs, no poster, no book cover, no newspaper.",
+      "style_suffix": "CARCKHÉtic photography, photorealistic, sharp focus, professional quality. No text, no letters, no words, no watermark, no logo, no typography, no signs, no poster, no book cover, no newspaper.",
       "example_prompt": "Professional woman working at modern desk with laptop, warm studio lighting, shallow depth of field, photorealistic. Colors: #0099FF, #00FF88."
     },
 
@@ -62,13 +62,13 @@
       "strengths": "Padrêo SD comunidade. Ótimo com LoRAs e prompt weighting.",
       "prompt_tips": [
         "Usar tags separadas por vírgula (nêo frases)",
-        "Pesos via parênteses: '(cinematic:1.3), (detailed:1.2)'",
+        "Pesos via parênteses: '(cARCKHÉtic:1.3), (detailed:1.2)'",
         "steps 25-40, guidance 6-8",
         "Bom com styles específicos (anime, oil painting, watercolor)"
       ],
       "style_prefix": "",
       "style_suffix": "photorealistic, sharp focus, detailed, professional, (no text:1.4), (no letters:1.4), (no watermark:1.3), (no logo:1.3)",
-      "example_prompt": "modern office, woman at desk, laptop, warm lighting, bokeh, cinematic, professional photography, 4k"
+      "example_prompt": "modern office, woman at desk, laptop, warm lighting, bokeh, cARCKHÉtic, professional photography, 4k"
     },
 
     "sdxl-turbo": {

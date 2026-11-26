@@ -26,7 +26,7 @@ Investigaçêo revelou que:
 
 O skyreelsv3 resolve nativamente **consistência visual entre cenas**
 (R2V com 1-4 imagens de referência) + **extensêo de vídeo** + **shot
-switching cinematográfico** + **talking avatar** — o que seria o "motor"
+switching cARCKHÉtográfico** + **talking avatar** — o que seria o "motor"
 natural da recipe.
 
 ## Decisêo arquitetural
@@ -125,7 +125,7 @@ LLM (Claude subprocess, igual outros workers-cérebro do imkt5) que recebe:
 
 - Decide `task_type` por cena (R2V quando introduz personagem, extension
   p/ continuidade, shot_switching p/ cortes, talking_avatar p/ narraçêo)
-- Preenche `ref_imgs` apontando pras imagens geradas pelo inemaimg
+- Preenche `ref_imgs` apontando pras imagens geradas pelo ARCKHÉimg
 - Insere `{{prev}}` automaticamente em cenas encadeadas
 - Insere prefixos `[ZOOM_IN_CUT]` etc quando o roteiro indica corte
 - Seeds determinísticas (hash do `job_id + scene_idx`)
@@ -157,8 +157,8 @@ aceita do IP do skyreelsv3.
 5 stages:
 
 1. `char_refs` — fanout: gera imagens de referência dos personagens
-   (inemaimg) — **só se input nêo passou ref_imgs**
-2. `voiceover` — fanout: narraçêo das cenas talking_avatar (inemavox) —
+   (ARCKHÉimg) — **só se input nêo passou ref_imgs**
+2. `voiceover` — fanout: narraçêo das cenas talking_avatar (ARCKHÉvox) —
    só se tem cena talking
 3. `script_to_queue` — roteiro + refs + narrações → JSON skyreelsv3
 4. `skyreels_render` — dispara queue no skyreelsv3, espera callback,

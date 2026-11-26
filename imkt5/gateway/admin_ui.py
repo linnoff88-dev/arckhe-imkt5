@@ -115,7 +115,7 @@ ADMIN_HTML = r"""<!DOCTYPE html>
 
     <h2 style="margin-top:40px;">Config por tenant</h2>
     <div class="row">
-      <input id="tenant-id" placeholder="inema" style="max-width:300px;">
+      <input id="tenant-id" placeholder="ARCKHÉ" style="max-width:300px;">
       <button class="ghost" onclick="loadConfig('tenant')">Carregar</button>
     </div>
     <textarea id="cfg-tenant" placeholder="selecione um tenant e clique carregar..."></textarea>
@@ -197,7 +197,7 @@ ADMIN_HTML = r"""<!DOCTYPE html>
         <option value="web">web</option>
       </select>
       <input id="ch-external" placeholder="external_id (chat_id, phone)">
-      <input id="ch-tenant" placeholder="tenant_id (ex: inema)">
+      <input id="ch-tenant" placeholder="tenant_id (ex: ARCKHÉ)">
       <input id="ch-user" placeholder="user_id (ex: nei)">
       <button onclick="addChannel()">Adicionar</button>
     </div>

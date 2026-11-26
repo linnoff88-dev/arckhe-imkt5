@@ -15,7 +15,7 @@ Automatizar o fluxo "nova ideia apareceu no grupo → gerou conteúdo
 automaticamente":
 
 ```
-Membro posta ideia no INEMA.FTD
+Membro posta ideia no ARCKHÉ.FTD
         ↓
 telegram-watcher detecta (real-time via NewMessage event)
         ↓
@@ -68,8 +68,8 @@ escutando eventos e dispachando jobs externamente.
 
 ```yaml
 watchers:
-  - name: "ideas_inema_ftd"
-    group: "https://t.me/c/2517011104"     # INEMA.FTD
+  - name: "ideas_ARCKHÉ_ftd"
+    group: "https://t.me/c/2517011104"     # ARCKHÉ.FTD
     topic: null                              # null = todo grupo; int = tópico específico
     filters:
       from_authors_only: [7388953786]        # só admin (opcional)
@@ -127,7 +127,7 @@ Em `input_template`:
 
 ## ⚙️ Decisões iniciais recomendadas
 
-1. **Escopo inicial:** 1 watcher fixo pro INEMA.FTD → `campanha-marketing`.
+1. **Escopo inicial:** 1 watcher fixo pro ARCKHÉ.FTD → `campanha-marketing`.
 2. **Quando disparar:** cada nova msg que bate filtros (sem batching).
 3. **Review:** semi-auto — gera + manda pro admin aprovar via
    `approval_mode: human` (já suportado no recipe).
@@ -166,7 +166,7 @@ Adiciona:
   - [ ] State persist após cada fire
   - [ ] FastAPI endpoints: /status, /toggle, /reload, /trigger-test
   - [ ] Graceful shutdown (SIGTERM → save state → disconnect)
-- [ ] `config/telegram-watchers.yaml` (exemplo INEMA.FTD)
+- [ ] `config/telegram-watchers.yaml` (exemplo ARCKHÉ.FTD)
 - [ ] `scripts/start-dev.sh` — adiciona `telegram-watcher`
 - [ ] Notificaçêo opcional via bot (reusa admin_bot existing)
 - [ ] Teste: dispara msg teste no grupo → ve se recipe roda

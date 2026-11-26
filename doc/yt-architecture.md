@@ -22,7 +22,7 @@ implementando a mesma interface.
   - `profiles/<tenant>/import/` — arquivos entram pro tenant específico.
   - `/var/imkt5/import/` **global** — compatibilidade com o comportamento
     atual do `yt-pub-lives` (inbox compartilhado). Arquivos entram como
-    material do tenant "inema" (default configurável); os clips gerados
+    material do tenant "ARCKHÉ" (default configurável); os clips gerados
     se distribuem em sequência entre os `publish_bindings` do tenant
     via `fanout_over` na receita.
 
@@ -40,7 +40,7 @@ lista com metadata.
 ### 2. `yt-transcribe` — transcriçêo (genérica)
 
 **Worker SEPARADO** — nêo é exclusivo do yt-cuts. Transcreve qualquer
-vídeo/áudio, assim como o `inemavox` já faz hoje.
+vídeo/áudio, assim como o `ARCKHÉvox` já faz hoje.
 
 Capability: `audio.transcribe`, `video.transcribe`.
 
@@ -265,11 +265,11 @@ Rota nova: `GET /ui/yt` dentro do gateway.
 
 - [ ] Schema Postgres adicional (materials, clips, publications)
 - [ ] Worker `sources-import` com 3 fetchers (upload, TikTok, filesystem)
-- [ ] Worker `yt-transcribe` (genérico, reutiliza inemavox quando possível)
+- [ ] Worker `yt-transcribe` (genérico, reutiliza ARCKHÉvox quando possível)
 - [ ] Worker `yt-cuts` (lógica do `scripts/yt-clip` adaptada)
 - [ ] Worker `yt-metadata` (novo, LLM gera metadata)
 - [ ] Worker `yt-publish` + thumbnail gen (lógica do `scripts/yt-publish`)
 - [ ] Adapter `credentials.enc` reader (ler diretórios yt-pub-lives<N>)
 - [ ] Receita `yt-pipeline.yaml` em `recipes/`
 - [ ] Painel `/ui/yt`
-- [ ] Popular `source_bindings` + `publish_bindings` da INEMA no Postgres
+- [ ] Popular `source_bindings` + `publish_bindings` da ARCKHÉ no Postgres

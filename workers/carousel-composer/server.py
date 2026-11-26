@@ -11,7 +11,7 @@ Compõe slides de carrossel estilo IG/Stories usando Pillow:
 
 Input:
   {
-    "images": ["/s3/..."],              // base, geradas pelo inemaimg
+    "images": ["/s3/..."],              // base, geradas pelo ARCKHÉimg
     "title": "Título do carrossel",
     "captions": ["cap 1", ...],         // opcional, 1 por slide
     "cta": "Comece agora",              // opcional, último slide

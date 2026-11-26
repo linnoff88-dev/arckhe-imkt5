@@ -39,7 +39,7 @@ pro webui do SkyReels V3 (`http://<skyreels>:7861/nqueues/import`).
 - `single_shot_extension` — continua o vídeo anterior **sem corte**,
   mesmo ângulo/ambiente. Use quando a açêo flui naturalmente da cena
   anterior. Obrigatório `input_video: "{{prev}}"`.
-- `shot_switching_extension` — continuaçêo **com corte cinematográfico**
+- `shot_switching_extension` — continuaçêo **com corte cARCKHÉtográfico**
   (zoom, pan, troca de ângulo). Máximo 5s. Prefira prefixos no prompt:
   - `[ZOOM_IN_CUT]` — fechamento brusco no mesmo sujeito
   - `[ZOOM_OUT_CUT]` — abre pra contexto/ambiente

@@ -47,7 +47,7 @@ llm:
     router_model: qwen2.5:14b                   # env: OLLAMA_ROUTER_MODEL
 
 # Workers — cada um tem seu default de port e parâmetros específicos.
-# Overrides via env: <UPPER_NAME>_* (ex.: INEMAIMG_URL, RESEARCH_PORT)
+# Overrides via env: <UPPER_NAME>_* (ex.: ARCKHÉIMG_URL, RESEARCH_PORT)
 workers:
 
   research:
@@ -56,17 +56,17 @@ workers:
   auto_reviewer:
     port: 8200                           # env: AUTO_REVIEWER_PORT
 
-  inemaimg_adapter:
-    port: 8020                           # env: IMKT5_INEMAIMG_ADAPTER_PORT
-    upstream_url: http://localhost:8000  # env: INEMAIMG_URL
-    default_model: qwen-edit-2511        # env: INEMAIMG_MODEL
-    request_timeout_seconds: 180         # env: INEMAIMG_TIMEOUT
+  ARCKHÉimg_adapter:
+    port: 8020                           # env: IMKT5_ARCKHÉIMG_ADAPTER_PORT
+    upstream_url: http://localhost:8000  # env: ARCKHÉIMG_URL
+    default_model: qwen-edit-2511        # env: ARCKHÉIMG_MODEL
+    request_timeout_seconds: 180         # env: ARCKHÉIMG_TIMEOUT
 
-  inemavox_adapter:
-    port: 8021                           # env: IMKT5_INEMAVOX_ADAPTER_PORT
-    upstream_url: http://localhost:8010  # env: INEMAVOX_URL
-    poll_interval_seconds: 1.5           # env: INEMAVOX_POLL_INTERVAL
-    poll_max_seconds: 600                # env: INEMAVOX_POLL_MAX_SECONDS
+  ARCKHÉvox_adapter:
+    port: 8021                           # env: IMKT5_ARCKHÉVOX_ADAPTER_PORT
+    upstream_url: http://localhost:8010  # env: ARCKHÉVOX_URL
+    poll_interval_seconds: 1.5           # env: ARCKHÉVOX_POLL_INTERVAL
+    poll_max_seconds: 600                # env: ARCKHÉVOX_POLL_MAX_SECONDS
 
 # Payload defaults por capability — usados pela UI quando usuário entra
 # texto livre. Também servem como sugestêo para clientes HTTP.

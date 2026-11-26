@@ -229,16 +229,16 @@
   <div class="accent-line-top"></div>
   <div class="accent-line-bottom"></div>
 
-  <div class="badge">{{ badge or 'INEMA' }}</div>
+  <div class="badge">{{ badge or 'ARCKHÉ' }}</div>
   <div class="slide-label">{{ slide_label or scene_type or '' }}</div>
-  <div class="handle">{{ brand_handle or '@inema.tds' }}</div>
+  <div class="handle">{{ brand_handle or '@ARCKHÉ.tds' }}</div>
 
   <div class="stage">
     {% if is_brand_moment %}
       <div class="brand-full">
         <div class="brand-logo-huge">{{ brand_logo or text_overlay }}</div>
         {% if brand_tag %}<div class="brand-tag-big">{{ brand_tag }}</div>{% endif %}
-        <div class="brand-handle-big">{{ brand_handle or '@inema.tds' }}</div>
+        <div class="brand-handle-big">{{ brand_handle or '@ARCKHÉ.tds' }}</div>
       </div>
     {% elif stat_number %}
       <div class="stat-wrap-big">

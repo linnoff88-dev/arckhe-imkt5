@@ -35,9 +35,9 @@
         "text_position": "center",
         "scene_type": "proof",
         "font_size": 120,
-        "badge": "INEMA",
+        "badge": "ARCKHÉ",
         "slide_label": "04 / 07",
-        "brand_handle": "@inema.tds",
+        "brand_handle": "@ARCKHÉ.tds",
         "stat_a": {"number": "87%", "label": "Automatizam tarefas"},
         "stat_b": {"number": "3×", "label": "Velocidade em equipe"}
       }
@@ -60,7 +60,7 @@
       "label": "Solid Block",
       "desc": "bloco amarelo/colorido + Inter bold rotacionado",
       "preview": {
-        "text": "INEMA.CLUB",
+        "text": "ARCKHÉ AI",
         "text_position": "center",
         "scene_type": "cta",
         "font_size": 120

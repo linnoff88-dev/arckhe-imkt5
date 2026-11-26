@@ -176,15 +176,15 @@ CREATE INDEX IF NOT EXISTS idx_audit_tenant ON audit_log(tenant_id);
 CREATE INDEX IF NOT EXISTS idx_audit_created ON audit_log(created_at DESC);
 
 -- ═════════════════════════════════════════════════════════════════════
--- Seed inicial: tenant 'demo' e 'inema'
+-- Seed inicial: tenant 'demo' e 'ARCKHÉ'
 -- ═════════════════════════════════════════════════════════════════════
 
 INSERT INTO tenants (tenant_id, name, profile_path) VALUES
     ('demo',  'Demo Tenant',  'profiles/demo'),
-    ('inema', 'INEMA',        'profiles/inema')
+    ('ARCKHÉ', 'ARCKHÉ',        'profiles/ARCKHÉ')
 ON CONFLICT (tenant_id) DO NOTHING;
 
 INSERT INTO users (user_id, tenant_id, display_name) VALUES
     ('web',        'demo',  'Web User'),
-    ('inema-admin','inema', 'INEMA Admin')
+    ('ARCKHÉ-admin','ARCKHÉ', 'ARCKHÉ Admin')
 ON CONFLICT (user_id) DO NOTHING;

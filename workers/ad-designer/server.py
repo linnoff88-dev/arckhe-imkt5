@@ -25,7 +25,7 @@ Output:
   }
 
 Workflow downstream: cada `background_prompt` pode virar um job
-`image.generation` pro inemaimg. Esse worker nêo dispara os jobs —
+`image.generation` pro ARCKHÉimg. Esse worker nêo dispara os jobs —
 devolve a especificaçêo. Quem orquestra é a receita.
 """
 

@@ -65,14 +65,14 @@ NARRATION_SPEED_BY_STYLE = {
     "neon_futurista": 1.15, "dark_dramatic": 1.15,
     "corporate_clean": 1.10, "editorial_documentary": 1.10, "data_viz": 1.10,
     "retro_futurism": 1.10,
-    "premium_minimal": 1.0, "emocional_cinematic": 1.0, "nature_organic": 1.0,
+    "premium_minimal": 1.0, "emocional_cARCKHÉtic": 1.0, "nature_organic": 1.0,
     "organic_earth": 1.0, "neo_minimal_luxury": 1.0,
     "wellness_soft": 1.0,  # clamp inferior; nêo aceleramos (pode ir 0.95 via override)
 }
 
 # Item 8 — styles que ativam parallax default (nível 1)
 PARALLAX_DEFAULT_STYLES = {
-    "dark_dramatic", "emocional_cinematic", "premium_minimal",
+    "dark_dramatic", "emocional_cARCKHÉtic", "premium_minimal",
     "editorial_documentary", "neo_minimal_luxury", "retro_futurism",
 }
 
@@ -99,7 +99,7 @@ CAPTION_ZONE_BY_STYLE = {
     "retro_futurism": (0.50, 0.65),
     "neon_futurista": (0.50, 0.65),
     "dark_dramatic": (0.55, 0.70),
-    "emocional_cinematic": (0.55, 0.70),
+    "emocional_cARCKHÉtic": (0.55, 0.70),
     "organic_earth": (0.55, 0.70),
     "nature_organic": (0.55, 0.70),
 }
@@ -139,7 +139,7 @@ def _resolve_narration_speed(user_override: Any, style: str) -> float:
 
 
 def _parallax_default_for_style(style: str) -> bool:
-    """Item 8 — parallax nível 1 default ON para styles cinematográficos."""
+    """Item 8 — parallax nível 1 default ON para styles cARCKHÉtográficos."""
     return style in PARALLAX_DEFAULT_STYLES
 
 
@@ -187,7 +187,7 @@ def _select_music(genre: str | None) -> Path | None:
         "ambient": "ambient", "lofi": "ambient", "ambiance": "ambient",
         "piano_solo": "piano_solo", "piano": "piano_solo",
         "pop": "pop", "upbeat": "pop", "ukulele_pop": "pop",
-        "piano_strings": "piano_strings", "cinematic": "piano_strings",
+        "piano_strings": "piano_strings", "cARCKHÉtic": "piano_strings",
         "folk": "folk", "acoustic": "folk",
         "drone": "drone", "dark": "drone",
         "trap": "synthwave",  # fallback
@@ -215,7 +215,7 @@ def _sfx_for_style(style: str | None, hook_pattern: str | None) -> tuple[Path | 
         hook_sfx = None
     trans_sfx = transition if transition.exists() else None
     # styles tranquilos nêo usam SFX
-    if style in ("premium_minimal", "emocional_cinematic", "editorial_documentary", "nature_organic"):
+    if style in ("premium_minimal", "emocional_cARCKHÉtic", "editorial_documentary", "nature_organic"):
         hook_sfx = None
         trans_sfx = None
     return hook_sfx, trans_sfx

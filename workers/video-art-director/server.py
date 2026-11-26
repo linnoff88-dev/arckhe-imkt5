@@ -22,7 +22,7 @@ from workers._base.llm_client import complete_json, load_tenant_knowledge
 SKILL_PATH = Path(__file__).parent / "SKILL.md"
 
 VALID_STYLES = {
-    "neon_futurista", "premium_minimal", "energetico", "emocional_cinematic",
+    "neon_futurista", "premium_minimal", "energetico", "emocional_cARCKHÉtic",
     "corporate_clean", "streetwear_urban", "nature_organic", "retro_vintage",
     "bold_pop", "dark_dramatic", "playful_colorful", "editorial_documentary",
 }
@@ -46,7 +46,7 @@ DEFAULTS_PER_STYLE = {
     "neon_futurista":        ("zoom_in", "cut", "synthwave", "pattern_interrupt"),
     "premium_minimal":       ("drift", "crossfade_long", "piano_solo", "value_bomb"),
     "energetico":            ("hard_zoom", "cut", "edm", "pattern_interrupt"),
-    "emocional_cinematic":   ("pan_right", "crossfade_long", "piano_strings", "question_abrupt"),
+    "emocional_cARCKHÉtic":   ("pan_right", "crossfade_long", "piano_strings", "question_abrupt"),
     "corporate_clean":       ("static", "crossfade_short", "ambient", "stat_shot"),
     "streetwear_urban":      ("hard_zoom", "cut", "trap", "pattern_interrupt"),
     "nature_organic":        ("pan_right", "crossfade_long", "folk", "value_bomb"),

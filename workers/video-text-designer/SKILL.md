@@ -30,7 +30,7 @@ vídeo tenha tipografia no mesmo nível visual do carrossel rico.
     },
     ...
   ],
-  "tenant_id": "inema",
+  "tenant_id": "ARCKHÉ",
   "style": "editorial_chrome"          // por enquanto só este
 }
 ```
@@ -42,7 +42,7 @@ vídeo tenha tipografia no mesmo nível visual do carrossel rico.
   "outputs": [
     {
       "scene_index": 0,
-      "text_png_url": "/s3/imkt5/inema/<job>/scene_00_text.png",
+      "text_png_url": "/s3/imkt5/ARCKHÉ/<job>/scene_00_text.png",
       "width": 1080,
       "height": 1920,
       "has_text": true

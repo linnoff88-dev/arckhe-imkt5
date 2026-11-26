@@ -8,8 +8,8 @@
 | Projeto | Arquivo | Chaves únicas |
 |---|---|---|
 | `timesmkt3` | `.env` | 36 |
-| `inemaimg` | (sem .env) | 0 — usa defaults internos |
-| `inemavox` | `.env` | 2 (HF_TOKEN, FREESOUND_API_KEY) |
+| `ARCKHÉimg` | (sem .env) | 0 — usa defaults internos |
+| `ARCKHÉvox` | `.env` | 2 (HF_TOKEN, FREESOUND_API_KEY) |
 | `yt-pub-lives2` | `config/.env` | 10 |
 | `openpcbot` | `.env` | 20 |
 
@@ -18,7 +18,7 @@
 ### Workers de mídia (geraçêo)
 | Capability | Key | Origem |
 |---|---|---|
-| `image.generation` (inemaimg local) | `INEMAIMG_URL`, `INEMAIMG_MODEL`, `INEMAIMG_QUALITY` | `timesmkt3/.env` |
+| `image.generation` (ARCKHÉimg local) | `ARCKHÉIMG_URL`, `ARCKHÉIMG_MODEL`, `ARCKHÉIMG_QUALITY` | `timesmkt3/.env` |
 | `image.generation` (KIE) | `KIE_API_KEY`, `KIE_DEFAULT_MODEL` | `timesmkt3/.env` |
 | `image.generation` (Pollinations) | `POLLINATIONS_TOKEN` | `timesmkt3/.env` |
 | `image.generation` (Piramyd) | `PIRAMYD_API_KEY` | `timesmkt3/.env` ou `yt-pub-lives2` |
@@ -27,7 +27,7 @@
 | `audio.tts` (Gradium) | `GRADIUM_API_KEY`, `GRADIUM_VOICE_ID` | `openpcbot/.env` |
 | `audio.tts` (Fish Audio) | `FISH_AUDIO_API_KEY` | `timesmkt3/.env` |
 | `audio.tts` (Groq Whisper — STT) | `GROQ_API_KEY` | `openpcbot/.env` |
-| `audio.music` (Freesound) | `FREESOUND_API_KEY` | `timesmkt3/.env` ou `inemavox` |
+| `audio.music` (Freesound) | `FREESOUND_API_KEY` | `timesmkt3/.env` ou `ARCKHÉvox` |
 | `research.market` (Tavily) | `TAVILY_API_KEY` | `timesmkt3/.env` |
 | `image.stock` (Pexels) | `PEXELS_API_KEY` | `timesmkt3/.env` |
 | `image.stock` (Pixabay) | `PIXABAY_API_KEY` | `timesmkt3/.env` |

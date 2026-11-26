@@ -29,7 +29,7 @@ implementaçêo em batch.
   - `energetico`, `bold_pop`, `streetwear_urban` → 1.20x
   - `neon_futurista`, `dark_dramatic` → 1.15x
   - `corporate_clean`, `editorial_documentary`, `data_viz` → 1.10x
-  - `premium_minimal`, `emocional_cinematic`, `nature_organic` → 1.0x
+  - `premium_minimal`, `emocional_cARCKHÉtic`, `nature_organic` → 1.0x
   - `wellness_soft`, `organic_earth` → 0.95–1.0x (lento deliberado)
 - **Override**: campo `narration_speed` no input (run) tem prioridade.
 - **Aplicaçêo**: no `_mix_audio` do `ffmpeg-local`, antes do mix; se
@@ -50,7 +50,7 @@ implementaçêo em batch.
     se sim, devolve `audio_url` cacheado.
   - Economia esperada: 40-60% em runs repetidos/similares.
 - **Trocar provider** (fica por config, nêo por código):
-  - `.env`: `TTS_PROVIDER=inemavox` (ou `elevenlabs` quando existir).
+  - `.env`: `TTS_PROVIDER=ARCKHÉvox` (ou `elevenlabs` quando existir).
   - `config/workers.yaml`: registrar cada adapter com `priority` e
     `capabilities: [audio.tts]`; registry já escolhe healthy de maior
     prioridade.
@@ -118,7 +118,7 @@ implementaçêo em batch.
   {
     "brief": "...",
     "hook_variants": ["stat_shot", "question_abrupt", "pov"],
-    "cta_variants": ["Comece grátis", "Acesse INEMA.CLUB"]
+    "cta_variants": ["Comece grátis", "Acesse ARCKHÉ AI"]
   }
   ```
 - Fanout sobre `hook_variants × cta_variants` → gera N vídeos
@@ -195,7 +195,7 @@ ativar nível 2 (AI depth map).
 
 ### Quando ativa automaticamente (style-based)
 
-- `dark_dramatic`, `emocional_cinematic`, `premium_minimal` →
+- `dark_dramatic`, `emocional_cARCKHÉtic`, `premium_minimal` →
   `use_parallax: true` default no style.
 - `bold_pop`, `energetico`, `streetwear_urban` → sem parallax (velocidade
   de corte é o motion; parallax seria concorrente visual).
@@ -226,7 +226,7 @@ v4 como adapter local (zero custo recorrente).
 
 **Decisêo:** PULA agora. Fica pra v5.
 
-INEMA.CLUB hoje nêo precisa avatar; se houver futuro brand com rosto,
+ARCKHÉ AI hoje nêo precisa avatar; se houver futuro brand com rosto,
 decide na hora. Itens 9 e 10 compartilham o mesmo padrêo: ambos
 dependem de GPU-heavy models que amadurecem rápido.
 

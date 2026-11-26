@@ -532,11 +532,11 @@ const CAP_DESC = {
   "brief.strategic":           "cria o briefing estratégico da campanha",
   "copy.platform":             "redige textos por plataforma (IG, YT, Threads…)",
   "design.ad_layout":          "planeja variantes visuais (prompts p/ imagens)",
-  "image.generation":          "gera imagens via Stable Diffusion (inemaimg)",
+  "image.generation":          "gera imagens via Stable Diffusion (ARCKHÉimg)",
   "audio.tts":                 "sintetiza narraçêo (text-to-speech)",
   "audio.dubbing":             "clona voz / dublagem com referência",
   "audio.transcribe":          "transcreve áudio → texto (SRT)",
-  "video.cinematic":           "planeja cenas cinematográficas (scene_plan)",
+  "video.cARCKHÉtic":           "planeja cenas cARCKHÉtográficas (scene_plan)",
   "video.render":              "renderiza vídeo final (ffmpeg: imagens + áudio)",
   "video.plan_from_outline":   "transforma outline educativo em plano de vídeo",
   "video.source_ingest":       "ingere vídeos fonte do YouTube",
@@ -657,7 +657,7 @@ const PRESETS = {
       },
     },
     {
-      name: '🎭 Cinematic premium (pro)',
+      name: '🎭 CARCKHÉtic premium (pro)',
       desc: 'Pro mode com crossfade longo, freeze frames e parallax. Outro 5s.',
       input: {
         video_mode: 'pro', platform: 'instagram_reels', image_count: 5,
@@ -676,7 +676,7 @@ const PRESETS = {
     },
     {
       name: '🎬 Hero film (pro premium)',
-      desc: 'Kinetic + karaoke + parallax depth AI + hold longo. Experiência cinema.',
+      desc: 'Kinetic + karaoke + parallax depth AI + hold longo. Experiência cARCKHÉ.',
       input: {
         video_mode: 'pro', platform: 'tiktok', image_count: 5,
         kinetic_presets: true, use_karaoke: true, use_parallax: true,
@@ -716,7 +716,7 @@ const PRESETS = {
       input: {
         video_mode: 'quick', image_count: 3,
         hook_variants: 'pattern_interrupt\nstat_shot\nquestion_abrupt',
-        cta_variants: 'inema.club\nvem pra equipe',
+        cta_variants: 'ARCKHÉ AI\nvem pra equipe',
       },
     },
   ],
@@ -782,7 +782,7 @@ const RECIPE_FIELDS = {
     {key: 'captions', label: 'Captions (1 por linha, slides intermediários)',
      type: 'lines', rows: 4, placeholder: 'Aprenda fazendo\n1 case por dia\nSem teoria chata'},
     {key: 'cta', label: 'CTA (último slide)', type: 'text',
-     placeholder: 'Inscreva-se em INEMA.CLUB'},
+     placeholder: 'Inscreva-se em ARCKHÉ AI'},
     {key: 'model', label: 'Modelo SD', type: 'pills',
      options: [
        ['flux2-klein', 'flux2-klein · 4 steps'],
@@ -849,7 +849,7 @@ const RECIPE_FIELDS = {
        ['retro_futurism', 'Retro Futurism'],
        ['organic_earth', 'Organic Earth'],
        ['neo_minimal_luxury', 'Neo Minimal Luxury'],
-       ['dark_cinematic', 'Dark Cinematic'],
+       ['dark_cARCKHÉtic', 'Dark CARCKHÉtic'],
        ['warm_lifestyle', 'Warm Lifestyle'],
        ['nature_organic', 'Nature Organic'],
      ],
@@ -949,7 +949,7 @@ const RECIPE_FIELDS = {
     {key: 'freeze_frames', label: 'Freeze frame em revelações', type: 'boolean',
      hint: 'Auto em styles data_viz/editorial/corporate quando cena tem stat. Whisper + emphasis_word pra timing exato.'},
     {key: 'use_parallax', label: 'Parallax nível 1 (fake)', type: 'boolean',
-     hint: 'Blur+unsharp em 3 camadas. Auto ON em styles cinematográficos.'},
+     hint: 'Blur+unsharp em 3 camadas. Auto ON em styles cARCKHÉtográficos.'},
     {key: 'depth_ai', label: 'Parallax nível 2 (Depth-Anything V2)', type: 'boolean',
      hint: 'Opt-in. Tenta depth map real; cai pro nível 1 se modelo nêo instalado.'},
     {key: 'narration_speed', label: 'Narraçêo speed (atempo)', type: 'number',
@@ -979,7 +979,7 @@ const RECIPE_FIELDS = {
      type: 'lines', rows: 3,
      placeholder: 'stat_shot\nquestion_abrupt\npattern_interrupt'},
     {key: 'cta_variants', label: 'CTA variants (1 por linha)', type: 'lines', rows: 2,
-     placeholder: 'Comece grátis\nAcesse INEMA.CLUB'},
+     placeholder: 'Comece grátis\nAcesse ARCKHÉ AI'},
     {key: 'platform', label: 'Plataforma alvo', type: 'pills',
      options: [['','Universal'], ['tiktok','TikTok'], ['instagram_reels','Reels'], ['shorts','Shorts']],
      default: ''},
@@ -1688,7 +1688,7 @@ async function submitNewRun() {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      tenant_id: 'inema', user_id: 'nei',
+      tenant_id: 'ARCKHÉ', user_id: 'nei',
       input, origin_channel: 'runs-ui',
     }),
   });

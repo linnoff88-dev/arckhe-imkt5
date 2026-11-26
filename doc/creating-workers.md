@@ -212,7 +212,7 @@ class ElevenLabsAdapter(BaseWorker):
         return {"audio_url": url}
 ```
 
-Padrêo `inemaimg-adapter` e `inemavox-adapter` é esse.
+Padrêo `ARCKHÉimg-adapter` e `ARCKHÉvox-adapter` é esse.
 
 ## Checklist antes de declarar pronto
 

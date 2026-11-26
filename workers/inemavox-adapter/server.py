@@ -1,11 +1,11 @@
-"""inemavox-adapter — wrapper HTTP sobre o job-queue do inemavox.
+"""ARCKHÉvox-adapter — wrapper HTTP sobre o job-queue do ARCKHÉvox.
 
-Esconde o modelo async do inemavox atrás de uma chamada sync do ponto de
+Esconde o modelo async do ARCKHÉvox atrás de uma chamada sync do ponto de
 vista do imkt5. Fluxo:
 
-  imkt5 Job → POST inemavox/api/jobs/tts → job_id
-            → poll GET inemavox/api/jobs/{id} até completed
-            → GET inemavox/api/jobs/{id}/audio → bytes
+  imkt5 Job → POST ARCKHÉvox/api/jobs/tts → job_id
+            → poll GET ARCKHÉvox/api/jobs/{id} até completed
+            → GET ARCKHÉvox/api/jobs/{id}/audio → bytes
             → storage.save_bytes → URL
 
 Capabilities:
@@ -34,17 +34,17 @@ import httpx
 from workers._base import BaseWorker
 from workers._base.storage import get_storage
 
-log = logging.getLogger("imkt5.inemavox")
+log = logging.getLogger("imkt5.ARCKHÉvox")
 
 from imkt5.config import load as _load_cfg
-_CFG = _load_cfg().workers.inemavox_adapter
-INEMAVOX_URL = os.environ.get("INEMAVOX_URL", _CFG.upstream_url)
-POLL_INTERVAL = float(os.environ.get("INEMAVOX_POLL_INTERVAL", _CFG.poll_interval_seconds))
-POLL_MAX = int(os.environ.get("INEMAVOX_POLL_MAX_SECONDS", _CFG.poll_max_seconds))
+_CFG = _load_cfg().workers.ARCKHÉvox_adapter
+ARCKHÉVOX_URL = os.environ.get("ARCKHÉVOX_URL", _CFG.upstream_url)
+POLL_INTERVAL = float(os.environ.get("ARCKHÉVOX_POLL_INTERVAL", _CFG.poll_interval_seconds))
+POLL_MAX = int(os.environ.get("ARCKHÉVOX_POLL_MAX_SECONDS", _CFG.poll_max_seconds))
 
 
-class InemavoxAdapter(BaseWorker):
-    name = "inemavox-adapter"
+class ARCKHÉvoxAdapter(BaseWorker):
+    name = "ARCKHÉvox-adapter"
     capabilities = ("audio.tts", "audio.dubbing", "audio.transcribe")
 
     async def handle(self, job) -> dict[str, Any]:
@@ -100,19 +100,19 @@ class InemavoxAdapter(BaseWorker):
             log.info("tts cache HIT key=%s text=%r", dedup_hash[:12], text[:40])
             return {
                 "audio_url": cached_url,
-                "inemavox_job_id": None,
+                "ARCKHÉvox_job_id": None,
                 "engine": engine,
                 "duration_seconds": None,
                 "cached": True,
             }
 
         async with httpx.AsyncClient(timeout=30.0) as client:
-            r = await client.post(f"{INEMAVOX_URL}/api/jobs/tts", json=body)
+            r = await client.post(f"{ARCKHÉVOX_URL}/api/jobs/tts", json=body)
             r.raise_for_status()
             vx_job_id = r.json()["id"]
             await self._wait_completed(client, vx_job_id)
             audio_resp = await client.get(
-                f"{INEMAVOX_URL}/api/jobs/{vx_job_id}/audio"
+                f"{ARCKHÉVOX_URL}/api/jobs/{vx_job_id}/audio"
             )
             audio_resp.raise_for_status()
             audio = audio_resp.content
@@ -129,7 +129,7 @@ class InemavoxAdapter(BaseWorker):
                  dedup_hash[:12], text[:40], cache_url)
         return {
             "audio_url": cache_url,
-            "inemavox_job_id": vx_job_id,
+            "ARCKHÉvox_job_id": vx_job_id,
             "engine": body["engine"],
             "duration_seconds": None,
             "cached": False,
@@ -144,7 +144,7 @@ class InemavoxAdapter(BaseWorker):
         if cached:
             return {
                 "audio_url": cached,
-                "inemavox_job_id": None,
+                "ARCKHÉvox_job_id": None,
                 "engine": "silence",
                 "duration_seconds": 0.3,
                 "cached": True,
@@ -168,7 +168,7 @@ class InemavoxAdapter(BaseWorker):
         url = storage.save_cached(namespace="tts", key=key, data=data)
         return {
             "audio_url": url,
-            "inemavox_job_id": None,
+            "ARCKHÉvox_job_id": None,
             "engine": "silence",
             "duration_seconds": 0.3,
             "cached": False,
@@ -190,13 +190,13 @@ class InemavoxAdapter(BaseWorker):
         }
         async with httpx.AsyncClient(timeout=30.0) as client:
             r = await client.post(
-                f"{INEMAVOX_URL}/api/jobs/voice-clone/url", json=body
+                f"{ARCKHÉVOX_URL}/api/jobs/voice-clone/url", json=body
             )
             r.raise_for_status()
             vx_job_id = r.json()["id"]
             await self._wait_completed(client, vx_job_id)
             audio_resp = await client.get(
-                f"{INEMAVOX_URL}/api/jobs/{vx_job_id}/audio"
+                f"{ARCKHÉVOX_URL}/api/jobs/{vx_job_id}/audio"
             )
             audio_resp.raise_for_status()
             audio = audio_resp.content
@@ -207,7 +207,7 @@ class InemavoxAdapter(BaseWorker):
             filename=f"vc-{job.job_id}.wav",
             data=audio,
         )
-        return {"audio_url": url, "inemavox_job_id": vx_job_id}
+        return {"audio_url": url, "ARCKHÉvox_job_id": vx_job_id}
 
     # ── audio.transcribe ──────────────────────────────────────────────
     async def _handle_transcribe(self, job) -> dict[str, Any]:
@@ -219,13 +219,13 @@ class InemavoxAdapter(BaseWorker):
         fmt = payload.get("format", "srt")
         async with httpx.AsyncClient(timeout=30.0) as client:
             r = await client.post(
-                f"{INEMAVOX_URL}/api/jobs/transcribe", json={"input": src}
+                f"{ARCKHÉVOX_URL}/api/jobs/transcribe", json={"input": src}
             )
             r.raise_for_status()
             vx_job_id = r.json()["id"]
             await self._wait_completed(client, vx_job_id)
             t = await client.get(
-                f"{INEMAVOX_URL}/api/jobs/{vx_job_id}/transcript",
+                f"{ARCKHÉVOX_URL}/api/jobs/{vx_job_id}/transcript",
                 params={"format": fmt},
             )
             t.raise_for_status()
@@ -237,23 +237,23 @@ class InemavoxAdapter(BaseWorker):
             filename=f"transcript-{job.job_id}.{fmt}",
             data=content,
         )
-        return {"transcript_url": url, "inemavox_job_id": vx_job_id}
+        return {"transcript_url": url, "ARCKHÉvox_job_id": vx_job_id}
 
     # ── helpers ───────────────────────────────────────────────────────
     async def _wait_completed(self, client: httpx.AsyncClient, vx_job_id: str) -> None:
         elapsed = 0.0
         while elapsed < POLL_MAX:
-            r = await client.get(f"{INEMAVOX_URL}/api/jobs/{vx_job_id}")
+            r = await client.get(f"{ARCKHÉVOX_URL}/api/jobs/{vx_job_id}")
             r.raise_for_status()
             status = r.json().get("status")
             if status == "completed":
                 return
             if status in ("failed", "error", "cancelled"):
-                raise RuntimeError(f"inemavox job {vx_job_id} {status}")
+                raise RuntimeError(f"ARCKHÉvox job {vx_job_id} {status}")
             await asyncio.sleep(POLL_INTERVAL)
             elapsed += POLL_INTERVAL
         raise TimeoutError(
-            f"inemavox job {vx_job_id} nêo completou em {POLL_MAX}s"
+            f"ARCKHÉvox job {vx_job_id} nêo completou em {POLL_MAX}s"
         )
 
     @staticmethod
@@ -264,6 +264,6 @@ class InemavoxAdapter(BaseWorker):
 
 
 if __name__ == "__main__":
-    InemavoxAdapter().run(
-        port=int(os.environ.get("IMKT5_INEMAVOX_ADAPTER_PORT", _CFG.port))
+    ARCKHÉvoxAdapter().run(
+        port=int(os.environ.get("IMKT5_ARCKHÉVOX_ADAPTER_PORT", _CFG.port))
     )

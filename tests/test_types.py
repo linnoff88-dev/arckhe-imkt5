@@ -38,9 +38,9 @@ def test_job_with_worker_type_ok():
         job_id="j1",
         tenant_id="t1",
         user_id="u1",
-        worker_type="inemaimg",
+        worker_type="ARCKHÉimg",
     )
-    assert j.worker_type == "inemaimg"
+    assert j.worker_type == "ARCKHÉimg"
     assert j.priority == JobPriority.NORMAL
 
 

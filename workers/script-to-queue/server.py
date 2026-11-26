@@ -72,7 +72,7 @@ class ScriptToQueueWorker(BaseWorker):
         characters = _normalize_named(payload.get("characters") or [])
         ambients = _normalize_named(payload.get("ambients") or [])
         # Arrays paralelos por índice (usado pelas recipes do imkt5: fanout
-        # do inemaimg produz outputs[*].image_url na mesma ordem do input).
+        # do ARCKHÉimg produz outputs[*].image_url na mesma ordem do input).
         # Preenche ref_image_url faltante em characters/ambients por posiçêo.
         _zip_urls_into(characters, payload.get("character_image_urls") or [])
         _zip_urls_into(ambients, payload.get("ambient_image_urls") or [])

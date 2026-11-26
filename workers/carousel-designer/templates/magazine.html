@@ -156,13 +156,13 @@
   <div class="brand-moment">
     <div class="brand-logo">{{ headline }}</div>
     {% if context %}<div class="brand-tag">{{ context }}</div>{% endif %}
-    <div class="brand-handle">{{ slide_label or handle or "@inema.tds" }}</div>
+    <div class="brand-handle">{{ slide_label or handle or "@ARCKHÉ.tds" }}</div>
   </div>
   {% else %}
 
   <div class="container">
     <div class="top-bar">
-      <div class="edition">{{ badge or "INEMA" }}</div>
+      <div class="edition">{{ badge or "ARCKHÉ" }}</div>
       <div class="slide-num">№ {{ slide_num }}</div>
     </div>
     <div class="main">
@@ -174,7 +174,7 @@
     </div>
     <div class="bottom-bar">
       <div class="caption">{{ slide_label or "" }}</div>
-      <div class="handle">{{ handle or "@inema.tds" }}</div>
+      <div class="handle">{{ handle or "@ARCKHÉ.tds" }}</div>
     </div>
   </div>
   {% endif %}

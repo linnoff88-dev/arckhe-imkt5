@@ -107,7 +107,7 @@ stages:
   # Item 7 — stage de maior leverage pra aprovaçêo: cena ruim vale caro pra
   # render. Default none; promove via approval_mode global.
   - id: video
-    requires: video.cinematic
+    requires: video.cARCKHÉtic
     needs: [ad_design, images, video_art_direction]
     when: $.input.skip_video != true
     payload_from:
@@ -125,7 +125,7 @@ stages:
 
   # TTS por cena (mkt3-style): fanout sobre scenes → 1 mp3 por cena.
   # ffmpeg-local mede duraçêo de cada e sincroniza scene.duration com audio.
-  # Dedup (sha256) no inemavox-adapter evita regerar narrações idênticas
+  # Dedup (sha256) no ARCKHÉvox-adapter evita regerar narrações idênticas
   # entre runs similares (economia 40-60%).
   - id: voiceover
     requires: audio.tts

@@ -19,7 +19,7 @@ SKILL_PATH = Path(__file__).parent / "SKILL.md"
 
 
 STYLE_VISUAL_GUIDANCE = {
-    "dark_cinematic":        "low-key lighting, moody shadows, film noir atmosphere, deep blacks, dramatic contrast",
+    "dark_cARCKHÉtic":        "low-key lighting, moody shadows, film noir atmosphere, deep blacks, dramatic contrast",
     "neon_futurista":        "neon lights, cyberpunk aesthetic, electric blues and magentas, glowing accents, night city",
     "editorial_documentary": "natural light, candid photography, muted earth tones, shallow depth of field, reportage style",
     "corporate_clean":       "bright even lighting, minimalist composition, clean whites and pastels, modern office aesthetic",
@@ -54,8 +54,8 @@ def _style_hint_text(style: str) -> str:
 
 _CTA_MARKERS_RE = re.compile(
     r"\b("
-    r"inema\.(club|vip|tds)"
-    r"|@inema[a-z.]*"
+    r"ARCKHÉ\.(club|vip|tds)"
+    r"|@ARCKHÉ[a-z.]*"
     r"|https?://\S+"
     r"|(?:acesse|entre|acompanhe|siga|clica|clique|baixe|assine|inscrev[ae])"
     r")\b",
@@ -75,12 +75,12 @@ def _slide_has_cta(slide: dict) -> bool:
 # Defaults de closing por tenant (brand_identity.md → canônicos).
 # Depois abstrair pra _base/tenant_registry.
 DEFAULT_CLOSING_BY_TENANT = {
-    "inema": {
-        "cta_headline": "Comece grátis: inema.club",
+    "ARCKHÉ": {
+        "cta_headline": "Comece grátis: ARCKHÉ AI",
         "cta_context": "A plataforma gratuita de formaçêo em IA.",
-        "brand_headline": "INEMA.CLUB",
+        "brand_headline": "ARCKHÉ AI",
         "brand_context": "Atrás dos computadores tem gente. Use as máquinas/IA para escalar.",
-        "handle": "@inema.tds",
+        "handle": "@ARCKHÉ.tds",
     },
 }
 

@@ -50,7 +50,7 @@ Escolha por variante:
 
 ## Regras de prompt de imagem (background)
 
-O `background_prompt` será enviado para Stable Diffusion via inemaimg.
+O `background_prompt` será enviado para Stable Diffusion via ARCKHÉimg.
 Deve ser em **inglês** (modelos SD entendem inglês melhor) e incluir:
 
 1. Assunto principal (o que aparece na foto)
@@ -71,7 +71,7 @@ no `background_prompt`. O headline, CTA e caption sêo overlay posterior
 headline 'X'", "sign saying X", "poster with words", "label X",
 "typography reading X" — o SD gera texto ilegível que atrapalha. Foque
 em cena visual pura: pessoas em açêo, objetos, ambientes, iluminaçêo,
-mood. O adapter inemaimg já injeta `text, letters, words, typography`
+mood. O adapter ARCKHÉimg já injeta `text, letters, words, typography`
 no negative_prompt universalmente — mas o prompt POSITIVO também nêo
 deve pedir texto.
 

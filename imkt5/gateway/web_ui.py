@@ -225,7 +225,7 @@ const CAP_CONFIG = {
     buildPayload: (text) => ({ queries: [text], max_results_per_query: 3 }),
   },
   "image.generation": {
-    hint: "gera PNG via inemaimg (flux2-klein/qwen-edit/ernie)",
+    hint: "gera PNG via ARCKHÉimg (flux2-klein/qwen-edit/ernie)",
     placeholder: "ex.: um capivara tomando café gelado na praia",
     buildPayload: (text) => ({
       model: "flux2-klein",
@@ -235,7 +235,7 @@ const CAP_CONFIG = {
     }),
   },
   "audio.tts": {
-    hint: "gera WAV/MP3 via inemavox",
+    hint: "gera WAV/MP3 via ARCKHÉvox",
     placeholder: "ex.: olá, este é um teste",
     buildPayload: (text) => ({ text, engine: "edge", lang: "pt" }),
   },

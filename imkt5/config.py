@@ -16,7 +16,7 @@ Uso:
 
     # nested
     settings.dispatcher.request_timeout_seconds     # 600
-    settings.workers.inemaimg_adapter.default_model # qwen-edit-2511
+    settings.workers.ARCKHÉimg_adapter.default_model # qwen-edit-2511
 
     # scoped por tenant
     s = settings.for_tenant("demo")
@@ -157,14 +157,14 @@ ENV_MAP: dict[str, tuple[str, ...]] = {
     # workers
     "RESEARCH_PORT": ("workers", "research", "port"),
     "AUTO_REVIEWER_PORT": ("workers", "auto_reviewer", "port"),
-    "IMKT5_INEMAIMG_ADAPTER_PORT": ("workers", "inemaimg_adapter", "port"),
-    "INEMAIMG_URL": ("workers", "inemaimg_adapter", "upstream_url"),
-    "INEMAIMG_MODEL": ("workers", "inemaimg_adapter", "default_model"),
-    "INEMAIMG_TIMEOUT": ("workers", "inemaimg_adapter", "request_timeout_seconds"),
-    "IMKT5_INEMAVOX_ADAPTER_PORT": ("workers", "inemavox_adapter", "port"),
-    "INEMAVOX_URL": ("workers", "inemavox_adapter", "upstream_url"),
-    "INEMAVOX_POLL_INTERVAL": ("workers", "inemavox_adapter", "poll_interval_seconds"),
-    "INEMAVOX_POLL_MAX_SECONDS": ("workers", "inemavox_adapter", "poll_max_seconds"),
+    "IMKT5_ARCKHÉIMG_ADAPTER_PORT": ("workers", "ARCKHÉimg_adapter", "port"),
+    "ARCKHÉIMG_URL": ("workers", "ARCKHÉimg_adapter", "upstream_url"),
+    "ARCKHÉIMG_MODEL": ("workers", "ARCKHÉimg_adapter", "default_model"),
+    "ARCKHÉIMG_TIMEOUT": ("workers", "ARCKHÉimg_adapter", "request_timeout_seconds"),
+    "IMKT5_ARCKHÉVOX_ADAPTER_PORT": ("workers", "ARCKHÉvox_adapter", "port"),
+    "ARCKHÉVOX_URL": ("workers", "ARCKHÉvox_adapter", "upstream_url"),
+    "ARCKHÉVOX_POLL_INTERVAL": ("workers", "ARCKHÉvox_adapter", "poll_interval_seconds"),
+    "ARCKHÉVOX_POLL_MAX_SECONDS": ("workers", "ARCKHÉvox_adapter", "poll_max_seconds"),
 }
 
 

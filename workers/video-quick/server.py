@@ -1,11 +1,11 @@
 """video-quick worker.
 
 Porta timesmkt3/skills/video-quick/SKILL.md — planner de vídeos curtos.
-Capabilities: `video.plan`, `video.cinematic` (alias temporário até
+Capabilities: `video.plan`, `video.cARCKHÉtic` (alias temporário até
 existir um video-pro real).
 
 NêO renderiza vídeo. Recebe imagens já geradas (pelo ad-designer +
-inemaimg) e devolve um `scene_plan` JSON que um worker renderer
+ARCKHÉimg) e devolve um `scene_plan` JSON que um worker renderer
 (`ffmpeg-local` / `remotion-local`) vai consumir.
 
 Input (payload):
@@ -41,9 +41,9 @@ SKILL_PATH = Path(__file__).parent / "SKILL.md"
 
 class VideoQuickWorker(BaseWorker):
     name = "video-quick"
-    # `video.cinematic` é alias temporário — até existir video-pro próprio,
+    # `video.cARCKHÉtic` é alias temporário — até existir video-pro próprio,
     # a receita `campanha-marketing` usa essa capability e cai aqui.
-    capabilities = ("video.plan", "video.cinematic")
+    capabilities = ("video.plan", "video.cARCKHÉtic")
 
     def __init__(self) -> None:
         self._skill = SKILL_PATH.read_text() if SKILL_PATH.exists() else "Você é planner de vídeo curto."

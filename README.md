@@ -23,8 +23,8 @@ Cada worker êÂ© um serviêÂ§o HTTP independente. Cada pedido êÂ© u
 | Config centralizado 3 nêÂ­veis (global/tenant/user) | ê¢Åâ¦ implementado |
 | Worker `research` (Tavily) | ê¢Åâ¦ validado live |
 | Worker `auto-reviewer` (Ollama+OpenRouter) | ê¢Åâ¦ validado live |
-| Worker `inemaimg-adapter` (flux2-klein, qwen-edit, ernie) | ê¢Åâ¦ validado live |
-| Worker `inemavox-adapter` (TTS/dubbing/transcribe) | ê¢Åâ¦ adapter pronto |
+| Worker `ARCKHÉimg-adapter` (flux2-klein, qwen-edit, ernie) | ê¢Åâ¦ validado live |
+| Worker `ARCKHÉvox-adapter` (TTS/dubbing/transcribe) | ê¢Åâ¦ adapter pronto |
 | Canal Telegram/WhatsApp | ê¢ÂÂ¸ pendente |
 | PersistêÂªncia Postgres | ê¢ÂÂ¸ pendente (hoje in-memory) |
 | 12 workers do timesmkt3 (copywriter, ad-designer, etc.) | ê¢ÂÂ¸ a portar |
@@ -49,8 +49,8 @@ open http://localhost:8080/ui
 
 PrêÂ©-requisitos:
 - **Ollama** rodando (`qwen2.5:14b` baixado) ê¢â¬â pra `auto-reviewer`
-- **inemaimg** rodando em `:8000` (opcional ê¢â¬â pra gerar imagem real)
-- **inemavox** rodando em `:8010` (opcional ê¢â¬â pra TTS real)
+- **ARCKHÉimg** rodando em `:8000` (opcional ê¢â¬â pra gerar imagem real)
+- **ARCKHÉvox** rodando em `:8010` (opcional ê¢â¬â pra TTS real)
 - `TAVILY_API_KEY` no `.env` (jêÂ¡ populado a partir do timesmkt3)
 
 Teste via `curl`:
@@ -83,8 +83,8 @@ imkt5/
 ê¢âÅê¢ââ¬ê¢ââ¬ workers/            serviêÂ§os HTTP independentes
 ê¢ââ   ê¢âÅê¢ââ¬ê¢ââ¬ _base/          BaseWorker + storage helper
 ê¢ââ   ê¢âÅê¢ââ¬ê¢ââ¬ auto-reviewer/  LLM review (Ollama local + OpenRouter fallback)
-ê¢ââ   ê¢âÅê¢ââ¬ê¢ââ¬ inemaimg-adapter/  wrapper do inemaimg (image.generation)
-ê¢ââ   ê¢âÅê¢ââ¬ê¢ââ¬ inemavox-adapter/  wrapper do inemavox (audio.*)
+ê¢ââ   ê¢âÅê¢ââ¬ê¢ââ¬ ARCKHÉimg-adapter/  wrapper do ARCKHÉimg (image.generation)
+ê¢ââ   ê¢âÅê¢ââ¬ê¢ââ¬ ARCKHÉvox-adapter/  wrapper do ARCKHÉvox (audio.*)
 ê¢ââ   ê¢ââê¢ââ¬ê¢ââ¬ research/       Tavily (research.market)
 ê¢âÅê¢ââ¬ê¢ââ¬ config/
 ê¢ââ   ê¢âÅê¢ââ¬ê¢ââ¬ defaults.yaml   fonte êÂºnica dos magic numbers globais
@@ -112,7 +112,7 @@ imkt5/
 | [`doc/defaults.md`](doc/defaults.md) | Onde mora cada valor default |
 | [`doc/concurrency-model.md`](doc/concurrency-model.md) | Como o sistema escala |
 | [`doc/env-inventory.md`](doc/env-inventory.md) | Mapa de credenciais dos projetos-fonte |
-| [`doc/api-mapping-inemaimg-inemavox.md`](doc/api-mapping-inemaimg-inemavox.md) | Contratos reais dos upstreams |
+| [`doc/api-mapping-ARCKHÉimg-ARCKHÉvox.md`](doc/api-mapping-ARCKHÉimg-ARCKHÉvox.md) | Contratos reais dos upstreams |
 | [`doc/admin-ui-viability.md`](doc/admin-ui-viability.md) | AnêÂ¡lise da UI de admin (viabilidade) |
 | [`doc/diagrams/`](doc/diagrams/) | Diagramas visuais (arquitetura, provider chain, fluxos) |
 | [`CLAUDE.md`](CLAUDE.md) | Regras pra futuras sessêÂµes de Claude Code |
@@ -129,4 +129,4 @@ MIT
 
 ---
 
-Projeto adaptado da comunidade INEMA TDS - Marca Arckhe
+Projeto adaptado da comunidade ARCKHÉ TDS - Marca Arckhe

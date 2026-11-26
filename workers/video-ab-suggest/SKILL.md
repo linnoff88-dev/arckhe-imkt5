@@ -22,11 +22,11 @@ Retorne APENAS este JSON:
 ```json
 {
   "hook_variants": ["stat_shot", "question_abrupt", "pattern_interrupt"],
-  "cta_variants": ["Comece grátis agora", "Acesse INEMA.CLUB"],
+  "cta_variants": ["Comece grátis agora", "Acesse ARCKHÉ AI"],
   "justification": "stat_shot pra sniper de dados; question_abrupt pra curiosidade; pattern_interrupt pra stopping power. CTAs equilibram urgência e curiosidade.",
   "combinations_to_render": [
     {"hook": "stat_shot", "cta": "Comece grátis agora"},
-    {"hook": "question_abrupt", "cta": "Acesse INEMA.CLUB"},
+    {"hook": "question_abrupt", "cta": "Acesse ARCKHÉ AI"},
     {"hook": "pattern_interrupt", "cta": "Comece grátis agora"}
   ]
 }

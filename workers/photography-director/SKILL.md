@@ -35,7 +35,7 @@ Os 12 presets disponíveis (escolha o que melhor combina com
 - **corporate_clean** — minimalista, profissional, confiável
 - **bold_pop** — cores primárias saturadas, energético
 - **minimal_zen** — espaço negativo, elegância
-- **dark_cinematic** — escuro, dramático, suspense
+- **dark_cARCKHÉtic** — escuro, dramático, suspense
 - **pastel_soft** — tons suaves, feminino, casual
 - **retro_vintage** — nostálgico, anos 70-80
 - **nature_organic** — verde, terra, autêntico
@@ -64,7 +64,7 @@ Para cada seçêo narrativa:
 - **framing** — `extreme-close-up` | `close-up` | `medium-shot` | `wide-shot` | `detail-shot` | `overhead` | `low-angle` | `high-angle`
 - **camera_motion** — `push-in` | `pull-out` | `pan-right` | `pan-left` | `drift` | `ken-burns-in` | `ken-burns-out` | `zoom-in` | `zoom-out` | `breathe`
 - **mood** — string livre descrevendo clima (ex.: "Alto contraste, dramático, escuro→claro")
-- **lighting** — `natural` | `harsh` | `soft-diffuse` | `neon` | `golden-hour` | `cinematic`
+- **lighting** — `natural` | `harsh` | `soft-diffuse` | `neon` | `golden-hour` | `cARCKHÉtic`
 
 ### 4. Tipografia por seçêo
 
@@ -112,7 +112,7 @@ APENAS JSON, sem texto antes/depois:
       "body_font": "Montserrat",
       "scale": "magazine"
     },
-    "lighting_style": "cinematic",
+    "lighting_style": "cARCKHÉtic",
     "sections": {
       "hook": {
         "framing": "close-up",

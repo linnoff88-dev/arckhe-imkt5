@@ -85,7 +85,7 @@ admin UI, infra de produçêo.
   (research ✅ feito)
 - **DIFERIDOS** — NêO portar agora: os 6 `platform-*` (instagram, youtube, tiktok, facebook, threads, linkedin). Detalhes em `doc/deferred-platform-workers.md`.
 - **Padrêo:** cada um copia `timesmkt3/skills/<agente>/SKILL.md` pra `workers/<nome>/SKILL.md`, adapta I/O (sem `prj/<cliente>/outputs/`, usa storage helper), registra no `config/workers.yaml`.
-- **Estratégia:** começar pelo `copywriter` (mais genérico) e `ad-designer` (integraçêo visual já existe no inemaimg).
+- **Estratégia:** começar pelo `copywriter` (mais genérico) e `ad-designer` (integraçêo visual já existe no ARCKHÉimg).
 - **Referência:** `doc/creating-workers.md` passo a passo.
 
 ### 8. Portar 4 workers do yt-pub-lives

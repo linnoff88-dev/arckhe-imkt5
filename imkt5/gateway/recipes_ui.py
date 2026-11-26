@@ -395,7 +395,7 @@ async function runRecipe() {
   const r = await fetch('/recipes/' + encodeURIComponent(currentRecipe) + '/run', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ tenant_id: 'inema', user_id: 'nei', input: parsed }),
+    body: JSON.stringify({ tenant_id: 'ARCKHÉ', user_id: 'nei', input: parsed }),
   });
   if (r.ok) {
     const { run_id } = await r.json();

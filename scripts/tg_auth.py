@@ -2,11 +2,11 @@
 """One-shot Telegram auth — gera session file pro worker telegram-scraper.
 
 Uso:
-  python scripts/tg_auth.py +5511999999999 inema
+  python scripts/tg_auth.py +5511999999999 ARCKHÉ
 
 Argumentos:
   phone    — número do usuário com DDI (ex: +5511988887777)
-  tenant   — tenant_id (identifica session; ex: "inema")
+  tenant   — tenant_id (identifica session; ex: "ARCKHÉ")
 
 Pede código SMS (Telegram envia app/sms) e senha 2FA se configurada.
 Gera session file em $TELEGRAM_SESSION_DIR/<tenant>.session.

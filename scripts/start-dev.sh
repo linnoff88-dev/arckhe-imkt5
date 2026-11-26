@@ -7,8 +7,8 @@
 # Workers que iniciam:
 #   - auto-reviewer (porta 8200) — usa Ollama local (sempre disponível)
 #   - research (porta 8100) — usa Tavily (precisa TAVILY_API_KEY)
-#   - inemaimg-adapter (porta 8010) — só se INEMAIMG_URL responder
-#   - inemavox-adapter (porta 8011) — só se INEMAVOX_URL responder
+#   - ARCKHÉimg-adapter (porta 8010) — só se ARCKHÉIMG_URL responder
+#   - ARCKHÉvox-adapter (porta 8011) — só se ARCKHÉVOX_URL responder
 #
 # Gateway na porta 8080 por default (override com GATEWAY_PORT).
 
@@ -98,21 +98,21 @@ start_bg "script-to-queue" "$VENV" workers/script-to-queue/server.py
 start_bg "skyreels-adapter" "$VENV" workers/skyreels-adapter/server.py
 start_bg "queue-audio-patch" "$VENV" workers/queue-audio-patch/server.py
 
-# inemaimg-adapter — só se o upstream responder em /health
-INEMAIMG_HEALTH_URL="${INEMAIMG_URL:-http://localhost:8000}/health"
-if [ "$(probe "$INEMAIMG_HEALTH_URL")" = "200" ]; then
-  start_bg "inemaimg-adapter" "$VENV" workers/inemaimg-adapter/server.py
+# ARCKHÉimg-adapter — só se o upstream responder em /health
+ARCKHÉIMG_HEALTH_URL="${ARCKHÉIMG_URL:-http://localhost:8000}/health"
+if [ "$(probe "$ARCKHÉIMG_HEALTH_URL")" = "200" ]; then
+  start_bg "ARCKHÉimg-adapter" "$VENV" workers/ARCKHÉimg-adapter/server.py
 else
-  echo "  ⚠ inemaimg upstream nêo responde em $INEMAIMG_HEALTH_URL — skip"
+  echo "  ⚠ ARCKHÉimg upstream nêo responde em $ARCKHÉIMG_HEALTH_URL — skip"
 fi
 
-# inemavox-adapter — inemavox nêo tem /health; tenta /api/jobs como liveness probe
-INEMAVOX_PROBE_URL="${INEMAVOX_URL:-http://localhost:8010}/api/jobs"
-INEMAVOX_CODE="$(probe "$INEMAVOX_PROBE_URL")"
-if [ "$INEMAVOX_CODE" = "200" ] || [ "$INEMAVOX_CODE" = "404" ]; then
-  start_bg "inemavox-adapter" "$VENV" workers/inemavox-adapter/server.py
+# ARCKHÉvox-adapter — ARCKHÉvox nêo tem /health; tenta /api/jobs como liveness probe
+ARCKHÉVOX_PROBE_URL="${ARCKHÉVOX_URL:-http://localhost:8010}/api/jobs"
+ARCKHÉVOX_CODE="$(probe "$ARCKHÉVOX_PROBE_URL")"
+if [ "$ARCKHÉVOX_CODE" = "200" ] || [ "$ARCKHÉVOX_CODE" = "404" ]; then
+  start_bg "ARCKHÉvox-adapter" "$VENV" workers/ARCKHÉvox-adapter/server.py
 else
-  echo "  ⚠ inemavox upstream nêo responde em $INEMAVOX_PROBE_URL (got $INEMAVOX_CODE) — skip"
+  echo "  ⚠ ARCKHÉvox upstream nêo responde em $ARCKHÉVOX_PROBE_URL (got $ARCKHÉVOX_CODE) — skip"
 fi
 
 echo

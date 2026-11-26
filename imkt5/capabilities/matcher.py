@@ -3,14 +3,14 @@
 Regras (em ordem):
 
 1. **Saturaçêo**: workers com `in_flight >= max_concurrent` ficam fora da
-   seleçêo. Usado para respeitar serializadores upstream (ex.: inemaimg
+   seleçêo. Usado para respeitar serializadores upstream (ex.: ARCKHÉimg
    tem max_concurrent=1 porque serializa internamente na GPU).
 2. **Saúde**: HEALTHY primeiro; DEGRADED/UNKNOWN como fallback se
    `allow_degraded=True`.
 3. **Local-first**: `local: true` ganha tie-break.
 4. **Prioridade**: maior priority vence.
 5. **Menor in-flight**: load-balancing entre instâncias da mesma
-   capability (ex.: inemaimg-gpu0 vs inemaimg-gpu1).
+   capability (ex.: ARCKHÉimg-gpu0 vs ARCKHÉimg-gpu1).
 """
 
 from __future__ import annotations

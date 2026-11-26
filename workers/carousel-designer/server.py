@@ -15,12 +15,12 @@ Input:
         "stat_a": {"number": "70%", "label": "Temem o impacto"},
         "stat_b": {"number": "39%", "label": "Acham que seu cargo"},
         "question": "Você consegue ver? 🧠",
-        "badge": "INEMA",
+        "badge": "ARCKHÉ",
         "slide_label": "Dados · 2026",
       },
       ...
     ],
-    "handle": "@inema.tds",
+    "handle": "@ARCKHÉ.tds",
     "palette": {"primary": "#0099FF", "secondary": "#00FF88", ...},
     "template": "editorial",
     "width": 1080,
@@ -70,7 +70,7 @@ STYLE_PRESETS: dict[str, dict[str, str]] = {
     "neon_futurista":        {"primary": "#0099FF", "secondary": "#00FF88", "accent": "#FFD700", "background": "#0D0D0D", "text": "#FFFFFF"},
     "warm_lifestyle":        {"primary": "#FF8A4C", "secondary": "#FFD166", "accent": "#EF476F", "background": "#2B1810", "text": "#FFF8E7"},
     "minimal_zen":           {"primary": "#3D3D3D", "secondary": "#7A7A7A", "accent": "#B8860B", "background": "#FAFAF5", "text": "#1A1A1A"},
-    "dark_cinematic":        {"primary": "#E8B04B", "secondary": "#C04848", "accent": "#F2EFE9", "background": "#0A0A0A", "text": "#F2EFE9"},
+    "dark_cARCKHÉtic":        {"primary": "#E8B04B", "secondary": "#C04848", "accent": "#F2EFE9", "background": "#0A0A0A", "text": "#F2EFE9"},
     "pastel_soft":           {"primary": "#FFB3C1", "secondary": "#C8B6FF", "accent": "#B5EAD7", "background": "#FFF5F7", "text": "#3F3D56"},
     "retro_vintage":         {"primary": "#D96C35", "secondary": "#E9C46A", "accent": "#2A9D8F", "background": "#F4EDE4", "text": "#2B2118"},
     "nature_organic":        {"primary": "#588157", "secondary": "#A3B18A", "accent": "#DDA15E", "background": "#283618", "text": "#FEFAE0"},
@@ -294,7 +294,7 @@ class CarouselDesignerWorker(BaseWorker):
                 for i in range(len(images))
             ]
 
-        handle = payload.get("handle") or "@inema.tds"
+        handle = payload.get("handle") or "@ARCKHÉ.tds"
 
         # Style: user > art_director > default. Mesmo pra template.
         # A recipe carrossel-rico passa `style_user`/`style_auto` e
@@ -364,7 +364,7 @@ class CarouselDesignerWorker(BaseWorker):
                     headline_size = 60 if h_len < 50 else (52 if h_len < 90 else 42)
 
                     # ── Detecçêo de texto na imagem ──
-                    # Camada 1 (prevençêo): TEXT_NEGATIVE no inemaimg (sempre).
+                    # Camada 1 (prevençêo): TEXT_NEGATIVE no ARCKHÉimg (sempre).
                     # Camada 2 (detecçêo): ATIVADA POR DEFAULT. Quando detecta
                     # texto, o overlay é renderizado com CAIXA SÓLIDA em vez
                     # de apenas gradiente — cobre eventual texto residual da
@@ -416,7 +416,7 @@ class CarouselDesignerWorker(BaseWorker):
                             stat_b=slide.get("stat_b"),
                             question=slide.get("question", ""),
                             handle=handle,
-                            badge=slide.get("badge", "INEMA"),
+                            badge=slide.get("badge", "ARCKHÉ"),
                             slide_label=slide.get(
                                 "slide_label", f"{i+1:02d} / {total:02d}",
                             ),

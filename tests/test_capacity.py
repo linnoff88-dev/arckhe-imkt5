@@ -14,15 +14,15 @@ async def _healthy(_):
 
 async def _make_registry() -> CapabilityRegistry:
     reg = CapabilityRegistry(probe=_healthy)
-    # duas "GPUs" rodando inemaimg, cada uma serializa (max=1)
+    # duas "GPUs" rodando ARCKHÉimg, cada uma serializa (max=1)
     reg.register(RegisteredWorker(
-        name="inemaimg-gpu0",
+        name="ARCKHÉimg-gpu0",
         capabilities=("image.generation",),
         endpoint="http://localhost:8010",
         local=True, priority=100, max_concurrent=1,
     ))
     reg.register(RegisteredWorker(
-        name="inemaimg-gpu1",
+        name="ARCKHÉimg-gpu1",
         capabilities=("image.generation",),
         endpoint="http://localhost:8011",
         local=True, priority=100, max_concurrent=1,
@@ -46,14 +46,14 @@ async def test_load_balance_distribui_entre_instancias():
     await reg.acquire(w1.name)
     w2 = select_worker(reg, "image.generation")
 
-    assert {w1.name, w2.name} == {"inemaimg-gpu0", "inemaimg-gpu1"}
+    assert {w1.name, w2.name} == {"ARCKHÉimg-gpu0", "ARCKHÉimg-gpu1"}
 
 
 async def test_saturacao_force_fallback_pro_remoto():
     """Quando 2 GPUs locais saturadas, escolhe pollinations (remoto)."""
     reg = await _make_registry()
-    await reg.acquire("inemaimg-gpu0")
-    await reg.acquire("inemaimg-gpu1")
+    await reg.acquire("ARCKHÉimg-gpu0")
+    await reg.acquire("ARCKHÉimg-gpu1")
 
     w = select_worker(reg, "image.generation")
     assert w.name == "pollinations"
@@ -77,20 +77,20 @@ async def test_saturacao_total_levanta_excecao():
 
 async def test_release_libera_slot():
     reg = await _make_registry()
-    await reg.acquire("inemaimg-gpu0")
-    await reg.acquire("inemaimg-gpu1")
-    await reg.release("inemaimg-gpu0")
+    await reg.acquire("ARCKHÉimg-gpu0")
+    await reg.acquire("ARCKHÉimg-gpu1")
+    await reg.release("ARCKHÉimg-gpu0")
 
     w = select_worker(reg, "image.generation")
-    assert w.name == "inemaimg-gpu0"
+    assert w.name == "ARCKHÉimg-gpu0"
 
 
 async def test_respect_capacity_false_aceita_overload():
     """Modo escape: ignorar saturaçêo (cliente assume risco de fila)."""
     reg = await _make_registry()
-    await reg.acquire("inemaimg-gpu0")
-    await reg.acquire("inemaimg-gpu1")
+    await reg.acquire("ARCKHÉimg-gpu0")
+    await reg.acquire("ARCKHÉimg-gpu1")
 
     w = select_worker(reg, "image.generation", respect_capacity=False)
     # ainda prefere local (gpu0 ou gpu1) sobre remoto
-    assert w.name in ("inemaimg-gpu0", "inemaimg-gpu1")
+    assert w.name in ("ARCKHÉimg-gpu0", "ARCKHÉimg-gpu1")

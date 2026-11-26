@@ -12,8 +12,8 @@ Comportamento do agente que depende do contexto deste tenant.
 ## Workers permitidos para este tenant
 Liste aqui os `worker_type` que este tenant pode invocar. O Gateway valida.
 Ex.:
-- `inemaimg` — geraçêo de imagem
-- `inemavox` — TTS / dublagem
+- `ARCKHÉimg` — geraçêo de imagem
+- `ARCKHÉvox` — TTS / dublagem
 - `yt-pub-lives` — ingestêo de canal YouTube
 
 ## Limites

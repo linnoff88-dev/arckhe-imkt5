@@ -65,8 +65,8 @@ def _load_tokens() -> dict[str, dict[str, Any]]:
     {
       "<token>": {
         "user_id": "nei",
-        "tenant_id": "inema" | null,
-        "roles": ["admin-global" | "admin-tenant:inema" | "user:inema"]
+        "tenant_id": "ARCKHÉ" | null,
+        "roles": ["admin-global" | "admin-tenant:ARCKHÉ" | "user:ARCKHÉ"]
       }
     }
     """

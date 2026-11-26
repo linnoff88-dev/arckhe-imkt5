@@ -70,7 +70,7 @@ Ao mudar um modelo, revisar **sempre estas 3 camadas**:
    - Ex.: `recipes/carrossel-simples.yaml` → stage `images` → `steps: 4`.
 2. **Adapter do worker** — `workers/<name>/server.py`, defaults do request
    quando o payload nêo traz.
-   - Ex.: `workers/inemaimg-adapter/server.py` → `INEMAIMG_MODEL` env +
+   - Ex.: `workers/ARCKHÉimg-adapter/server.py` → `ARCKHÉIMG_MODEL` env +
      fallback no código.
 3. **UI defaults** — `imkt5/gateway/web_ui.py` → `CAP_CONFIG`.
    - Ex.: `image.generation` → `{model: "flux2-klein", steps: 4, ...}`.

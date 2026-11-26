@@ -54,14 +54,14 @@ Se nêo setar, default = `../telegramtopicosindex/out` (relativo ao repo).
   "matches": [
     {
       "group_id": "2517011104",
-      "group_title": "INEMA.FTD",
+      "group_title": "ARCKHÉ.FTD",
       "topic_id": 163,
       "topic_title": "MENU Links Formaçêo",
       "total_messages": 20,
       "matched_count": 3,
       "score": 12.5,
       "messages": [
-        {"id": 717, "author": "INEMA", "date": "...", "text": "...", "snippet_html": "...<mark>Claude</mark>..."}
+        {"id": 717, "author": "ARCKHÉ", "date": "...", "text": "...", "snippet_html": "...<mark>Claude</mark>..."}
       ]
     }
   ],

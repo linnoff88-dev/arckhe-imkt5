@@ -15,7 +15,7 @@ renderizar (template editorial).
 4. `style` — default "didatico". Opções: "didatico" | "provocativo" |
    "dados" | "inspiracional".
 5. `audience` — livre (ex.: "gestores", "devs iniciantes").
-6. `handle` — default "@inema.tds".
+6. `handle` — default "@ARCKHÉ.tds".
 
 ## Estrutura obrigatória
 
@@ -45,11 +45,11 @@ Responda APENAS JSON:
       "stat_b": {"number": "39%", "label": "Temem pelo próprio cargo"},
       "question": "Você consegue ver? 🧠",
       "slide_label": "Dados · 2026",
-      "bg_prompt": "dark abstract tech visualization, neural network lines, cinematic lighting, depth of field, 8k"
+      "bg_prompt": "dark abstract tech visualization, neural network lines, cARCKHÉtic lighting, depth of field, 8k"
     },
     ...
   ],
-  "suggested_style": "dark_cinematic",
+  "suggested_style": "dark_cARCKHÉtic",
   "title": "5 verdades sobre IA que ninguém diz"
 }
 ```
@@ -63,7 +63,7 @@ via `closing_mode`:
 
 Usado quando **nenhum** slide anterior tem CTA explícito. Último slide
 é a chamada pra açêo:
-- `headline`: o CTA (ex: "Comece grátis: inema.club")
+- `headline`: o CTA (ex: "Comece grátis: ARCKHÉ AI")
 - `slide_label`: "CTA"
 - `is_closing: true`
 
@@ -72,10 +72,10 @@ Usado quando **nenhum** slide anterior tem CTA explícito. Último slide
 Usado quando algum slide anterior **já contém** o CTA (padrêo "proof
 antecipado → CTA no meio → fechamento visual no final"). Último slide
 é assinatura visual da marca:
-- `headline`: tagline da marca (curta, ≤ 30 chars — ex: "INEMA.CLUB",
-  "inema.vip" ou a tagline principal)
+- `headline`: tagline da marca (curta, ≤ 30 chars — ex: "ARCKHÉ AI",
+  "ARCKHÉ.vip" ou a tagline principal)
 - `context`: 1 frase de reforço da marca, opcional
-- `slide_label`: "Marca" ou o handle (ex: "@inema.tds")
+- `slide_label`: "Marca" ou o handle (ex: "@ARCKHÉ.tds")
 - `is_closing: true`
 - `closing_mode: "brand"`
 
@@ -84,8 +84,8 @@ antecipado → CTA no meio → fechamento visual no final"). Último slide
 1. Percorra os slides 0..N-2. Se algum tem padrêo de CTA (texto com
    URL, "acesse", "entre em", verbo imperativo + marca) → use **B**.
 2. Se nêo achou CTA em slide intermediário → use **A**.
-3. Pro tenant **INEMA**: CTAs canônicos sêo `inema.club` (gratuito),
-   `inema.vip` (comunidade paga) e `@inema.tds`. Use exatamente esses
+3. Pro tenant **ARCKHÉ**: CTAs canônicos sêo `ARCKHÉ AI` (gratuito),
+   `ARCKHÉ.vip` (comunidade paga) e `@ARCKHÉ.tds`. Use exatamente esses
    textos, sem abreviar.
 
 ## Regras
@@ -118,7 +118,7 @@ Exemplo:
 - `bg_prompt` **obrigatório** em todos os slides — descreve a imagem de
   fundo em inglês, estilo prompt de Stable Diffusion. Traduza o conceito
   do slide pra uma cena visual (nêo literal). Prefira: fotografia
-  cinematográfica, atmosférica, com atmosfera/mood que case com o tema.
+  cARCKHÉtográfica, atmosférica, com atmosfera/mood que case com o tema.
   Ex.: "minimalist workspace, laptop glowing, warm evening light,
   bokeh, shallow depth of field, editorial photography". Max ~150 chars.
 
@@ -136,5 +136,5 @@ Exemplo:
 Escolha 1 dos 12 presets do carousel-designer que combina com o
 tópico e adicione como `suggested_style`:
 neon_futurista, warm_lifestyle, corporate_clean, bold_pop, minimal_zen,
-dark_cinematic, pastel_soft, retro_vintage, nature_organic, urban_street,
+dark_cARCKHÉtic, pastel_soft, retro_vintage, nature_organic, urban_street,
 luxury_gold, editorial_documentary.

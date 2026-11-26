@@ -1,13 +1,13 @@
 name: roteiro-video
 version: 2
-# Pipeline: roteiro livre (pt-BR) → imagens de referência (inemaimg) →
-#           JSON de cenas (script-to-queue) → [voiceover (inemavox) +
+# Pipeline: roteiro livre (pt-BR) → imagens de referência (ARCKHÉimg) →
+#           JSON de cenas (script-to-queue) → [voiceover (ARCKHÉvox) +
 #           audio patch] → render no skyreelsv3 via skyreels-adapter →
 #           mp4 finalizado.
 #
 # 3 modos de áudio (campo `audio_mode` no input):
-#   - "auto" (default) — gera MP3 automaticamente via inemavox pra cada
-#     cena que tem audio_text e patcha no queue_json. Requer inemavox
+#   - "auto" (default) — gera MP3 automaticamente via ARCKHÉvox pra cada
+#     cena que tem audio_text e patcha no queue_json. Requer ARCKHÉvox
 #     rodando.
 #   - "provided" — caller passa `voiceovers` pronto no input com os
 #     audio_url dos MP3s já gravados. Stages voiceover/audio_patch sêo
@@ -24,15 +24,15 @@ version: 2
 #   voiceovers             object[]  (só em audio_mode=provided)
 #                                     [{scene_idx?, scene_label?, audio_url, character?}]
 #   auto_gen_characters    bool      (default false) — se true, gera ref_imgs
-#                                     via inemaimg pros characters sem ref
+#                                     via ARCKHÉimg pros characters sem ref
 #   auto_gen_ambients      bool      (default false) — mesmo pra ambients
 #   style                  string    (opcional) — direçêo visual global
 #   target_duration        int       (opcional) — segundos totais
 #   aspect_ratio           string    (default "16:9")
 #   resolution             string    (default "540P")
-#   image_model            string    (opcional, passthrough pro inemaimg)
+#   image_model            string    (opcional, passthrough pro ARCKHÉimg)
 #   audio_mode             string    "auto" | "provided" | "none" (default "auto")
-#   tts_provider           string    (opcional, passthrough pro inemavox; default "edge")
+#   tts_provider           string    (opcional, passthrough pro ARCKHÉvox; default "edge")
 #   auto_finalize          bool      (default true) — skyreels roda /finalize
 #   timeout_s              int       (default 3600)
 #
@@ -42,7 +42,7 @@ version: 2
 
 stages:
 
-  # 1) Imagens de referência dos personagens (fanout via inemaimg).
+  # 1) Imagens de referência dos personagens (fanout via ARCKHÉimg).
   #    Só roda se auto_gen_characters == true.
   - id: char_refs
     requires: image.generation
@@ -83,7 +83,7 @@ stages:
     approval: {mode: none}
 
   # 4) TTS por cena (só em audio_mode="auto"). Fanout sobre todas as
-  #    cenas; inemavox-adapter devolve silent-stub pra audio_text vazio,
+  #    cenas; ARCKHÉvox-adapter devolve silent-stub pra audio_text vazio,
   #    entêo o fanout nêo explode. O audio_patch filtra depois.
   - id: voiceover
     requires: audio.tts

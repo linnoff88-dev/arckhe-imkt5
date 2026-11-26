@@ -7,9 +7,9 @@
 - **Python 3.11+** e venv pronto (`.venv/`)
 - **Ollama local** rodando (`ollama serve`) com `qwen2.5:14b` instalado
   → necessário para `auto-reviewer`
-- (opcional) **inemaimg** rodando em `http://localhost:8000`
+- (opcional) **ARCKHÉimg** rodando em `http://localhost:8000`
   → necessário para `image.generation`
-- (opcional) **inemavox** rodando em `http://localhost:8010`
+- (opcional) **ARCKHÉvox** rodando em `http://localhost:8010`
   → necessário para `audio.tts`/`audio.dubbing`
 
 `Tavily` (research) é remoto — só precisa da chave em `.env`.
@@ -26,8 +26,8 @@ Saída esperada:
 ── workers ──────────────────────────────────────────
   ✓ auto-reviewer (pid …, log: logs/auto-reviewer.log)
   ✓ research (pid …)
-  ✓ inemaimg-adapter (pid …)        # se inemaimg upstream responder
-  ✓ inemavox-adapter (pid …)        # se inemavox upstream responder
+  ✓ ARCKHÉimg-adapter (pid …)        # se ARCKHÉimg upstream responder
+  ✓ ARCKHÉvox-adapter (pid …)        # se ARCKHÉvox upstream responder
 ── gateway ──────────────────────────────────────────
   ✓ gateway (pid …, log: logs/gateway.log)
 ✓ gateway OK em http://localhost:8080
@@ -79,9 +79,9 @@ Resultado fica nos logs do worker:
 tail -20 logs/research.log
 ```
 
-### b) Geraçêo de imagem (inemaimg flux2-klein, real)
+### b) Geraçêo de imagem (ARCKHÉimg flux2-klein, real)
 
-Pré-requisito: `inemaimg` rodando em `localhost:8000`.
+Pré-requisito: `ARCKHÉimg` rodando em `localhost:8000`.
 
 ```bash
 curl -s -X POST http://localhost:8080/jobs \
@@ -106,8 +106,8 @@ Aguarde ~10–15s. Imagem é salva em:
 data/artifacts/demo/<job_id>/flux2-klein-<job_id>.png
 ```
 
-Modelos disponíveis (no inemaimg upstream): `qwen-edit-2511`, `ernie`,
-`flux2-klein`, `flux2-dev`. O default é o `INEMAIMG_MODEL` do `.env`.
+Modelos disponíveis (no ARCKHÉimg upstream): `qwen-edit-2511`, `ernie`,
+`flux2-klein`, `flux2-dev`. O default é o `ARCKHÉIMG_MODEL` do `.env`.
 
 ### c) Aprovaçêo automática por LLM (Ollama local)
 
@@ -138,9 +138,9 @@ por critério. Veja saída em:
 tail -10 logs/auto-reviewer.log
 ```
 
-### d) TTS (inemavox)
+### d) TTS (ARCKHÉvox)
 
-Pré-requisito: `inemavox` rodando em `localhost:8010`.
+Pré-requisito: `ARCKHÉvox` rodando em `localhost:8010`.
 
 ```bash
 curl -s -X POST http://localhost:8080/jobs \
@@ -223,9 +223,9 @@ Logs ficam em `logs/<servico>.log`. PIDs em `logs/<servico>.pid`.
 | Capability | Worker | Provider real | Status |
 |---|---|---|---|
 | `research.market` | research | Tavily API | ✅ retornando fontes web reais |
-| `image.generation` | inemaimg-adapter | inemaimg upstream (`flux2-klein`) | ✅ PNG salvo no disco |
+| `image.generation` | ARCKHÉimg-adapter | ARCKHÉimg upstream (`flux2-klein`) | ✅ PNG salvo no disco |
 | `review.auto` | auto-reviewer | Ollama local (`qwen2.5:14b`) | ✅ approve/reject com justificativa |
-| `audio.tts`/`dubbing`/`transcribe` | inemavox-adapter | inemavox upstream | ✅ adapter pronto, depende do upstream rodar |
+| `audio.tts`/`dubbing`/`transcribe` | ARCKHÉvox-adapter | ARCKHÉvox upstream | ✅ adapter pronto, depende do upstream rodar |
 
 ## O que está PENDENTE (Fase 3+)
 

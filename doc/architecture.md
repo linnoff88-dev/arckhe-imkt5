@@ -11,8 +11,8 @@ mudança estrutural.
 - **Peças prontas**: projeto `openpcbot` — doa schema SQLite (já keyed por
   `chat_id`), adapter WhatsApp, wrapper Claude Agent SDK, estrutura de
   dashboard.
-- **Workers**: absorvidos dos projetos existentes (`timesmkt3`, `inemaimg`,
-  `inemavox`, família `yt-pub-lives*`).
+- **Workers**: absorvidos dos projetos existentes (`timesmkt3`, `ARCKHÉimg`,
+  `ARCKHÉvox`, família `yt-pub-lives*`).
 
 ## Camadas
 
@@ -43,7 +43,7 @@ mudança estrutural.
                            ▼
 ┌─────────────────────────────────────────────────────────┐
 │  WORKERS — stateless, escaláveis                        │
-│  inemaimg · inemavox · yt-pub-lives · timesmkt3 · ...   │
+│  ARCKHÉimg · ARCKHÉvox · yt-pub-lives · timesmkt3 · ...   │
 │  Cada um: aceita Job → emite JobResult                  │
 │  Cada um: rodável sozinho (Docker próprio, CLI própria) │
 └─────────────────────────────────────────────────────────┘
@@ -81,9 +81,9 @@ Mudança vs. Intelecto original: tools recebem `ctx: ToolContext` com
 3. Gateway recebe, o **agent loop** monta contexto: SOUL/AGENTS/USER do
    tenant + memórias relevantes (via `MemoryStore.search`).
 4. LLM (via `BaseProvider`) decide: responder direto OU chamar tools. Nesse
-   caso, chama `dispatch_job(worker_type="inemaimg", payload=...)`.
+   caso, chama `dispatch_job(worker_type="ARCKHÉimg", payload=...)`.
 5. Tool `dispatch_job` cria um `Job` na fila Redis (RQ), devolve `job_id`.
-6. Worker `inemaimg` consome, gera a imagem, faz upload para MinIO, publica
+6. Worker `ARCKHÉimg` consome, gera a imagem, faz upload para MinIO, publica
    `JobResult(status=SUCCESS, output={"image_url": ...})`.
 7. Gateway detecta resultado, busca o canal de origem em
    `ChannelRegistry`, envia `OutgoingMessage` com o link/anexo.
@@ -202,7 +202,7 @@ declara capabilities**; receita pede capabilities, nêo worker específico:
 | `copywriter` | `copy.narrative`, `copy.headlines` | `skills/copywriter-agent/` |
 | `ad-designer` | `design.static_ad`, `design.carousel` | `skills/ad-creative-designer/` |
 | `video-quick` | `video.slideshow` | `skills/video-quick/` |
-| `video-pro` | `video.cinematic` | `pipeline/worker-video-pro.js` |
+| `video-pro` | `video.cARCKHÉtic` | `pipeline/worker-video-pro.js` |
 | `platform-instagram` | `platform.instagram` | skill IG |
 | `platform-youtube` | `platform.youtube` | skill YT |
 | `platform-tiktok` | `platform.tiktok` | skill TT |
@@ -218,10 +218,10 @@ Web** do Gateway — o usuário vê artefatos prontos e aciona.
 
 | worker_type | Projeto fonte |
 |---|---|
-| `inemaimg` | `/home/nmaldaner/projetos/inemaimg/` (análise pendente) |
-| `inemavox` | `/home/nmaldaner/projetos/inemavox/` (análise pendente) |
+| `ARCKHÉimg` | `/home/nmaldaner/projetos/ARCKHÉimg/` (análise pendente) |
+| `ARCKHÉvox` | `/home/nmaldaner/projetos/ARCKHÉvox/` (análise pendente) |
 
-Achado extra: o `timesmkt3` **já integra `inemaimgProvider`** como uma das
+Achado extra: o `timesmkt3` **já integra `ARCKHÉimgProvider`** como uma das
 opções de geraçêo de imagem. O contrato que o `imkt5` define aqui ratifica
 um caminho que já estava começando.
 
@@ -314,5 +314,5 @@ Pendente (próximas fases, em ordem):
 6. **Canal Telegram** — primeiro adapter real, porta simplificada de
    openpcbot.
 7. **Análise dos projetos-worker** — ficha padrêo nos 4+ projetos.
-8. **Primeiro worker** — escolher o menor (provável: `inemaimg`) e
+8. **Primeiro worker** — escolher o menor (provável: `ARCKHÉimg`) e
    encapsulá-lo no contrato Job.

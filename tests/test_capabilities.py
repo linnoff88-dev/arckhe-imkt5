@@ -29,7 +29,7 @@ def registry():
     )
     reg.register(
         RegisteredWorker(
-            name="inemaimg",
+            name="ARCKHÉimg",
             capabilities=("image.generation",),
             endpoint="http://localhost:8010",
             local=True,
@@ -51,7 +51,7 @@ def registry():
 async def test_registry_lists_candidates(registry):
     cands = registry.candidates("image.generation")
     assert len(cands) == 3
-    assert {c.name for c in cands} == {"sd-local", "inemaimg", "pollinations"}
+    assert {c.name for c in cands} == {"sd-local", "ARCKHÉimg", "pollinations"}
 
 
 async def test_matcher_picks_local_over_remote(registry):

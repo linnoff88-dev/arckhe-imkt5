@@ -24,10 +24,10 @@ paginado, `iter_messages(reply_to=topic_id)`, download opcional de mídia.
    ```
 3. Roda 1× pra autenticar:
    ```bash
-   python scripts/tg_auth.py +55SEU_NUMERO inema
+   python scripts/tg_auth.py +55SEU_NUMERO ARCKHÉ
    ```
    Pede código SMS + senha 2FA. Session fica em
-   `data/tg-sessions/inema.session`.
+   `data/tg-sessions/ARCKHÉ.session`.
 4. Sua conta já deve ser **membro** do grupo.
 
 ## 4 Modos
@@ -50,7 +50,7 @@ paginado, `iter_messages(reply_to=topic_id)`, download opcional de mídia.
   "file_filter": ["pdf", "jpg"],
   "somidia": false,
   "output_dir": null,
-  "tenant_id": "inema"
+  "tenant_id": "ARCKHÉ"
 }
 ```
 
@@ -68,7 +68,7 @@ paginado, `iter_messages(reply_to=topic_id)`, download opcional de mídia.
 ```json
 {
   "mode": "list_topics",
-  "group": {"id": 2517011104, "chat_id": -1002517011104, "title": "INEMA.FTD", "internal_id": "2517011104"},
+  "group": {"id": 2517011104, "chat_id": -1002517011104, "title": "ARCKHÉ.FTD", "internal_id": "2517011104"},
   "topics_count": 38,
   "topics": [{"id": 163, "title": "MENU Links Formaçêo", "date": "...", "from_id": 7388953786}, ...],
   "topics_truncated": false,

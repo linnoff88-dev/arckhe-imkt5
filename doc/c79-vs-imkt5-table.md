@@ -65,7 +65,7 @@
 | LLM art direction (style do brief) | ❌ | ✅ video-art-director | 🏆 imkt5 |
 | LLM copywriter | ❌ | ✅ creative-brief + copywriter | 🏆 imkt5 |
 | A/B variants LLM-suggest | ❌ | ✅ video-ab-suggest | 🏆 imkt5 |
-| SD image generation inline | ❌ assets manuais | ✅ inemaimg + 8 profiles | 🏆 imkt5 |
+| SD image generation inline | ❌ assets manuais | ✅ ARCKHÉimg + 8 profiles | 🏆 imkt5 |
 | TEXT_NEGATIVE + imageHasText | N/A | ✅ 3 camadas | 🏆 imkt5 |
 | Recipe declarativo YAML | ❌ | ✅ needs/when/fanout | 🏆 imkt5 |
 | Approval flow (H/A/A) + Telegram | ❌ | ✅ | 🏆 imkt5 |

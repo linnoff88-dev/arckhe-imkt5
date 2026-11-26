@@ -79,10 +79,10 @@ nosso *use case* (reels/shorts/tiktok).
 | Duraçêo alvo | 18.84s (fixo) | 10-20s | 10-30s |
 | Nº cenas | 7 cenas (scene1–scene7) + ambient-bg | 4-6 cenas | 4-6 cenas |
 | Duraçêo média de cena | **2.2s** (avg fixo) | 3-4s | 3-4s |
-| Narraçêo | talking-head real (face video) | TTS sintético (inemavox) | TTS sintético |
+| Narraçêo | talking-head real (face video) | TTS sintético (ARCKHÉvox) | TTS sintético |
 | Legendas | karaoke ASS word-level via whisper | ❌ default off | ✅ karaoke ASS word-level via whisper |
 | Ambient bg | `ambient-bg.html` (radial + grid + particles + vignette) | ❌ | ✅ vignette + grain (recente) |
-| Face/image | Vídeo MP4 real | SD images (inemaimg) | SD images |
+| Face/image | Vídeo MP4 real | SD images (ARCKHÉimg) | SD images |
 | Chrome gradient headline | ✅ em todas cenas de tipografia | ❌ | ❌ |
 | Halo glow em emphasis word | ✅ text-shadow `0 0 20px rgba(255,255,255,0.6)` | ⚠ só shadow escuro | ⚠ só shadow escuro |
 | Word-by-word kinetic reveal | ✅ GSAP stagger 0.35s | ❌ fade-in da cena | ⚠ karaoke word highlight (se on) |

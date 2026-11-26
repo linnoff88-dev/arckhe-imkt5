@@ -83,7 +83,7 @@ async def _make_handlers(payloads_seen: dict[str, list[dict]]):
         }),
         "image.generation": make("images", {"image_url": "img.png"}),
         "audio.tts": make("voiceover", {"audio_url": "a.mp3"}),
-        "video.cinematic": make("video", {"scene_plan": {"scenes": []}}),
+        "video.cARCKHÉtic": make("video", {"scene_plan": {"scenes": []}}),
         "video.render": make("video_render", {"video_url": "v.mp4", "duration_s": 15.0}),
         "platform.instagram": make("ig", {"post": "ig"}),
         "platform.youtube": make("yt", {"post": "yt"}),
@@ -205,7 +205,7 @@ async def test_dep_failure_cascades_through_skip():
     dispatcher.register_capability("design.ad_layout", make_ok("ad_design", {"ad_design": {"variants": []}}))
     dispatcher.register_capability("image.generation", make_ok("images", {"image_url": "i"}))
     dispatcher.register_capability("audio.tts", make_ok("voiceover", {"audio_url": "a"}))
-    dispatcher.register_capability("video.cinematic", make_ok("video", {"scene_plan": {}}))
+    dispatcher.register_capability("video.cARCKHÉtic", make_ok("video", {"scene_plan": {}}))
     dispatcher.register_capability("video.render", make_ok("video_render", {"video_url": "v.mp4"}))
 
     dispatcher.set_on_finish(

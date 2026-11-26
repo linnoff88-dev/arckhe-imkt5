@@ -76,7 +76,7 @@ Dois casos distintos — é **crítico** nêo confundi-los:
 #### 2a. "Registrar worker que já existe"
 Apontar o registry pra um serviço HTTP que já está rodando em algum lugar. **Trivial** — só edita `config/workers.yaml`.
 
-Exemplo: "quero adicionar uma segunda GPU rodando inemaimg" → adiciona `inemaimg-gpu1` no YAML.
+Exemplo: "quero adicionar uma segunda GPU rodando ARCKHÉimg" → adiciona `ARCKHÉimg-gpu1` no YAML.
 
 #### 2b. "Criar um worker do zero"
 Gerar código + Dockerfile + deploy. **Nêo pertence à UI.** É trabalho de engenharia.

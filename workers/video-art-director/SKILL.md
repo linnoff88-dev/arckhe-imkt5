@@ -25,7 +25,7 @@ brief + audiência + plataforma + perfil da marca, escolhe:
 | `neon_futurista` | tech, IA, startups | zoom_in rápido | cut + glitch pontual | 110-130 | synthwave |
 | `premium_minimal` | luxo, moda premium | slow drift | long crossfade | 60-80 | piano solo |
 | `energetico` | fitness, esporte, Black Friday | hard zoom | cut puro (90%+) | 120-145 | EDM |
-| `emocional_cinematic` | família, saúde, causas | slow pan | crossfade 0.6-1s | 70-90 | piano+cordas |
+| `emocional_cARCKHÉtic` | família, saúde, causas | slow pan | crossfade 0.6-1s | 70-90 | piano+cordas |
 | `corporate_clean` | B2B, SaaS, LinkedIn | static+breathe | fade 0.4s | 80-100 | ambient |
 | `streetwear_urban` | moda Gen Z, TikTok | whip pan | cut (85%+) | 130-150 | trap/drill |
 | `nature_organic` | sustentabilidade, wellness | slow pan_right | crossfade suave | 70-90 | folk acústico |
@@ -42,7 +42,7 @@ brief + audiência + plataforma + perfil da marca, escolhe:
 - `zoom_in` — push-in (1.0 → 1.08)
 - `zoom_out` — pull-out (1.08 → 1.0)
 - `pan_right`, `pan_left` — deslocamento lateral
-- `drift` — zoom + pan combinados, cinematográfico
+- `drift` — zoom + pan combinados, cARCKHÉtográfico
 - `hard_zoom` — zoom agressivo (1.0 → 1.15) com stab SFX
 
 ## Transições
@@ -71,9 +71,9 @@ brief + audiência + plataforma + perfil da marca, escolhe:
 - Instagram → spectrum aberto.
 
 **Tom:**
-- Autoridade/educaçêo → `corporate_clean`, `editorial_documentary`, `emocional_cinematic`.
+- Autoridade/educaçêo → `corporate_clean`, `editorial_documentary`, `emocional_cARCKHÉtic`.
 - Ousadia/energia → `energetico`, `bold_pop`, `streetwear_urban`.
-- Emocional → `emocional_cinematic`, `premium_minimal`, `nature_organic`.
+- Emocional → `emocional_cARCKHÉtic`, `premium_minimal`, `nature_organic`.
 - Tech/IA → `neon_futurista`, `dark_dramatic`.
 
 **Conteúdo:**
@@ -84,7 +84,7 @@ brief + audiência + plataforma + perfil da marca, escolhe:
 
 ## Desempate
 
-- Sem brand_profile → LinkedIn=`corporate_clean`, IG=`emocional_cinematic`, TikTok=`streetwear_urban`.
+- Sem brand_profile → LinkedIn=`corporate_clean`, IG=`emocional_cARCKHÉtic`, TikTok=`streetwear_urban`.
 - `bold_pop`, `dark_dramatic`, `playful_colorful` nêo sêo default — exigem tom explícito.
 
 ## Output schema

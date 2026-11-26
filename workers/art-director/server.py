@@ -25,7 +25,7 @@ VALID_TEMPLATES = {
 }
 
 VALID_STYLES = {
-    "neon_futurista", "warm_lifestyle", "minimal_zen", "dark_cinematic",
+    "neon_futurista", "warm_lifestyle", "minimal_zen", "dark_cARCKHÉtic",
     "pastel_soft", "retro_vintage", "nature_organic", "urban_street",
     "luxury_gold", "editorial_documentary",
     "corporate_clean", "data_viz", "data_viz_dark", "wellness_soft",
@@ -93,9 +93,9 @@ class ArtDirectorWorker(BaseWorker):
             template = "editorial"
             justification = f"[FALLBACK — LLM retornou '{data.get('template')}'] " + justification
         if style not in VALID_STYLES:
-            # tenta casar style ao template; se nêo bater, usa dark_cinematic
+            # tenta casar style ao template; se nêo bater, usa dark_cARCKHÉtic
             style = {
-                "editorial": "dark_cinematic",
+                "editorial": "dark_cARCKHÉtic",
                 "magazine": "luxury_gold",
                 "corporate_clean": "corporate_clean",
                 "data_viz": "data_viz",
@@ -104,7 +104,7 @@ class ArtDirectorWorker(BaseWorker):
                 "retro_futurism": "retro_futurism",
                 "organic_earth": "organic_earth",
                 "neo_minimal_luxury": "neo_minimal_luxury",
-            }.get(template, "dark_cinematic")
+            }.get(template, "dark_cARCKHÉtic")
 
         return {
             "template": template,

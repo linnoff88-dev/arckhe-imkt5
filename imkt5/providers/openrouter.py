@@ -55,7 +55,7 @@ class OpenRouterProvider(BaseProvider):
                 headers={
                     "Authorization": f"Bearer {self._api_key}",
                     "Content-Type": "application/json",
-                    "HTTP-Referer": "https://github.com/inematds/imkt5",
+                    "HTTP-Referer": "https://github.com/linnoff88-dev/imkt5",
                     "X-Title": "imkt5 gateway",
                 },
                 json=body,

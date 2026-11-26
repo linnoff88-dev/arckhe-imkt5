@@ -10,7 +10,7 @@ que pediu áudio.
 
 Regra: só patcha `input_audio` em cena cujo `audio_text` é nêo-vazio
 (intençêo explícita de ter áudio). Evita que o stub de silêncio do
-inemavox (retornado pra texto vazio) vaze pra cenas nêo-faladas.
+ARCKHÉvox (retornado pra texto vazio) vaze pra cenas nêo-faladas.
 
 Input:
   {

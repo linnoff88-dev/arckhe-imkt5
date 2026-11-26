@@ -11,8 +11,8 @@ Backends:
 Uso:
     from imkt5.security import get_kms
     kms = get_kms()
-    await kms.put("tg-bot-inema", b"8600523764:...")
-    value = await kms.get("tg-bot-inema")
+    await kms.put("tg-bot-ARCKHÉ", b"8600523764:...")
+    value = await kms.get("tg-bot-ARCKHÉ")
 """
 
 from __future__ import annotations

@@ -21,10 +21,10 @@
 |---|---|---|---|
 | `GATEWAY_HOST` | `0.0.0.0` | `.env` + `imkt5/main.py:233` | ficar |
 | `GATEWAY_PORT` | `8080` | `.env` + `imkt5/main.py:234` | ficar |
-| `INEMAIMG_URL` (upstream) | `http://localhost:8000` | `.env` + `workers/inemaimg-adapter/server.py:37` | ficar |
-| `INEMAVOX_URL` (upstream) | `http://localhost:8010` | `.env` + `workers/inemavox-adapter/server.py:35` | ficar |
-| `IMKT5_INEMAIMG_ADAPTER_PORT` | `8020` | env + adapter `__main__` | `config/workers.yaml` |
-| `IMKT5_INEMAVOX_ADAPTER_PORT` | `8021` | env + adapter `__main__` | `config/workers.yaml` |
+| `ARCKHÉIMG_URL` (upstream) | `http://localhost:8000` | `.env` + `workers/ARCKHÉimg-adapter/server.py:37` | ficar |
+| `ARCKHÉVOX_URL` (upstream) | `http://localhost:8010` | `.env` + `workers/ARCKHÉvox-adapter/server.py:35` | ficar |
+| `IMKT5_ARCKHÉIMG_ADAPTER_PORT` | `8020` | env + adapter `__main__` | `config/workers.yaml` |
+| `IMKT5_ARCKHÉVOX_ADAPTER_PORT` | `8021` | env + adapter `__main__` | `config/workers.yaml` |
 | research worker port | `8100` | **hardcoded** `workers/research/server.py:96` | ❌ env ou yaml |
 | auto-reviewer port | `8200` | **hardcoded** `workers/auto-reviewer/server.py:194` | ❌ env ou yaml |
 | `REDIS_URL` | `redis://localhost:6379/0` | `.env` | ficar |
@@ -77,17 +77,17 @@ Defaults implícitos estêo em `RegisteredWorker` (`imkt5/types/capabilities.py`
 
 ## Categoria F — Workers específicos
 
-### inemaimg-adapter
+### ARCKHÉimg-adapter
 | Variável | Default | Onde |
 |---|---|---|
-| `INEMAIMG_MODEL` (default p/ requests sem model) | `qwen-edit-2511` | `.env` + código |
-| `INEMAIMG_TIMEOUT` | `180s` | `.env` + código |
+| `ARCKHÉIMG_MODEL` (default p/ requests sem model) | `qwen-edit-2511` | `.env` + código |
+| `ARCKHÉIMG_TIMEOUT` | `180s` | `.env` + código |
 
-### inemavox-adapter
+### ARCKHÉvox-adapter
 | Variável | Default | Onde |
 |---|---|---|
-| `INEMAVOX_POLL_INTERVAL` | `1.5s` | `.env` + código |
-| `INEMAVOX_POLL_MAX_SECONDS` | `600s` | `.env` + código |
+| `ARCKHÉVOX_POLL_INTERVAL` | `1.5s` | `.env` + código |
+| `ARCKHÉVOX_POLL_MAX_SECONDS` | `600s` | `.env` + código |
 
 ## Categoria G — Defaults de payload por capability (UI)
 
@@ -165,11 +165,11 @@ workers:
   individual:
     research: { port: 8100 }
     auto_reviewer: { port: 8200 }
-    inemaimg_adapter:
+    ARCKHÉimg_adapter:
       port: 8020
       default_model: qwen-edit-2511
       request_timeout_seconds: 180
-    inemavox_adapter:
+    ARCKHÉvox_adapter:
       port: 8021
       poll_interval_seconds: 1.5
       poll_max_seconds: 600

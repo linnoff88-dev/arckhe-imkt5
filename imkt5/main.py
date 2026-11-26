@@ -291,17 +291,17 @@ def main() -> None:
         int(x) for x in tg_allowed_raw.split(",") if x.strip().lstrip("-").isdigit()
     }
     if tg_token and tg_allowed:
-        # Hoje: todo chat_id autorizado vai pro tenant 'inema'.
+        # Hoje: todo chat_id autorizado vai pro tenant 'ARCKHÉ'.
         # Depois (DB), ler de channel_bindings.
         identity_map = {
-            cid: TelegramIdentity(tenant_id="inema", user_id=f"tg-{cid}")
+            cid: TelegramIdentity(tenant_id="ARCKHÉ", user_id=f"tg-{cid}")
             for cid in tg_allowed
         }
         tg_channel = TelegramChannel(
             bot_token=tg_token,
             allowed_chat_ids=tg_allowed,
             identity_map=identity_map,
-            default_tenant_id="inema",
+            default_tenant_id="ARCKHÉ",
             on_approval=user_gate.resolve,
             tenancy_repo=tenancy_repo,
         )

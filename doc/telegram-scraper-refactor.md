@@ -14,7 +14,7 @@
 Primeira versêo do `telegram-scraper` (porta 8117) foi escrita do zero
 usando `telethon.iter_messages(entity, limit=N)` — flat, sem entender
 grupos fórum ou tópicos. Funciona pra grupos simples mas perde muito
-em grupos organizados por tópicos (como INEMA.FTD com 1900 tópicos).
+em grupos organizados por tópicos (como ARCKHÉ.FTD com 1900 tópicos).
 
 O projeto local `~/projetos/telegramtopicosindex` já tem uma soluçêo
 produçêo-tier pra exatamente esse caso.
@@ -151,7 +151,7 @@ Worker `telegram-scraper` reescrito com 4 modos:
 ```json
 {
   "mode": "extract_all",
-  "group": { "id": -1002517011104, "title": "INEMA.FTD", "internal_id": "2517011104" },
+  "group": { "id": -1002517011104, "title": "ARCKHÉ.FTD", "internal_id": "2517011104" },
   "topics_listed": 38,
   "topics_extracted": 35,
   "topics_skipped": 0,

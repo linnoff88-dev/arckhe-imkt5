@@ -221,7 +221,7 @@ async def _call_openrouter(
             f"{url}/chat/completions",
             headers={
                 "Authorization": f"Bearer {key}",
-                "HTTP-Referer": "https://github.com/inematds/imkt5",
+                "HTTP-Referer": "https://github.com/linnoff88-dev/imkt5",
                 "X-Title": "imkt5 worker",
             },
             json=body,

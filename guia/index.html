@@ -36,8 +36,8 @@
   nav .brand{display:flex;align-items:center;gap:8px;font-family:Sora;font-weight:800;letter-spacing:-.02em;color:var(--amb)}
   nav .brand .emoji{font-size:1.25rem}
   nav .sep{color:var(--mut);opacity:.45}
-  nav .inema{color:var(--sky);font-weight:600;font-size:.88rem;font-family:Sora}
-  nav .inema:hover{filter:brightness(1.15)}
+  nav .ARCKHÉ{color:var(--sky);font-weight:600;font-size:.88rem;font-family:Sora}
+  nav .ARCKHÉ:hover{filter:brightness(1.15)}
   nav .pro{color:var(--pro);font-weight:600;font-size:.88rem;font-family:Sora}
   nav .pro:hover{filter:brightness(1.15)}
   nav .clubpro{display:inline-flex;align-items:center;gap:6px}
@@ -97,9 +97,9 @@
   <a class="brand" href="#top"><span class="emoji">🧩</span> imkt5</a>
   <span class="sep">|</span>
   <span class="clubpro">
-    <a class="inema" href="https://inema.club" target="_blank" rel="noopener">INEMA.CLUB</a>
+    <a class="ARCKHÉ" href="https://ARCKHÉ AI" target="_blank" rel="noopener">ARCKHÉ AI</a>
     <span class="sep">-</span>
-    <a class="pro" href="https://inema.pro" target="_blank" rel="noopener">PRO</a>
+    <a class="pro" href="https://ARCKHÉ.pro" target="_blank" rel="noopener">PRO</a>
   </span>
   <div class="links">
     <a class="sec" href="#oque">O que é</a>
@@ -108,7 +108,7 @@
     <a class="sec" href="#exemplos">Exemplos</a>
     <a class="sec" href="#roadmap">Roadmap</a>
     <button class="tgl" id="themeToggle" aria-label="Alternar tema" title="Alternar tema">🌙</button>
-    <a class="btn" href="https://github.com/inematds/imkt5" target="_blank" rel="noopener">GitHub</a>
+    <a class="btn" href="https://github.com/linnoff88-dev/imkt5" target="_blank" rel="noopener">GitHub</a>
   </div>
 </div></nav>
 
@@ -121,7 +121,7 @@
       <p class="lead">imkt5 é uma plataforma modular que recebe um pedido — imagem, áudio, vídeo, pesquisa de mercado, texto — e despacha pro worker certo via fila de jobs, com fallback local-first e receitas declarativas em YAML pra fluxos compostos.</p>
       <div class="cta">
         <a class="btn" href="#guia">Começar o guia</a>
-        <a class="btn ghost" href="https://github.com/inematds/imkt5" target="_blank" rel="noopener">Ver no GitHub</a>
+        <a class="btn ghost" href="https://github.com/linnoff88-dev/imkt5" target="_blank" rel="noopener">Ver no GitHub</a>
       </div>
     </div>
     <figure><img src="assets/hero.png" alt="Ilustraçêo do gateway imkt5 despachando jobs para workers"></figure>
@@ -168,8 +168,8 @@
 <span class="k">ollama serve</span></pre></div>
     <div class="card"><h3>TAVILY_API_KEY</h3><p>Opcional — precisa estar no <code>.env</code> pro worker <code>research</code> (pesquisa de mercado).</p><pre><span class="c"># .env</span>
 <span class="k">TAVILY_API_KEY=...</span></pre></div>
-    <div class="card"><h3>inemaimg (opcional)</h3><p>Em <code>localhost:8000</code> — necessário pra <code>image.generation</code> real (flux2-klein / qwen-edit / ernie).</p></div>
-    <div class="card"><h3>inemavox (opcional)</h3><p>Em <code>localhost:8010</code> — necessário pra <code>audio.tts</code> / <code>dubbing</code> / <code>transcribe</code> real.</p></div>
+    <div class="card"><h3>ARCKHÉimg (opcional)</h3><p>Em <code>localhost:8000</code> — necessário pra <code>image.generation</code> real (flux2-klein / qwen-edit / ernie).</p></div>
+    <div class="card"><h3>ARCKHÉvox (opcional)</h3><p>Em <code>localhost:8010</code> — necessário pra <code>audio.tts</code> / <code>dubbing</code> / <code>transcribe</code> real.</p></div>
   </div>
 </div></section>
 
@@ -187,7 +187,7 @@
 
   <div class="step"><div class="b">2</div><div>
     <h3>Suba tudo</h3>
-    <p>Sobe o gateway (porta 8080) e os workers que conseguirem responder health-check (auto-reviewer sempre; research se houver <code>TAVILY_API_KEY</code>; inemaimg-adapter/inemavox-adapter se os upstreams estiverem no ar).</p>
+    <p>Sobe o gateway (porta 8080) e os workers que conseguirem responder health-check (auto-reviewer sempre; research se houver <code>TAVILY_API_KEY</code>; ARCKHÉimg-adapter/ARCKHÉvox-adapter se os upstreams estiverem no ar).</p>
 <pre><span class="k">./scripts/start-dev.sh</span>  <span class="c"># logs em logs/&lt;servico&gt;.log</span></pre>
   </div></div>
 
@@ -245,7 +245,7 @@
       <figcaption>Worker <code>research</code> — validado live.</figcaption>
     </div>
     <div class="card">
-<pre><span class="c"># geraçêo de imagem (inemaimg / flux2-klein, real)</span>
+<pre><span class="c"># geraçêo de imagem (ARCKHÉimg / flux2-klein, real)</span>
 <span class="k">curl -s -X POST http://localhost:8080/jobs \
   -H "Content-Type: application/json" \
   -d '{
@@ -260,7 +260,7 @@
       "height": 512
     }
   }'</span></pre>
-      <figcaption>Worker <code>inemaimg-adapter</code> — requer inemaimg em <code>:8000</code>.</figcaption>
+      <figcaption>Worker <code>ARCKHÉimg-adapter</code> — requer ARCKHÉimg em <code>:8000</code>.</figcaption>
     </div>
   </div>
 </div></section>
@@ -270,7 +270,7 @@
   <h2>Onde o projeto está de verdade</h2>
   <p class="sub">Direto do status do README — sem prometer o que ainda nêo existe no código.</p>
   <div class="phase"><div class="tag">✅ Feito</div><div class="d"><strong>Fundaçêo do gateway</strong><span>Contratos multi-tenant, recipe engine (YAML + 3 modos de aprovaçêo), capability registry local-first, quick dispatch, HTTP dispatcher, UI web em <code>/ui</code>, config em 3 níveis, 35 testes passando.</span></div></div>
-  <div class="phase"><div class="tag">✅ Validado</div><div class="d"><strong>4 workers reais</strong><span><code>research</code> (Tavily), <code>auto-reviewer</code> (Ollama + OpenRouter), <code>inemaimg-adapter</code> (flux2-klein/qwen-edit/ernie) e <code>inemavox-adapter</code> (TTS/dubbing/transcribe, adapter pronto).</span></div></div>
+  <div class="phase"><div class="tag">✅ Validado</div><div class="d"><strong>4 workers reais</strong><span><code>research</code> (Tavily), <code>auto-reviewer</code> (Ollama + OpenRouter), <code>ARCKHÉimg-adapter</code> (flux2-klein/qwen-edit/ernie) e <code>ARCKHÉvox-adapter</code> (TTS/dubbing/transcribe, adapter pronto).</span></div></div>
   <div class="phase"><div class="tag">⏸ Pendente</div><div class="d"><strong>Canais conversacionais</strong><span>Telegram e WhatsApp ainda nêo estêo implementados — hoje só HTTP direto / UI web.</span></div></div>
   <div class="phase"><div class="tag">⏸ Pendente</div><div class="d"><strong>Persistência</strong><span>Jobs e runs de receita ficam em memória hoje; Postgres é a próxima camada, pra sobreviver a restart.</span></div></div>
   <div class="phase"><div class="tag">⏸ Pendente</div><div class="d"><strong>Mais workers</strong><span>12 workers do <code>timesmkt3</code> (copywriter, ad-designer, etc.) e os workers do <code>yt-pub-lives*</code> ainda precisam ser portados — vários já têm pasta em <code>workers/</code> mas nêo estêo registrados/health-validados em <code>config/workers.yaml</code>.</span></div></div>
@@ -280,8 +280,8 @@
   <div class="wrap">
     <div class="pill">Python</div><div class="pill">FastAPI</div><div class="pill">RQ + Redis</div><div class="pill">SQLite FTS5</div>
     <p style="margin-top:18px">imkt5 · plataforma em desenvolvimento ·
-      <a href="https://github.com/inematds/imkt5">inematds/imkt5</a> ·
-      <a href="https://inema.club">INEMA.CLUB</a></p>
+      <a href="https://github.com/linnoff88-dev/imkt5">linnoff88-dev/imkt5</a> ·
+      <a href="https://ARCKHÉ AI">ARCKHÉ AI</a></p>
   </div>
 </footer>
 

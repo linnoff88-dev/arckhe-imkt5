@@ -10,7 +10,7 @@ Cada worker concreto herda e implementa `handle()`. O base cuida de:
 Uso:
 
     class MeuWorker(BaseWorker):
-        name = "inemaimg-adapter"
+        name = "ARCKHÉimg-adapter"
         capabilities = ("image.generation",)
 
         async def handle(self, job: Job) -> dict[str, Any]:

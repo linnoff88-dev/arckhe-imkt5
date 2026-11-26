@@ -1,17 +1,17 @@
 # Modelo de concorrência
 
 > Como o `imkt5` lida com múltiplos pedidos simultâneos quando os
-> serviços upstream (`inemaimg`, `inemavox`, etc.) serializam internamente.
+> serviços upstream (`ARCKHÉimg`, `ARCKHÉvox`, etc.) serializam internamente.
 
 ## Realidade do upstream
 
 | Serviço | Mecanismo interno | Vazêo real |
 |---|---|---|
-| `inemaimg` | `asyncio.Lock` em torno da GPU (`server.py:101,225,237`) | **1 por vez** |
-| `inemavox` | `asyncio.Queue` + **1** `_worker_task` (`api/job_manager.py:439-446,571`) | **1 por vez** (acumula em fila interna sem bloquear o cliente) |
+| `ARCKHÉimg` | `asyncio.Lock` em torno da GPU (`server.py:101,225,237`) | **1 por vez** |
+| `ARCKHÉvox` | `asyncio.Queue` + **1** `_worker_task` (`api/job_manager.py:439-446,571`) | **1 por vez** (acumula em fila interna sem bloquear o cliente) |
 
 Ambos sêo **single-slot** por instância, por design. Conta de envelope:
-1 imagem = 10–60s no inemaimg → vazêo ≈ 60–360 imagens/hora por GPU.
+1 imagem = 10–60s no ARCKHÉimg → vazêo ≈ 60–360 imagens/hora por GPU.
 
 ## Estratégia do `imkt5`
 
@@ -32,7 +32,7 @@ Cada worker em `config/workers.yaml` declara seu `max_concurrent`. O
 `release()`). O `select_worker` filtra workers saturados.
 
 ```yaml
-- name: inemaimg
+- name: ARCKHÉimg
   capabilities: [image.generation, ...]
   max_concurrent: 1   # respeita o lock interno da GPU
 ```
@@ -49,19 +49,19 @@ levanta `NoWorkerAvailable`. O caller pode:
 Paralelismo real vem de **múltiplas instâncias** da mesma capability:
 
 ```yaml
-- name: inemaimg-gpu0
+- name: ARCKHÉimg-gpu0
   capabilities: [image.generation]
   endpoint: http://localhost:8000
   local: true, priority: 100, max_concurrent: 1
 
-- name: inemaimg-gpu1
+- name: ARCKHÉimg-gpu1
   capabilities: [image.generation]
   endpoint: http://localhost:8001     # outra GPU/máquina
   local: true, priority: 100, max_concurrent: 1
 
-- name: inemaimg-cloud-runpod
+- name: ARCKHÉimg-cloud-runpod
   capabilities: [image.generation]
-  endpoint: https://runpod.../inemaimg
+  endpoint: https://runpod.../ARCKHÉimg
   local: false, priority: 30, max_concurrent: 1
 ```
 
@@ -77,7 +77,7 @@ local→remoto sob saturaçêo, e modo escape.
 ### Dev local (1 GPU)
 
 ```yaml
-- name: inemaimg
+- name: ARCKHÉimg
   endpoint: http://localhost:8000
   max_concurrent: 1
 ```
@@ -87,7 +87,7 @@ desenvolvimento e testes.
 
 ### Produçêo pequena (1 máquina, múltiplas GPUs)
 
-Subir múltiplas instâncias do `inemaimg` com `--port` diferente, cada
+Subir múltiplas instâncias do `ARCKHÉimg` com `--port` diferente, cada
 uma com `CUDA_VISIBLE_DEVICES=N`:
 
 ```bash
@@ -107,7 +107,7 @@ matcher só os usa quando os locais saturam.
 
 - **Aumentar `max_concurrent` artificialmente** para 4, 8, 16.
   O upstream serializa — só vai criar timeouts/backlog interno.
-- **Fork em `inemaimg2`, `inemaimg3`** seguindo o padrêo antigo do
+- **Fork em `ARCKHÉimg2`, `ARCKHÉimg3`** seguindo o padrêo antigo do
   `yt-pub-lives`. A escala correta é múltiplas *instâncias* do mesmo
   código rodando em portas/GPUs diferentes, registradas no registry.
 - **Fila própria dentro do adapter**. Já existe a fila do imkt5

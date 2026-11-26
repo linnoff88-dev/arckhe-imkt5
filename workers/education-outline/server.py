@@ -6,8 +6,8 @@ Recebe um tópico educativo e produz outline com N slides seguindo a
 estrutura hook → conteúdo → CTA.
 
 Output consumido pela receita `curso-educativo` por:
-  - inemaimg (fanout sobre slides[].image_prompt)
-  - inemavox (via outline.narration_concat)
+  - ARCKHÉimg (fanout sobre slides[].image_prompt)
+  - ARCKHÉvox (via outline.narration_concat)
   - video-quick / video-edu-planner (scene_plan)
 """
 

@@ -22,7 +22,7 @@ A estrutura tem 3 partes **obrigatórias**:
    - Incluem exemplos concretos quando aplicável.
 
 3. **Último slide — CTA** (chamada pra açêo): sempre. Varia conforme contexto:
-   - "Inscreva-se no curso completo em inema.club"
+   - "Inscreva-se no curso completo em ARCKHÉ AI"
    - "Comente 'IA' e te mandamos o guia"
    - "Siga pra mais conteúdo sobre X"
    - "Compartilhe com quem precisa"

@@ -158,15 +158,15 @@ local" data-shape="rectangle">
   <rect x="551.22225" y="1374.2979999999998" width="104.93499999999999" height="53.800000000000004" rx="0" ry="0" fill="#2d5a3d" stroke="#7dd3a0" stroke-width="0.75" />
   <text x="603.68975" y="1401.1979999999999" text-anchor="middle" font-size="13" font-weight="500" fill="#e8f5e9"><tspan x="603.68975" dy="-3.9000000000000012">Coqui TTS</tspan><tspan x="603.68975" dy="16.900000000000002">local</tspan></text>
 </g>
-<g class="node" data-id="Inemaimg" data-label="inemaimg
+<g class="node" data-id="ARCKHÉimg" data-label="ARCKHÉimg
 local API" data-shape="rectangle">
   <rect x="116.10825" y="1374.2979999999998" width="95.30199999999999" height="53.800000000000004" rx="0" ry="0" fill="#2d5a3d" stroke="#7dd3a0" stroke-width="0.75" />
-  <text x="163.75925" y="1401.1979999999999" text-anchor="middle" font-size="13" font-weight="500" fill="#e8f5e9"><tspan x="163.75925" dy="-3.9000000000000012">inemaimg</tspan><tspan x="163.75925" dy="16.900000000000002">local API</tspan></text>
+  <text x="163.75925" y="1401.1979999999999" text-anchor="middle" font-size="13" font-weight="500" fill="#e8f5e9"><tspan x="163.75925" dy="-3.9000000000000012">ARCKHÉimg</tspan><tspan x="163.75925" dy="16.900000000000002">local API</tspan></text>
 </g>
-<g class="node" data-id="Inemavox" data-label="inemavox
+<g class="node" data-id="ARCKHÉvox" data-label="ARCKHÉvox
 local API" data-shape="rectangle">
   <rect x="684.15725" y="1374.2979999999998" width="98.26599999999999" height="53.800000000000004" rx="0" ry="0" fill="#2d5a3d" stroke="#7dd3a0" stroke-width="0.75" />
-  <text x="733.29025" y="1401.1979999999999" text-anchor="middle" font-size="13" font-weight="500" fill="#e8f5e9"><tspan x="733.29025" dy="-3.9000000000000012">inemavox</tspan><tspan x="733.29025" dy="16.900000000000002">local API</tspan></text>
+  <text x="733.29025" y="1401.1979999999999" text-anchor="middle" font-size="13" font-weight="500" fill="#e8f5e9"><tspan x="733.29025" dy="-3.9000000000000012">ARCKHÉvox</tspan><tspan x="733.29025" dy="16.900000000000002">local API</tspan></text>
 </g>
 <g class="node" data-id="FFm" data-label="FFmpeg / Remotion
 local" data-shape="rectangle">

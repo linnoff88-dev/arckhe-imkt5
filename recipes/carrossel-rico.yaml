@@ -25,19 +25,19 @@ version: 6
 #    { "slides": [...] } — pula outline.
 #
 # === Defaults ===
-#   image_source: "generate" (auto via inemaimg)
+#   image_source: "generate" (auto via ARCKHÉimg)
 #   slide_count:  7
 #   formats:      ["1:1", "9:16", "16:9"]
 #   template:     "editorial"
 #   style:        "neon_futurista"
-#   handle:       "@inema.tds"
+#   handle:       "@ARCKHÉ.tds"
 
 stages:
 
   # 1) Art director PRIMEIRO — define template + style + mood antes de
   # gerar os prompts de imagem e os textos. Isso faz com que o outline
   # e os bg_prompts fiquem alinhados ao estilo escolhido (ex: style
-  # dark_cinematic → bg_prompts pedem "low-key lighting, moody shadows").
+  # dark_cARCKHÉtic → bg_prompts pedem "low-key lighting, moody shadows").
   # Pula quando user já passou template E style explícitos (nada a decidir).
   - id: art_direction
     requires: design.art_director

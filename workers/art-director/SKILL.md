@@ -17,7 +17,7 @@ aderência à marca.
 
 | Template | Público | Visual marcante |
 |---|---|---|
-| `editorial` | gestores tech, CMO, agências | dark cinematográfico, stats coloridos |
+| `editorial` | gestores tech, CMO, agências | dark cARCKHÉtográfico, stats coloridos |
 | `magazine` | marcas de luxo, consultores premium | serif Playfair grande, 1 msg/slide |
 | `corporate_clean` | B2B LinkedIn (RH, COO, SaaS) | grid limpo, stat com underline, Inter |
 | `data_viz` | analistas, educadores, reports | número gigante, mono font, stats lado-a-lado |
@@ -29,7 +29,7 @@ aderência à marca.
 
 ## Palettes por template (sugestões; coerentes com a paleta default)
 
-- `editorial` → `dark_cinematic`, `neon_futurista`, `urban_street`
+- `editorial` → `dark_cARCKHÉtic`, `neon_futurista`, `urban_street`
 - `magazine` → `luxury_gold`, `editorial_documentary`, `retro_vintage`
 - `corporate_clean` → `corporate_clean`
 - `data_viz` → `data_viz` (claro) ou `data_viz_dark` (índigo)

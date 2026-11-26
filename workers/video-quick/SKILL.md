@@ -17,8 +17,8 @@ Você recebe via prompt:
 2. `copy` — do worker copywriter (`instagram_caption`, `key_benefit`,
    `threads_post`).
 3. `ads` — lista de URLs de imagens já geradas (pelo ad-designer →
-   inemaimg). Cada URL vira uma cena.
-4. `voiceover_url` (opcional) — áudio curto já gerado pelo inemavox.
+   ARCKHÉimg). Cada URL vira uma cena.
+4. `voiceover_url` (opcional) — áudio curto já gerado pelo ARCKHÉvox.
 
 ---
 

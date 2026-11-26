@@ -57,7 +57,7 @@ def _font_size_for(text: str, width: int, height: int) -> int:
     Maior que drawtext tradicional, menor pra textos longos."""
     chars = max(1, len(text.strip()))
     if chars < 15:
-        base = 148   # hero short (ex: "INEMA", "87%")
+        base = 148   # hero short (ex: "ARCKHÉ", "87%")
     elif chars < 25:
         base = 128   # short hook
     elif chars < 45:
@@ -130,9 +130,9 @@ class VideoTextDesignerWorker(BaseWorker):
         use_accent_line = payload.get("use_accent_line")
         use_accent_line = True if use_accent_line is None else bool(use_accent_line)
         # Brand moment config (aparece no scene CTA final)
-        brand_logo = payload.get("brand_logo") or "INEMA"
+        brand_logo = payload.get("brand_logo") or "ARCKHÉ"
         brand_tag = payload.get("brand_tag") or ""
-        brand_handle = payload.get("brand_handle") or "@inema.tds"
+        brand_handle = payload.get("brand_handle") or "@ARCKHÉ.tds"
         # Defaults globais (vindos do scene_plan do recipe)
         default_w = int(payload.get("width", 1080))
         default_h = int(payload.get("height", 1920))
@@ -166,7 +166,7 @@ class VideoTextDesignerWorker(BaseWorker):
                     stat_a = sc.get("stat_a") or {}
                     if isinstance(stat_a, dict) and scene_type in ("proof", "solution"):
                         stat_number = stat_a.get("number")
-                    # Brand moment: última cena com scene_type=cta vira INEMA logo gigante
+                    # Brand moment: última cena com scene_type=cta vira ARCKHÉ logo gigante
                     is_last = (i == len(scenes) - 1)
                     is_brand_moment = (
                         scene_type == "cta" and is_last
@@ -198,7 +198,7 @@ class VideoTextDesignerWorker(BaseWorker):
                         "brand_tag": brand_tag,
                         "brand_handle": brand_handle,
                         # full_slide extras
-                        "badge": sc.get("badge") or "INEMA",
+                        "badge": sc.get("badge") or "ARCKHÉ",
                         "slide_label": sc.get("slide_label") or "",
                         # solid_block extras
                         "block_color": payload.get("block_color") or "#FFD600",

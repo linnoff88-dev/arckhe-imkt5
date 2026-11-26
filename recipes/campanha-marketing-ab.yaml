@@ -7,7 +7,7 @@ version: 2
 #
 # Input extra (além dos campos de campanha-marketing):
 #   hook_variants    list   ex.: ["stat_shot", "question_abrupt", "pov"]
-#   cta_variants     list   ex.: ["Comece grátis", "Acesse INEMA.CLUB"]
+#   cta_variants     list   ex.: ["Comece grátis", "Acesse ARCKHÉ AI"]
 #
 # Pipeline:
 #   brief → copy → ad_design → images → video_art_direction
@@ -98,7 +98,7 @@ stages:
   # Nota: CTA varia via override no render; hook varia via prompt do planner.
   # Em v5 pode refatorar pra fanout_over hook×cta direto.
   - id: video_ab
-    requires: video.cinematic
+    requires: video.cARCKHÉtic
     needs: [ad_design, images, video_art_direction, ab_suggest]
     when: $.input.skip_video != true
     # Aceita hook_variants do input OU sugestões do ab_suggest (opçêo C)

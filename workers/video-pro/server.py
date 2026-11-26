@@ -1,7 +1,7 @@
 """video-pro worker.
 
 Porta timesmkt3/skills/video-editor-agent (escopo reduzido MVP).
-Capability: `video.cinematic_pro`. Porta 8106.
+Capability: `video.cARCKHÉtic_pro`. Porta 8106.
 
 Mesmo contrato do video-quick mas com scene_plan mais elaborado:
 8-12 cenas, 45-90s, estrutura narrativa hook→tension→solution→proof→cta.
@@ -23,7 +23,7 @@ SKILL_PATH = Path(__file__).parent / "SKILL.md"
 
 class VideoProWorker(BaseWorker):
     name = "video-pro"
-    capabilities = ("video.cinematic_pro",)
+    capabilities = ("video.cARCKHÉtic_pro",)
 
     def __init__(self) -> None:
         self._skill = SKILL_PATH.read_text() if SKILL_PATH.exists() else "Você é diretor de ediçêo sênior."

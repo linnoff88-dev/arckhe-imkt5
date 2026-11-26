@@ -23,8 +23,8 @@ graph TD
     subgraph LOCAL["🏠  WORKERS LOCAIS   (prioridade alta)"]
         SD[Stable Diffusion<br/>local]
         Coqui[Coqui TTS<br/>local]
-        Inemaimg[inemaimg<br/>local API]
-        Inemavox[inemavox<br/>local API]
+        ARCKHÉimg[ARCKHÉimg<br/>local API]
+        ARCKHÉvox[ARCKHÉvox<br/>local API]
         FFm[FFmpeg / Remotion<br/>local]
         Rev[auto-reviewer<br/>local]
     end
@@ -81,7 +81,7 @@ graph TD
     classDef store fill:#3d2d5a,stroke:#a07dd3,color:#ede8f5
     classDef gw fill:#2d3d5a,stroke:#7d9dd3,color:#e8edf5
 
-    class SD,Coqui,Inemaimg,Inemavox,FFm,Rev local
+    class SD,Coqui,ARCKHÉimg,ARCKHÉvox,FFm,Rev local
     class KIE,Polli,EL,OAI remote
     class PG,RD,S3,MEM store
     class Resolve,Agent,Classifier,Quick,RR gw

@@ -1,9 +1,9 @@
-# Mapeamento de APIs — inemaimg e inemavox
+# Mapeamento de APIs — ARCKHÉimg e ARCKHÉvox
 
 > Relatório da exploraçêo de código feita para construir os adapters do
 > `imkt5`. **Capturado em 2026-04-16**; validar antes de mudanças maiores.
 
-## inemaimg
+## ARCKHÉimg
 
 **Stack**: FastAPI + diffusers (HuggingFace). Modelos carregados on-demand
 com `asyncio.Lock` pra serializar gerações (evita OOM).
@@ -66,7 +66,7 @@ REGISTRY = {
 
 ---
 
-## inemavox
+## ARCKHÉvox
 
 **Stack**: FastAPI + **job queue assíncrona**. Requisições criam job,
 devolvem `job_id`, cliente faz polling ou subscribe via WebSocket.
@@ -144,23 +144,23 @@ Ambos usam **8000** por default. Soluções possíveis:
 2. Configurar `uvicorn --port ...` distinto para cada.
 3. Docker compose separando em containers.
 
-Os adapters do `imkt5` usam `INEMAIMG_URL` e `INEMAVOX_URL` — qualquer
+Os adapters do `imkt5` usam `ARCKHÉIMG_URL` e `ARCKHÉVOX_URL` — qualquer
 endpoint funciona.
 
 ### Shape do adapter → backend
 
-**inemaimg-adapter** (sync, trivial):
+**ARCKHÉimg-adapter** (sync, trivial):
 
 ```
-imkt5 Job → POST inemaimg/generate → base64 → upload MinIO → devolve URL
+imkt5 Job → POST ARCKHÉimg/generate → base64 → upload MinIO → devolve URL
 ```
 
-**inemavox-adapter** (async, mais trabalho):
+**ARCKHÉvox-adapter** (async, mais trabalho):
 
 ```
-imkt5 Job → POST inemavox/api/jobs/tts → job_id
-          → poll GET inemavox/api/jobs/{id}  até completed
-          → GET  inemavox/api/jobs/{id}/audio → bytes
+imkt5 Job → POST ARCKHÉvox/api/jobs/tts → job_id
+          → poll GET ARCKHÉvox/api/jobs/{id}  até completed
+          → GET  ARCKHÉvox/api/jobs/{id}/audio → bytes
           → upload MinIO → devolve URL
 ```
 

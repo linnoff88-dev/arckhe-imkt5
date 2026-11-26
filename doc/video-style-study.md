@@ -19,7 +19,7 @@
 | 1 | **Neon Futurista** | tech/IA/startup | #00E5FF + #39FF14 | push-in, parallax-zoom | cut + glitch | synthwave 110-130 BPM |
 | 2 | **Premium Minimal** | luxo, aspiracional | mono (#F2EFE9 + #C9A96E) | drift, subtle breathe | crossfade_long | piano_solo |
 | 3 | **Energético** | fitness, youth | oranges + magentas | hard_zoom | cut | EDM 128+ BPM |
-| 4 | **Emocional Cinematic** | storytelling | teal + dusty gold | pan_right, ken_burns | crossfade_long | piano_strings |
+| 4 | **Emocional CARCKHÉtic** | storytelling | teal + dusty gold | pan_right, ken_burns | crossfade_long | piano_strings |
 | 5 | **Corporate Clean** | B2B, institucional | #2563EB + whites | static | crossfade_short | ambient |
 | 6 | **Streetwear Urban** | gen-Z, casual | duotone neon | hard_zoom | cut | trap |
 | 7 | **Nature Organic** | wellness, sustentabilidade | greens+earthy | pan_right | crossfade_long | folk |
@@ -48,7 +48,7 @@ pro Remotion.
 | 13_kinetic_typography | `drawtext+alpha(t)` animado | - | - | impact |
 | 14_short_vertical | `scale=1080:1920+crop` | - | - | retention |
 | 20_performance_ad | `setpts=0.5,tblend=average` | - | - | urgency |
-| inema_hightech | **default INEMA** — high-tech + urgency | - | - | conversion |
+| ARCKHÉ_hightech | **default ARCKHÉ** — high-tech + urgency | - | - | conversion |
 
 **imkt5 status:** ❌ NêO portado. Temos só color_grading (cool/warm)
 genérico + letterbox via padding implícito. Cada preset aqui é uma
@@ -102,7 +102,7 @@ além de `style`. Ativaria filter_chain completo por preset.
 
 ## 2. cchyperframes — MOTION PHILOSOPHY (as 11 Leis)
 
-Repo `github.com/inematds/cchyperframes` — engenharia reversa do
+Repo `github.com/linnoff88-dev/cchyperframes` — engenharia reversa do
 **Infinite Global Payments 30s spot**. Resumo das leis:
 
 1. **One idea per beat. Cut fast.** — avg 1.5s/cena
@@ -153,7 +153,7 @@ Repo `github.com/inematds/cchyperframes` — engenharia reversa do
 - ✅ **Freeze frame** + zoom em revelações com whisper word-exact
 - ✅ **Parallax fake** nível 1 (blur+unsharp) + depth_ai nível 2 (flag)
 - ✅ **Safe zones por plataforma** (tiktok/reels/shorts)
-- ✅ **Editorial magazine typography** (Playfair + outline 3px + shadow cinematic)
+- ✅ **Editorial magazine typography** (Playfair + outline 3px + shadow cARCKHÉtic)
 - ✅ **Vignette + grain** em pro mode (cchyperframes lei 2 + 10)
 
 ### 3.2 Gaps (o que o mkt3 tem e nós nêo)
@@ -168,7 +168,7 @@ Repo `github.com/inematds/cchyperframes` — engenharia reversa do
 
 **Médio impacto:**
 
-4. **Style ffmpeg presets** (`01_hero_film`, `13_kinetic_typography`, `inema_hightech`): port do `style-dictionary.json` + aplicaçêo via filter_chain. ~2-3h. Desbloqueia "hero film 2.35:1 + grain + 10-bit curves" com 1 flag.
+4. **Style ffmpeg presets** (`01_hero_film`, `13_kinetic_typography`, `ARCKHÉ_hightech`): port do `style-dictionary.json` + aplicaçêo via filter_chain. ~2-3h. Desbloqueia "hero film 2.35:1 + grain + 10-bit curves" com 1 flag.
 
 5. **Text via ASS para overlay estático** (nêo só karaoke): permite kinetic type (SCALE 8×, MORPH), background types (gradient/dark_box/none) per-scene. ~3h.
 
@@ -203,7 +203,7 @@ Repo `github.com/inematds/cchyperframes` — engenharia reversa do
 - [ ] **F5**: worker ffmpeg-local aceita `style_preset` + aplica
   filter_chain completa
 - [ ] **F6**: UI modal adiciona pills de style_preset
-  (hero_film/product_demo/kinetic_typo/inema_hightech)
+  (hero_film/product_demo/kinetic_typo/ARCKHÉ_hightech)
 
 ### Fase 4c — ASS overlay + kinetic avançado (~4h)
 - [ ] **F7**: migrar `_build_text_overlay` de drawtext pra ASS subtitles

@@ -22,8 +22,8 @@ Cada worker é um **serviço independente** que:
 ### Fase 2 (scaffold neste commit)
 - `_base/` — utilitários compartilhados (contrato HTTP, sandbox, logger)
 - `auto-reviewer/` — LLM que aprova/rejeita com base em critérios
-- `inemaimg-adapter/` — wrapper para inemaimg (`image.generation`)
-- `inemavox-adapter/` — wrapper para inemavox (`audio.tts`, `audio.dubbing`)
+- `ARCKHÉimg-adapter/` — wrapper para ARCKHÉimg (`image.generation`)
+- `ARCKHÉvox-adapter/` — wrapper para ARCKHÉvox (`audio.tts`, `audio.dubbing`)
 
 ### Fase 3
 - `research/` — Tavily
@@ -34,5 +34,5 @@ Cada worker é um **serviço independente** que:
 - `yt-source-ingest/`, `yt-clip/`, `yt-publish/`, `tiktok-ingest/`
 
 Cada worker é absorvido trazendo o código real do projeto-fonte
-(`timesmkt3`, `yt-pub-lives2`, `inemaimg`, `inemavox`) quando chegar sua
+(`timesmkt3`, `yt-pub-lives2`, `ARCKHÉimg`, `ARCKHÉvox`) quando chegar sua
 vez no plano. O scaffold neste commit só tem a forma do contrato.
